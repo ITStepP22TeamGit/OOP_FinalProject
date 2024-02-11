@@ -1,0 +1,55 @@
+//Date order_date;
+// 
+//vector<TourAgency> arr;
+//___________^
+// string name;//название страны
+// int max_lengthX;//200
+// int max_lengthY;//200 ! if Hotels = 10; Tours = 10; Food = 10;
+// 
+//vector<Hotels> H_arr;
+//__________^
+// string id;
+// int coordX;
+// int coordY;
+// bool haveRest;
+// 
+// vector<Room*> arr
+//---------^
+// int id;
+// enum TYPE;
+// bool oqqupied;
+// int days;
+// int max_cap;
+// string extra;
+// vector<float> extra_price;
+// ----------
+// 
+// ----------
+// 
+//vector<Tour> H_arr;
+//_________^
+// string id_Tour;
+// vector<Travel*> arr;
+// _________^
+// string dest_in_country;
+// string preps
+// string desc;
+// float price;
+// ---------
+// 
+// ---------
+// 
+//vector<Food> H_arr;
+//________^
+// string id_Tour;
+// int coordX;
+// int coordY;
+// vector<Restar*> arr;
+// __________^
+// enum TYPE;
+// float near_H-length_to_it// 12880,23340
+// string desc;
+// float price;
+// ---------
+//
+//ID => AA-0001
