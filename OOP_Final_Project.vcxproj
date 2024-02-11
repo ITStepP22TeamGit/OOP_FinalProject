@@ -129,10 +129,12 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="OOP_Final_Project.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Test-code-struct.txt" />
