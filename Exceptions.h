@@ -3,6 +3,8 @@
 #include<string>
 using namespace std;
 
+// TRY USING NAMESPACE
+
 class Exceptions
 {
 public:
