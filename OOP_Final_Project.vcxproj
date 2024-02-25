@@ -131,6 +131,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="Hotel.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="OOP_Final_Project.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Hotel.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TourAgency.h" />

@@ -36,6 +36,21 @@ public:
 	~Room() {}
 	
 	//запрос экстра заказов
+	void askClients(){
+		cout << "Хотите включить в поездку фотосъемку?\n(да/нет): ";
+		string str;
+		do {
+			cin >> str;
+		} while (str != "да" && str != "нет" && str != "Да" && str != "Нет");
+		if (str == "да" || str == "Да") {
+			
+		}
+		else {
+			
+		}
+		cout << "Какое количество людей? ";
+	}
+
 	void freeRoom() {
 		if (getOqqupied()==true){
 			oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); oqqupied = false;
