@@ -128,20 +128,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Accomodation.cpp" />
+    <ClCompile Include="Cafe.cpp" />
+    <ClCompile Include="Canteen.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Dish.cpp" />
+    <ClCompile Include="Food.cpp" />
+    <ClCompile Include="FoodService.cpp" />
     <ClCompile Include="Hotel.cpp" />
     <ClCompile Include="OOP_Final_Project.cpp" />
+    <ClCompile Include="Restaraunt.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TourAgency.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Accomodation.h" />
+    <ClInclude Include="Cafe.h" />
+    <ClInclude Include="Canteen.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="Dish.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Food.h" />
+    <ClInclude Include="FoodException.h" />
+    <ClInclude Include="FoodService.h" />
     <ClInclude Include="Hotel.h" />
+    <ClInclude Include="Restaraunt.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TourAgency.h" />
