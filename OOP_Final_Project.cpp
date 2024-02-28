@@ -1,11 +1,23 @@
 #include <iostream>
+#include "Hotel.h"
+#include "TourAgency.h"
 using namespace std;
 //#include "Room.h"
-//int Room::counter = 0;
+//int Room::r_counter = 0;
+int Hotel::h_counter = 0;
 int main()
 {
+    TourAgency albania();
     srand(time(0));
     cout << "Hello World!\n";
+
+    Hotel a("Somewhere in city", 5, 5);
+    a.addRoom(new LRoom(6, true));
+    a.dispAllRooms();
+
+    a.addRoom();
+
+    a.dispAllRooms();
 }
 
 //vector<Room*>arr;

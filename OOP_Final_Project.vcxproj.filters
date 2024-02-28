@@ -71,6 +71,9 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TourException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Test-code-struct.txt" />

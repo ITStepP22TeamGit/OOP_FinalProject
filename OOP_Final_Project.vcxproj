@@ -147,6 +147,7 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TourAgency.h" />
+    <ClInclude Include="TourException.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Test-code-struct.txt" />

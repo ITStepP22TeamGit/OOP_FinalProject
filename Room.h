@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <fstream>
 #include "Exceptions.h"
 #include "Date.h"
 using namespace std;
@@ -17,6 +19,7 @@ protected:
 	string oqqupierName;
 	string oqqupierPhone;
 	int rooms;
+	float price;
 
 	bool haveBalcony;
 	bool haveBodyNeeds;
@@ -35,22 +38,6 @@ public:
 	{ updateId(); setRooms(rooms); setBodyNeeds(haveBodyNeeds); }
 	~Room() {}
 	
-	//запрос экстра заказов
-	void askClients(){
-		cout << "Хотите включить в поездку фотосъемку?\n(да/нет): ";
-		string str;
-		do {
-			cin >> str;
-		} while (str != "да" && str != "нет" && str != "Да" && str != "Нет");
-		if (str == "да" || str == "Да") {
-			
-		}
-		else {
-			
-		}
-		cout << "Какое количество людей? ";
-	}
-
 	void freeRoom() {
 		if (getOqqupied()==true){
 			oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); oqqupied = false;
@@ -91,19 +78,73 @@ public:
 	virtual void showRoomInfo() const = 0;
 	virtual void show() const = 0;
 	virtual string type() const = 0;
+	virtual float calcSumm() = 0;
+	virtual void askClients() = 0;
+	virtual void loadAddInfo() = 0;//FIX!!!!!
 };
 
 //standart
 class LRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	LRoom() :Room() {}
 	LRoom(int rooms, bool haveBalcony) :Room(rooms, haveBalcony) {}
 	~LRoom() {}
+
+	virtual void askClients() override {
+		loadAddInfo();
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++){
+			cout << i+1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		}
+		do{
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select<=extra.size()){
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {
+		string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		bool reading = false;
+		if (file.is_open()){
+			while (!file.eof()) {
+				getline(file, line);
+				if (line == "#Low Cost Room"&&reading ==false)
+				{
+					istringstream iss(line);
+					string t_name;
+					float t_price;
+					if (!(iss >> t_name >> t_price)) {
+						cerr << "Error parsing line: " << line << endl;
+						continue;
+					}
+					//cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+					extra.push_back(t_name);
+					extra_price.push_back(t_price);
+				}
+				else
+					continue;
+				
+			}
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Low Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -117,25 +158,54 @@ public:
 		cout << "\tRoom # " << showId() << endl;
 		cout << type() << endl;
 		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
 		if ((oqqupierName == "" && oqqupierPhone == ""|| oqqupierName == "unknown" && oqqupierPhone == "unknown") && getOqqupied() == false) {
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price+=500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
+	
 };
 
 //+sanUzel
 class SRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	SRoom() :Room() {}
 	SRoom(int rooms, bool haveBalcony, bool haveBodyNeeds) :Room(rooms, haveBalcony, haveBodyNeeds) {}
 	~SRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "Small Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -156,19 +226,48 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+kitchen
 class MRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	MRoom() :Room() {}
 	MRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen) {}
 	~MRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "Medium Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -190,19 +289,49 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+games
 class PRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	PRoom() :Room() {}
 	PRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen, bool haveGames) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen, haveGames) {}
 	~PRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "Premium Room"; }
 	virtual void showRoomInfo() const override {
@@ -225,19 +354,50 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		(getGames() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+betterTv
 class HRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	HRoom() :Room() {}
 	HRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen, bool haveGames, bool haveMovieTV) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen, haveGames, haveMovieTV) {}
 	~HRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "High Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -261,19 +421,51 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		(getGames() == true) ? price += 500 : price += 0;
+		(getMovieTV() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+safe
 class VRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	VRoom() :Room() {}
 	VRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen, bool haveGames, bool haveMovieTV, bool haveSafe) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen, haveGames, haveMovieTV, haveSafe) {}
 	~VRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "VIP Room"; }
 	virtual void showRoomInfo() const override {
@@ -298,19 +490,52 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		(getGames() == true) ? price += 500 : price += 0;
+		(getMovieTV() == true) ? price += 500 : price += 0;
+		(getSave() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+jakussi
 class LxRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	LxRoom() :Room() {}
 	LxRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen, bool haveGames, bool haveMovieTV, bool haveSafe, bool haveJakussi) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen, haveGames, haveMovieTV, haveSafe, haveJakussi) {}
 	~LxRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "Lux Room"; }
 	virtual void showRoomInfo() const override {
@@ -336,19 +561,53 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		(getGames() == true) ? price += 500 : price += 0;
+		(getMovieTV() == true) ? price += 500 : price += 0;
+		(getSave() == true) ? price += 500 : price += 0;
+		(getJakussi() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
+	}
 };
 
 //+accessToHelicopter
 class PresRoom : public Room {
 private:
 protected:
-	string extra_ordered;
-	string extra;
+	vector<int> extra_ordered;
+	vector<string> extra;
 	vector<float> extra_price;
 public:
 	PresRoom() :Room() {}
 	PresRoom(int rooms, bool haveBalcony, bool haveBodyNeeds, bool haveKitchen, bool haveGames, bool haveMovieTV, bool haveSafe, bool haveJakussi, bool haveHeliAccsess) :Room(rooms, haveBalcony, haveBodyNeeds, haveKitchen, haveGames, haveMovieTV, haveSafe, haveJakussi, haveHeliAccsess) {}
 	~PresRoom() {}
+
+	virtual void askClients() override {
+		int select;
+		cout << "List of extra`s avalible for purchasing:\n";
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i << +". " + extra[i] << endl;
+		}
+		do {
+			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+			cin >> select;
+
+			if (select <= extra.size()) {
+				cout << "Item added: " + extra[select] << endl;
+				extra_ordered.push_back(select);
+			}
+		} while (select != 0);
+	}
+
+	virtual void loadAddInfo() override {}
 
 	virtual string type() const override { return "Presidential Room"; }
 	virtual void showRoomInfo() const override {
@@ -374,6 +633,22 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual float calcSumm() override {
+		price += 1000.0;
+		(getBalcony() == true) ? price += 500 : price += 0;
+		(getBodyNeeds() == true) ? price += 500 : price += 0;
+		(getKitchen() == true) ? price += 500 : price += 0;
+		(getGames() == true) ? price += 500 : price += 0;
+		(getMovieTV() == true) ? price += 500 : price += 0;
+		(getSave() == true) ? price += 500 : price += 0;
+		(getJakussi() == true) ? price += 500 : price += 0;
+		(getHeliAccsess() == true) ? price += 500 : price += 0;
+		//----------------------
+		for (int i = 0; i < extra_ordered.size(); i++) {
+			price += extra_price[extra_ordered[i]];
+		}
+		return price;
 	}
 };
 

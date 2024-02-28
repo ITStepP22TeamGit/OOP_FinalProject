@@ -17,14 +17,16 @@ protected:
 	vector<int>x;
 	vector<int>y;
 	vector<string>name;
+	vector<bool>type; //1 - отели - x; 0 - рестораны - o
+	//vector<int>hotelIndex;
 public:
+	Map();
 	Map(int _length, int _width);
-	void addPoint(int _x, int _y, string _name);
+	void addPoint(int _x, int _y, string _name, bool _type);
 	void delPoint(int index);
-	void delPoint(int _x, int _y);
+	void delPoint(int _x, int _y, bool _type);
 	void delPoint(string _name);
-	void show()const;
+	void show();
 	float calcDistance(int index1, int index2)const;
-
-	void showPoints()const;
+	float calcDistance(string name1, string name2)const;
 };
