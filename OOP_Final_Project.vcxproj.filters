@@ -58,6 +58,33 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BeachTour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Excursion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HikingTour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Safari.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sightseeing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TourArr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TourSomeDays.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="YachtTour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
@@ -107,6 +134,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TourException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BeachTour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Excursion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HikingTour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Safari.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sightseeing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TourArr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TourSomeDays.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="YachtTour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
