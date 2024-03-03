@@ -1,7 +1,8 @@
 #pragma once
+//WRITE!!!!!!
 #include <string>
 using namespace std;
-class touragency
+class TourAgency
 {
 protected:
 	//hotel
@@ -9,5 +10,6 @@ protected:
 	//tour
 	string name;
 
+	TourAgency() {}
 };
 

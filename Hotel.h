@@ -1,6 +1,5 @@
 #pragma once
 #include "Room.h"
-
 class Hotel
 {
 private:
@@ -15,7 +14,7 @@ protected:
 
 public:
 	Hotel() { updateId(); }
-	Hotel(string adress, int hotelX, int hotelY) { updateId(); }
+	Hotel(string adress, int hotelX, int hotelY) { updateId(); loadMainInfo(); }
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -63,7 +62,9 @@ public:
 				cin >> bul;
 				(bul == 1) ? bul_on = true : bul_on = false;
 				r_arr.push_back(new LRoom(rooms, bul_on));
-				 break;
+				r_arr[r_arr.size() - 1]->askClients();
+				r_arr[r_arr.size() - 1]->loadAddInfo();
+				break;
 
 			case 2:
 				cout << "\tSmall Cost Room\n";
@@ -461,7 +462,174 @@ public:
 	}
 	
 	void editRoom(int r_id) {
-		//мб на свитчах пока хз что тут будет
+		int rooms;
+		bool bul;
+		for (int i = 0; i < r_arr.size(); i++) {
+			if (r_id == r_arr[i]->showId()) {
+				if (r_arr[i]->type() == "Presidential Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					cout << "\nInput boolean value to add Games 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setGames(true) : r_arr[i]->setGames(false);
+					cout << "\nInput boolean value to add Movie TV 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setMovieTV(true) : r_arr[i]->setMovieTV(false);
+					cout << "\nInput boolean value to add Safe 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setSave(true) : r_arr[i]->setSave(false);
+					cout << "\nInput boolean value to add Jakussi 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setJakussi(true) : r_arr[i]->setJakussi(false);
+					cout << "\nInput boolean value to add Access to Helicopter 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setHeliAccsess(true) : r_arr[i]->setHeliAccsess(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "Lux Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					cout << "\nInput boolean value to add Games 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setGames(true) : r_arr[i]->setGames(false);
+					cout << "\nInput boolean value to add Movie TV 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setMovieTV(true) : r_arr[i]->setMovieTV(false);
+					cout << "\nInput boolean value to add Safe 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setSave(true) : r_arr[i]->setSave(false);
+					cout << "\nInput boolean value to add Jakussi 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setJakussi(true) : r_arr[i]->setJakussi(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "VIP Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					cout << "\nInput boolean value to add Games 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setGames(true) : r_arr[i]->setGames(false);
+					cout << "\nInput boolean value to add Movie TV 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setMovieTV(true) : r_arr[i]->setMovieTV(false);
+					cout << "\nInput boolean value to add Safe 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setSave(true) : r_arr[i]->setSave(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "High Cost Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					cout << "\nInput boolean value to add Games 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setGames(true) : r_arr[i]->setGames(false);
+					cout << "\nInput boolean value to add Movie TV 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setMovieTV(true) : r_arr[i]->setMovieTV(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "Premium Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					cout << "\nInput boolean value to add Games 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setGames(true) : r_arr[i]->setGames(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "Meduim Cost Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					cout << "\nInput boolean value to add Better kitchen 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setKitchen(true) : r_arr[i]->setKitchen(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "Small Cost Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to add Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					cout << "\nInput boolean value to add Better toilet and bath 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBodyNeeds(true) : r_arr[i]->setBodyNeeds(false);
+					r_arr[i]->setRooms(rooms);
+				}
+				else if (r_arr[i]->type() == "Low Cost Room") {
+					cout << "\t" << r_arr[i]->type();
+					cout << "Input amount of rooms you wish to set in: ";
+					cin >> rooms;
+					cout << "\nInput boolean value to set Balcony 1(yes)/0(no): ";
+					cin >> bul;
+					(bul == 1) ? r_arr[i]->setBalcony(true) : r_arr[i]->setBalcony(false);
+					r_arr[i]->setRooms(rooms);
+				}
+			}
+			if (i == r_arr.size() - 1 && choose != 0) {
+				cout << "\nInputed incorrect code, please try again\n";
+				system("pause");
+				system("cls");
+				continue;
+			}
+		}
 	}
 
 	void addOqqupier(string type, int max_rooms, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
@@ -491,4 +659,7 @@ public:
 		}
 	}
 
+	void loadMainInfo() {
+		
+	}//WRITE!!!!
 };
