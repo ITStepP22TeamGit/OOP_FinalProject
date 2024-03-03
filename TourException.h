@@ -2,12 +2,14 @@
 #include<iostream>
 #include<string>
 #include"Date.h"
+#include<conio.h>
+#include<Windows.h>
 using namespace std;
 
 class TourException
 {
 public:
-	virtual string message()const = 0;
+	virtual void message()const = 0;
 };
 
 class TourInputErrorException : public TourException
@@ -28,34 +30,72 @@ public:
 		choice = _choice;
 		str = _str;
 	}
-	string message()const override {
+	void message()const override{
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(console_color, 4);
+		cout << endl;
 		switch (choice)
 		{
 		case 1:
-			return "Too small string!\n";
+			cout << "|   Too small string!\n";
+			break;
+			//return "|   Too small string!\n";
 		case 2:
-			return "Too small price!\n";
+			cout << "|   Too small price!\n";
+			break;
 		case 3:
-			return "Too small number!\n";
+			cout << "|   Too small number!\n";
+			break;
 		case 4:
-			return "Number is bigger than max number!\n";
+			cout << "|   Number is bigger than max number!\n";
+			break;
 		case 5:
-			return "Min number is bigger than max number!\n";
+			cout << "|   Min number is bigger than max number!\n";
+			break;
 		case 6:
-			return "Too small amount of days!\n";
+			cout << "|   Too small amount of days!\n";
+			break;
 		case 7:
-			return "Tour can't be for more than 30 days!\n";
+			cout << "|   Tour can't be for more than 30 days!\n";
+			break;
 		case 8:
-			return "Height is smaller than the lowest in the world mountain's!\n";
+			cout << "|   Height is smaller than the lowest in the world mountain's!\n";
+			break;
 		case 9:
-			return "Height can be bigger than Everest's!\n";
+			cout << "|   Height can be bigger than Everest's!\n";
+			break;
 		case 10:
-			return "Couldn't open a file with name \"" + str + "\"!\n";
+			cout << "|   Couldn't open a file with name \"" << str << "\"!\n";
+			break;
 		case 11:
-			return "Incorrect type!\n";
+			cout << "|   Incorrect type!\n";
+			break;
+		case 12:
+			cout << "|   Amount of restaurants is bigger than 4!\n";
+			break;
+		case 13:
+			cout << "|   Object can't be added because limit of restaurant is reached!\n";
+			break;
+		case 14:
+			cout << "|   There are no restaurants yet!\n";
+			break;
+		case 15:
+			cout << "|   There are no type of transport with this index! (max index: 3)\n";
+			break;
+		case 16:
+			cout << "|   There are no equipment yet!\n";
+			break;
+		case 17:
+			cout << "|   There are no equipment with such a name!\n";
+			break;
+		case 18:
+			cout << "|   Rating is bigger than 5!\n";
+			break;
 		default:
-			return "Input error!\n";
+			cout << "|   Input error!\n";
+			break;
 		}
+		SetConsoleTextAttribute(console_color, 15);
 	}
 };
 
@@ -63,8 +103,12 @@ class TourInputDateException : public TourException
 {
 public:
 	Date t = Date();
-	string message()const override {
-		return "The input date can only be after the current one (" + to_string(t.getDay() / 10) + to_string(t.getDay() % 10) + "." + to_string(t.getMonth() / 10) + to_string(t.getMonth() % 10) + "." + to_string(t.getYear() / 10) + to_string(t.getYear() % 10) + ")\n";
+	void message()const override {
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(console_color, 4);
+		cout << endl;
+		cout<< "|   The input date can only be after the current one (" + to_string(t.getDay() / 10) + to_string(t.getDay() % 10) + "." + to_string(t.getMonth() / 10) + to_string(t.getMonth() % 10) + "." + to_string(t.getYear() / 10) + to_string(t.getYear() % 10) + ")\n";
+		SetConsoleTextAttribute(console_color, 15);
 	}
 };
 
@@ -76,8 +120,12 @@ public:
 	TourInputPriceServiceException(int _price) {
 		price = _price;
 	}
-	string message()const override {
-		return "Price of service is bigger than the price of the tour (price of tour - " + to_string(price) + " $)\n";
+	void message()const override {
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(console_color, 4);
+		cout << endl;
+		cout<< "|   Price of service is bigger than the price of the tour (price of tour - " + to_string(price) + " $)\n";
+		SetConsoleTextAttribute(console_color, 15);
 	}
 };
 
@@ -90,20 +138,29 @@ public:
 		choice = _choice;
 		number = _number;
 	}
-	string message()const override {
+	void message()const override {
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(console_color, 4);
+		cout << endl;
 		switch (choice)
 		{
 		case 1:
-			return "Number of tourists is bigger than max number (max number of tourists - " + to_string(number) + ")\n";
+			cout << "|   Number of tourists is bigger than max number (max number of tourists - " + to_string(number) + ")\n";
+			break;
 		case 2:
-			return "Min number of tourists is bigger than max number (max number of tourists - " + to_string(number) + ")\n";
+			cout << "|   Min number of tourists is bigger than max number (max number of tourists - " + to_string(number) + ")\n";
+			break;
 		case 3:
-			return "Number of tourists is bigger than max number (number of tourists - " + to_string(number) + ")\n";
+			cout << "|   Number of tourists is bigger than max number (number of tourists - " + to_string(number) + ")\n";
+			break;
 		case 4:
-			return "Min number of tourists is bigger than max number (min number of tourists - " + to_string(number) + ")\n";
+			cout << "|   Min number of tourists is bigger than max number (min number of tourists - " + to_string(number) + ")\n";
+			break;
 		default:
-			return "Input error!\n";
+			cout << "|   Input error!\n";
+			break;
 		}
+		SetConsoleTextAttribute(console_color, 15);
 	}
 };
 
@@ -118,23 +175,36 @@ public:
 	TourArrayException(int _choice) {
 		choice = _choice;
 	}
-	string message()const override {
+	void message()const override {
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(console_color, 4);
+		cout << endl;
 		switch (choice)
 		{
 		case 1:
-			return "There is no such an object with this parameter/parameters!\n";
+			cout << "|   There is no such an object with this parameter/parameters!\n";
+			break;
 		case 2:
-			return "There is no object like this in the array!\n";
+			cout << "|   There is no object like this in the array!\n";
+			break;
 		case 3:
-			return "There are no tours yet!\n";
+			cout << "|   There are no tours yet!\n";
+			break;
+		case 4:
+			cout << "|   There is no such a tour type!\n";
+			break;
+		case 5:
+			cout << "|   Too small string!\n";
+			break;
 		default:
-			return "Input error!\n";
+			cout << "|   Input error!\n";
 			break;
 		}
+		SetConsoleTextAttribute(console_color, 15);
 	}
 };
 
-class MapException : public TourException
+class MapException
 {
 protected:
 	int choice;
@@ -152,7 +222,7 @@ public:
 		choice = _choice;
 		intVar = _floatVar;
 	}
-	string message()const override {
+	string message()const {
 		switch (choice)
 		{
 		case 1:
@@ -193,6 +263,12 @@ public:
 			return "There is already an object with such a name!\n";
 		case 14:
 			return "There is already a hotel with these coordinates!\n";
+		case 15:
+			return "There is already a restaurant with these coordinates!\n";
+		case 16:
+			return "Reached hotels limit! (limit: 14)\n";
+		case 17:
+			return "Reached restaurants limit! (limit: 14)\n";
 		default:
 			return "Input error!\n";
 		}
