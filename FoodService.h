@@ -10,7 +10,6 @@ class FoodService
 {
 protected:
 	vector<Food*> foodServices; //вектор заведений
-	static int maxCapacity; //максимальная вместимость заведений в векторе
 	string name; //название
 
 public:
@@ -48,4 +47,9 @@ public:
 
 	//вывод всех заведений
 	void showFoodServices() const;
+
+	float askClient() const;
+
+	void saveFoodServicesToFile(const string& filename) const;
+	void loadFoodServicesFromFile(const string& filename);
 };

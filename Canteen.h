@@ -30,5 +30,9 @@ public:
     virtual void showFoodService() const override;
     virtual string type() const override;
     virtual void edit() override;
+    virtual void setInfo() override;
+
+    virtual void saveToFile(ofstream& file) const override;
+    virtual void loadFromFile(ifstream& file) override;
 };
 

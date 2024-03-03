@@ -108,6 +108,7 @@ void Restaraunt::edit()
             getline(cin, tmpStr);
             setName(tmpStr);
             cout << "Name was succesfully changed!" << endl;
+            system("pause");
             break;
         case 2:
             system("cls");
@@ -115,6 +116,7 @@ void Restaraunt::edit()
             cin >> tmpN;
             setRating(tmpN);
             cout << "Rating was succesfully changed!" << endl;
+            system("pause");
             break;
         case 3:
             system("cls");
@@ -123,6 +125,7 @@ void Restaraunt::edit()
             getline(cin, tmpStr);
             setAdress(tmpStr);
             cout << "Adress was succesfully changed!" << endl;
+            system("pause");
             break;
         case 4:
             system("cls");
@@ -130,6 +133,7 @@ void Restaraunt::edit()
             cin >> tmpN >> tmpK;
             changeCoordinates(tmpN, tmpK);
             cout << "Coordinates were succesfully changed!" << endl;
+            system("pause");
             break;
         case 5:
             system("cls");
@@ -140,6 +144,7 @@ void Restaraunt::edit()
             }
             setOpeningTime(Time_(tmpN, tmpK, 0, 1));
             cout << "Opening time was succesfully changed!" << endl;
+            system("pause");
             break;
         case 6:
             system("cls");
@@ -150,6 +155,7 @@ void Restaraunt::edit()
             }
             setClosingTime(Time_(tmpN, tmpK, 0, 1));
             cout << "Closing time was succesfully changed!" << endl;
+            system("pause");
             break;
         case 7:
             system("cls");
@@ -157,6 +163,7 @@ void Restaraunt::edit()
             cin >> tmpBool;
             setBanquet(tmpBool);
             cout << "The banquets availability has been successfully changed!" << endl;
+            system("pause");
             break;
         case 8:
             system("cls");
@@ -164,6 +171,7 @@ void Restaraunt::edit()
             cin >> tmpBool;
             setVegan(tmpBool);
             cout << "The status of the location has been successfully changed!" << endl;
+            system("pause");
             break;
         case 9:
             system("cls");
@@ -172,6 +180,7 @@ void Restaraunt::edit()
             getline(cin, tmpStr);
             setCuisineType(tmpStr);
             cout << "Cuisine type was succesfully changed!" << endl;
+            system("pause");
             break;
         case 10:
             system("cls");
@@ -179,6 +188,7 @@ void Restaraunt::edit()
             cin >> tmpBool;
             setVegan(tmpBool);
             cout << "The availability of alcoholic beverages has been successfully changed!" << endl;
+            system("pause");
             break;
         case 11:
             system("cls");
@@ -186,6 +196,7 @@ void Restaraunt::edit()
             cin >> tmpBool;
             setVegan(tmpBool);
             cout << "The availability of live music has been successfully changed!" << endl;
+            system("pause");
             break;
         case 12:
             do {
@@ -216,6 +227,7 @@ void Restaraunt::edit()
                     if (tmpFloat <= 0) throw new FoodDishPriceException();
                     addDish(new Dish(tmpStr, tmpFloat));
                     cout << "New dish successfully added!" << endl;
+                    system("pause");
                 }
                 else if (tmpCMD == 2) {
                     system("cls");
@@ -230,4 +242,110 @@ void Restaraunt::edit()
             break;
         }
     } while (tmpInt != 0);
+}
+
+void Restaraunt::setInfo()
+{
+    bool tmpBool;
+    int n1, n2;
+    string tmpStrAdd;
+    cout << "Enter a name: " << endl;
+    getline(cin, tmpStrAdd);
+    setName(tmpStrAdd);
+    cout << "Enter an adress: " << endl;
+    getline(cin, tmpStrAdd);
+    setAdress(tmpStrAdd);
+    cout << "Enter a cuisine type: " << endl;
+    getline(cin, tmpStrAdd);
+    setCuisineType(tmpStrAdd);
+    cout << "Enter a rating: ";
+    cin >> n1;
+    setRating(n1);
+    cout << "Enter a coordinates(x y): ";
+    cin >> n1 >> n2;
+    changeCoordinates(n1, n2);
+    cout << "Enter an opening time: " << endl;
+    cout << "Hours (24): ";
+    cin >> n1;
+    cout << "Minutes: ";
+    cin >> n2;
+    if (n1 > 23 || n1 < 0 || n2 > 59 || n2 < 0) {
+        throw new FoodTimeInvalidException();
+    }
+    setOpeningTime(Time_(n1, n2, 0, true));
+    cout << "Enter a closing time: " << endl;
+    cout << "Hours (24): ";
+    cin >> n1;
+    cout << "Minutes: ";
+    cin >> n2;
+    if (n1 > 23 || n1 < 0 || n2 > 59 || n2 < 0) {
+        throw new FoodTimeInvalidException();
+    }
+    setClosingTime(Time_(n1, n2, 0, true));
+    cout << "Availability of banquet (1 - yes/0 - no): ";
+    cin >> tmpBool;
+    setBanquet(tmpBool);
+    cout << "Food availability for vegans (1 - yes/0 - no): ";
+    cin >> tmpBool;
+    setVegan(tmpBool);
+    cout << "Availability of alcohol (1 - yes/0 - no): ";
+    cin >> tmpBool;
+    setAlcohol(tmpBool);
+    cout << "Availability of live music (1 - yes/0 - no): ";
+    cin >> tmpBool;
+    setLiveMusic(tmpBool);
+}
+
+void Restaraunt::saveToFile(ofstream& file) const
+{
+    file << name << endl;
+    file << adress << endl;
+    file << menu.size() << endl;
+    for (int i = 0; i < menu.size(); i++) {
+        menu[i]->saveDishToFile(file);
+    }
+    file << rating << endl;
+    file << x << endl;
+    file << y << endl;
+    file << openingTime.getHour() << endl;
+    file << openingTime.getMinutes() << endl;
+    file << closingTime.getHour() << endl;
+    file << closingTime.getMinutes() << endl;
+    file << banquet << endl;
+    file << veganOptions << endl;
+    file << cuisineType << endl;
+    file << alcohol << endl;
+    file << liveMusic << endl;
+}
+
+void Restaraunt::loadFromFile(ifstream& file)
+{
+    int h, m;
+    float p;
+    file.ignore();
+    getline(file, name);
+    getline(file, adress);
+    file >> m;
+    for (int i = 0; i < m; i++) {
+        string tmpStr;
+        file.ignore();
+        getline(file, tmpStr);
+        file >> p;
+        menu.push_back(new Dish(tmpStr, p));
+    }
+    file >> rating;
+    file >> x;
+    file >> y;
+    file >> h;
+    file >> m;
+    openingTime = Time_(h, m, 0, 1);
+    file >> h;
+    file >> m;
+    closingTime = Time_(h, m, 0, 1);
+    file >> banquet;
+    file >> veganOptions;
+    file.ignore();
+    getline(file, cuisineType);
+    file >> alcohol;
+    file >> liveMusic;
 }

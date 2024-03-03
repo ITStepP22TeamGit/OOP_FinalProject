@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 class Dish
@@ -20,5 +21,8 @@ public:
 	float getPrice() const;
 
 	void showDish() const;
+
+	void saveDishToFile(ofstream& file) const;
+	void loadDishFromFile(ifstream& file);
 };
 

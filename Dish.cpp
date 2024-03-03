@@ -41,3 +41,15 @@ void Dish::showDish() const
         cout << name << "\t   " << price << "$" << endl;
     }
 }
+
+void Dish::saveDishToFile(ofstream& file) const
+{
+    file << name << endl;
+    file << price << endl;
+}
+
+void Dish::loadDishFromFile(ifstream& file)
+{
+    getline(file, name);
+    file >> price;
+}

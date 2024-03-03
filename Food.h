@@ -3,6 +3,7 @@
 #include <vector>
 #include "Time.h"
 #include "FoodException.h"
+#include <fstream>
 
 //Абстрактный класс
 class Food
@@ -53,6 +54,9 @@ public:
 	virtual void showFoodService() const = 0;
 	virtual string type() const = 0;
 	virtual void edit() = 0;
+	virtual void setInfo() = 0;
+	virtual void saveToFile(ofstream& file) const = 0;
+	virtual void loadFromFile(ifstream& file) = 0;
 
 	//перегрузка операторов
 	bool operator<(const Food& other) const;
