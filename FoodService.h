@@ -15,6 +15,7 @@ protected:
 public:
 	//Конструктор
 	FoodService(string _name);
+	FoodService();
 	//Деструктор
 	~FoodService();
 

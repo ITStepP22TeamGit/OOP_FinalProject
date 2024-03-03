@@ -3,7 +3,7 @@
 Map::Map()
 {
 	length = 50;
-	width = 30;
+	width = 40;
 }
 
 Map::Map(int _length, int _width)

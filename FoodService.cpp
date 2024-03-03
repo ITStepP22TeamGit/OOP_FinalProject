@@ -8,6 +8,11 @@ FoodService::FoodService(string _name)
     setName(_name);
 }
 
+FoodService::FoodService()
+{
+    setName("TestName");
+}
+
 FoodService::~FoodService()
 {
     for (int i = 0; i < foodServices.size(); i++) {

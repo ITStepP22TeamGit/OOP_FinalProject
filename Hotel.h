@@ -1,5 +1,6 @@
 #pragma once
 #include "Room.h"
+#include "Map.h"
 #include <fstream>
 class Hotel
 {
@@ -25,7 +26,10 @@ public:
 	}
 	
 	string setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
-
+	void setCoords(int hotelX, int hotelY) {
+		this->hotelX = hotelX;
+		this->hotelY = hotelY;
+	}
 	string getAdress()const { return adress; }
 	int getHotelId()const { return hotel_id; }
 
