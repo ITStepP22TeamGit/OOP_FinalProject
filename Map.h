@@ -9,13 +9,13 @@
 #include"TourException.h"
 using namespace std;
 
-//ГўГ±ГЇГ®Г¬Г®ГЈГ ГІГҐГ«ГјГ­Г»Г© ГЄГ«Г Г±Г±
+//вспомогательный класс
 class Point {
 public:
 	int x;
 	int y;
 	string name;
-	bool type; //1 - Г®ГІГҐГ«ГЁ - x; 0 - Г°ГҐГ±ГІГ®Г°Г Г­Г» - o
+	bool type; //1 - отели - x; 0 - рестораны - o
 	int color;
 
 	Point(int _x, int length, int _y, int width, string _name, bool _type);
@@ -24,7 +24,7 @@ public:
 	void setType(bool _type);
 	void setName(string _name);
 
-	//ГЇГҐГ°ГҐГЈГ°ГіГ§ГЄГ  Г®ГЇГҐГ°Г ГІГ®Г°Г®Гў
+	//перегрузка операторов
 	bool operator == (const Point& obj)const&;
 	int operator - (const Point& obj)const&;
 };
@@ -32,7 +32,7 @@ public:
 class Map
 {
 protected:
-	//Г±Г·ГҐГІГ·ГЁГЄГЁ Г®ГІГҐГ«ГҐГ© ГЁ Г°ГҐГ±ГІГ®Г°Г Г­Г®Гў (Г­ГҐ ГЎГ®Г«ГјГёГҐ 14)
+	//счетчики отелей и ресторанов (не больше 14)
 	int static staticHotels;
 	int static staticRestaurants;
 
@@ -40,39 +40,23 @@ protected:
 	int width;
 	vector<Point> arr;
 public:
-	//ГЄГ®Г­Г±ГІГ°ГіГЄГІГ®Г°Г»
+	//конструкторы
 	Map();
 	Map(int _length, int _width);
 	~Map(){}
 	
-	//Г°Г ГЎГ®ГІГ  Г± ГІГ®Г·ГЄГ Г¬ГЁ
-class Map
-{
-protected:
-	int length;
-	int width;
-	vector<int>x;
-	vector<int>y;
-	vector<string>name;
-	vector<bool>type; //1 - Г®ГІГҐГ«ГЁ - x; 0 - Г°ГҐГ±ГІГ®Г°Г Г­Г» - o
-	//vector<int>hotelIndex;
-public:
-	Map();
-	Map(int _length, int _width);
+	//работа с точками
 	void addPoint(int _x, int _y, string _name, bool _type);
 	void delPoint(int index);
 	void delPoint(int _x, int _y, bool _type);
 	void delPoint(string _name);
 
-	//ГўГ»ГўГ®Г¤
+	//вывод
 	void show();
 	float calcDistance(int index1, int index2)const;
 	float calcDistance(string name1, string name2)const;
 
-	//ГўГ±ГЇГ®Г¬Г®ГЈГ ГІГҐГ«ГјГ­Г»ГҐ ГґГіГ­ГЄГ¶ГЁГЁ
+	//вспомогательные функции
 	void setColors();
 	bool checkIsRestaurantInHotel(int index);
-	void show();
-	float calcDistance(int index1, int index2)const;
-	float calcDistance(string name1, string name2)const;
 };

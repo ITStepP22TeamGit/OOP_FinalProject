@@ -1,10 +1,14 @@
 #include <iostream>
 #include "Hotel.h"
 #include "TourAgency.h"
+#include "Map.h"
 using namespace std;
 //#include "Room.h"
 //int Room::r_counter = 0;
 int Hotel::h_counter = 0;
+int Map::staticHotels = 0;
+int Map::staticRestaurants = 0;
+
 int main()
 {
     TourAgency albania();

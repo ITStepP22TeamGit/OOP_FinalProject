@@ -39,50 +39,7 @@
     <ClCompile Include="TourAgency.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cafe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Canteen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dish.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Food.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FoodService.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Restaraunt.cpp">
     <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BeachTour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Excursion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HikingTour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Safari.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sightseeing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TourArr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TourSomeDays.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="YachtTour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,56 +68,10 @@
     <ClInclude Include="TourAgency.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cafe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Canteen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dish.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Food.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoodException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoodService.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Restaraunt.h">
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TourException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BeachTour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Excursion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HikingTour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Safari.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sightseeing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TourArr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TourSomeDays.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="YachtTour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
