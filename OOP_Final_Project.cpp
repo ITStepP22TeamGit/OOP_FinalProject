@@ -13,11 +13,13 @@ int main()
 
     Hotel a("Somewhere in city", 5, 5);
     a.addRoom(new LRoom(6, true));
+    //a.loadMainInfo("data/Hotel/tro.txt");
+    //a.saveMainInfo("data/Hotel/tra.txt");
     a.dispAllRooms();
 
     a.addRoom();
 
-    a.dispAllRooms();
+    //a.dispAllRooms();
 }
 
 //vector<Room*>arr;

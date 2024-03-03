@@ -34,8 +34,8 @@ protected:
 
 public:
 	Room() { oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01,01,1001); haveBodyNeeds = false; rooms = 0; days = 0; updateId(); }
-	Room(int rooms, bool haveBalcony = false, bool haveBodyNeeds = false, bool haveKitchen = false, bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false)
-	{ updateId(); setRooms(rooms); setBodyNeeds(haveBodyNeeds); }
+	Room(int rooms, bool haveBalcony, bool haveBodyNeeds = false, bool haveKitchen = false, bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false)
+	{ updateId(); setRooms(rooms); setBalcony(haveBalcony); }
 	~Room() {}
 	
 	void freeRoom() {
@@ -80,7 +80,7 @@ public:
 	virtual string type() const = 0;
 	virtual float calcSumm() = 0;
 	virtual void askClients() = 0;
-	virtual void loadAddInfo() = 0;//FIX!!!!!
+	virtual void loadAddInfo(string filename) = 0;
 };
 
 //standart
@@ -96,7 +96,11 @@ public:
 	~LRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo();
+		loadAddInfo("data/Hotel/Extras/test.txt");
+		if (true)
+		{
+
+		}
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++){
@@ -113,35 +117,41 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {
-		string filename = "test.txt";
+	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
+		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
-		bool reading = false;
-		if (file.is_open()){
-			while (!file.eof()) {
-				getline(file, line);
-				if (line == "#Low Cost Room"&&reading ==false)
-				{
-					istringstream iss(line);
-					string t_name;
-					float t_price;
-					if (!(iss >> t_name >> t_price)) {
-						cerr << "Error parsing line: " << line << endl;
-						continue;
-					}
-					//cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
-					extra.push_back(t_name);
-					extra_price.push_back(t_price);
-				}
-				else
-					continue;
-				
+		while (getline(file, line)) {
+			if (line.find("#Init#") != string::npos){
+				continue;
 			}
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
+			}
+		}
+		if (extra.size()==0&&extra_price.size()==0){
+			cout << "File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
@@ -189,10 +199,11 @@ public:
 	~SRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -205,7 +216,37 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Small Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -251,10 +292,11 @@ public:
 	~MRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -267,7 +309,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Medium Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -315,10 +389,11 @@ public:
 	~PRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -331,7 +406,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Premium Room"; }
 	virtual void showRoomInfo() const override {
@@ -381,10 +488,11 @@ public:
 	~HRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -397,7 +505,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "High Cost Room"; }
 	virtual void showRoomInfo() const override {
@@ -449,10 +589,11 @@ public:
 	~VRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -465,7 +606,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "VIP Room"; }
 	virtual void showRoomInfo() const override {
@@ -519,10 +692,11 @@ public:
 	~LxRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -535,7 +709,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Lux Room"; }
 	virtual void showRoomInfo() const override {
@@ -591,10 +797,11 @@ public:
 	~PresRoom() {}
 
 	virtual void askClients() override {
+		loadAddInfo("test.txt");
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
 		for (int i = 0; i < extra.size(); i++) {
-			cout << i << +". " + extra[i] << endl;
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
 		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
@@ -607,7 +814,39 @@ public:
 		} while (select != 0);
 	}
 
-	virtual void loadAddInfo() override {}
+	virtual void loadAddInfo(string filename) override {
+		//string filename = "test.txt";
+		ifstream file(filename);
+		if (!file.is_open()) {
+			cerr << "Unable to open file: " << filename << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			if (line.empty() || line[0] == '#') {
+				// Skip empty lines or lines starting with #
+				continue;
+			}
+
+			if (line.find("#"+type()+"#") != string::npos) {
+				// Process special line
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				extra.push_back(t_name);
+				extra_price.push_back(t_price);
+			}
+		}
+		if (extra.size() == 0 && extra_price.size() == 0) {
+			cout << "File is empty or no data have been loaded!\n";
+		}
+		file.close();
+	}
 
 	virtual string type() const override { return "Presidential Room"; }
 	virtual void showRoomInfo() const override {
@@ -635,15 +874,15 @@ public:
 		else { showRoomInfo(); }
 	}
 	virtual float calcSumm() override {
-		price += 1000.0;
-		(getBalcony() == true) ? price += 500 : price += 0;
-		(getBodyNeeds() == true) ? price += 500 : price += 0;
-		(getKitchen() == true) ? price += 500 : price += 0;
-		(getGames() == true) ? price += 500 : price += 0;
-		(getMovieTV() == true) ? price += 500 : price += 0;
-		(getSave() == true) ? price += 500 : price += 0;
-		(getJakussi() == true) ? price += 500 : price += 0;
-		(getHeliAccsess() == true) ? price += 500 : price += 0;
+		price += 9000.0;
+		(getBalcony() == true) ? price += 1000 : price += 0;
+		(getBodyNeeds() == true) ? price += 2500 : price += 0;
+		(getKitchen() == true) ? price += 5000 : price += 0;
+		(getGames() == true) ? price += 10000 : price += 0;
+		(getMovieTV() == true) ? price += 20000 : price += 0;
+		(getSave() == true) ? price += 20000 : price += 0;
+		(getJakussi() == true) ? price += 250000 : price += 0;
+		(getHeliAccsess() == true) ? price += 400000 : price += 0;
 		//----------------------
 		for (int i = 0; i < extra_ordered.size(); i++) {
 			price += extra_price[extra_ordered[i]];

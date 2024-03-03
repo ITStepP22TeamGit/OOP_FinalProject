@@ -1,15 +1,13 @@
 #pragma once
-//WRITE!!!!!!
+#include <iostream>
 #include <string>
+
 using namespace std;
 class TourAgency
 {
 protected:
-	//hotel
-	//rest
-	//tour
+	
 	string name;
-
-	TourAgency() {}
+	TourAgency(string name) {}
 };
 

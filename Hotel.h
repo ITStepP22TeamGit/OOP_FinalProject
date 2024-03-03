@@ -1,5 +1,6 @@
 #pragma once
 #include "Room.h"
+#include <fstream>
 class Hotel
 {
 private:
@@ -14,7 +15,7 @@ protected:
 
 public:
 	Hotel() { updateId(); }
-	Hotel(string adress, int hotelX, int hotelY) { updateId(); loadMainInfo(); }
+	Hotel(string adress, int hotelX, int hotelY) { updateId(); } //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -63,7 +64,6 @@ public:
 				(bul == 1) ? bul_on = true : bul_on = false;
 				r_arr.push_back(new LRoom(rooms, bul_on));
 				r_arr[r_arr.size() - 1]->askClients();
-				r_arr[r_arr.size() - 1]->loadAddInfo();
 				break;
 
 			case 2:
@@ -623,7 +623,7 @@ public:
 					r_arr[i]->setRooms(rooms);
 				}
 			}
-			if (i == r_arr.size() - 1 && choose != 0) {
+			if (i == r_arr.size() - 1 && r_id != 0) {
 				cout << "\nInputed incorrect code, please try again\n";
 				system("pause");
 				system("cls");
@@ -643,9 +643,14 @@ public:
 	}
 
 	void dispAllRooms()const {
-		for (int i = 0; i < r_arr.size(); i++)
-		{
-			r_arr[i]->show();
+		if (r_arr.size()==0){
+			cout << "How already created hotel can be without rooms???\n";
+		}
+		else {
+			for (int i = 0; i < r_arr.size(); i++)
+			{
+				r_arr[i]->show();
+			}
 		}
 	}
 
@@ -659,7 +664,153 @@ public:
 		}
 	}
 
-	void loadMainInfo() {
+	void loadMainInfo(string input) {
+		char delimiter = '|';
+		ifstream file(input);
+		if (!file.is_open()) {
+			cerr << "Failed to open file: " << input << endl;
+			return;
+		}
+		string line;
+		while (getline(file, line)) {
+			//cout << line << endl;
+			if (line.find("#Init#") != string::npos) {
+				vector<string> tokens;
+				stringstream ss(line);
+				string token;
+				while (getline(ss, token, delimiter)) {
+					tokens.push_back(token);
+				}
+				int r_tmp, bul;
+				bool bul_on = false, bul_two = false, bul_tre = false, bul_for = false, bul_fiv = false, bul_six = false, bul_sev = false, bul_eig = false;
+				switch (tokens.size()) {
+				case 2:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					r_arr.push_back(new LRoom(r_tmp, bul_on));
+					break;
+				case 3:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					r_arr.push_back(new SRoom(r_tmp, bul_on, bul_two));
+					break;
+				case 4:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					r_arr.push_back(new MRoom(r_tmp, bul_on, bul_two, bul_tre));
+					break;
+				case 5:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
+					r_arr.push_back(new PRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for));
+					break;
+				case 6:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
+					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
+					r_arr.push_back(new HRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv));
+					break;
+				case 7:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
+					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
+					(stoi(tokens[6], nullptr, 10) == 1) ? bul_six = true : bul_six = false;
+					r_arr.push_back(new VRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six));
+					break;
+				case 8:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
+					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
+					(stoi(tokens[6], nullptr, 10) == 1) ? bul_six = true : bul_six = false;
+					(stoi(tokens[7], nullptr, 10) == 1) ? bul_sev = true : bul_sev = false;
+					r_arr.push_back(new LxRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six, bul_sev));
+					break;
+				case 9:
+					r_tmp = stoi(tokens[0], nullptr, 10);
+					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
+					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
+					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
+					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
+					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
+					(stoi(tokens[6], nullptr, 10) == 1) ? bul_six = true : bul_six = false;
+					(stoi(tokens[7], nullptr, 10) == 1) ? bul_sev = true : bul_sev = false;
+					(stoi(tokens[8], nullptr, 10) == 1) ? bul_eig = true : bul_eig = false;
+					r_arr.push_back(new PresRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six, bul_sev, bul_eig));
+					break;
+				case 0: case 1:
+					cout << "Not enought data to load into system.\n";
+				}
+			}
+			else if (!(line.find("#Init#") != string::npos)) {
+				cout << "File is empty or it is unable to find correct info, please check info for fixing problem.\n";
+			}
+		}
 		
-	}//WRITE!!!!
+		file.close();
+	}
+
+	void saveMainInfo(string output) {
+		ofstream file(output);
+		string out_tmp;
+		if (!file.is_open()) {
+			cerr << "Failed to create file: " << output << endl;
+			return;
+		}
+		if (r_arr.size() == 0){
+			file.close();
+		}
+		else {
+			file << "#Init#\n";
+			for (int i = 0; i < r_arr.size(); i++){
+				if (r_arr[i]->type() == "Low Cost Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "Small Cost Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "Meduim Cost Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "Premium Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "High Cost Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "VIP Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "Lux Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave()) + "|" + to_string(r_arr[i]->getJakussi());
+					file << out_tmp;
+				}
+				else if (r_arr[i]->type() == "Presidential Room") {
+					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave()) + "|" + to_string(r_arr[i]->getJakussi()) + "|" + to_string(r_arr[i]->getHeliAccsess());
+					file << out_tmp;
+				}
+			}
+			file.close();
+		}
+	}
 };

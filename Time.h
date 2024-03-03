@@ -11,7 +11,7 @@ class Time_
 
 public:
 	Time_(); // Current local time
-	Time_(int _hour, int _minutes, int _seconds, bool _format);
+	Time_(int _hour, int _minutes, int _seconds, bool _format = true);
 	//Time_& operator = (const Time_& obj);
 	~Time_();
 
