@@ -11,8 +11,7 @@ int Map::staticRestaurants = 0;
 
 int main()
 {
-    //TourAgency albania("Alb Escorts");
-
+    TourAgency albania("Alb Escorts");
 
     srand(time(0));
     cout << "Hello World!\n";

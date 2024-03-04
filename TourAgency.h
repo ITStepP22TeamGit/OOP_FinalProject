@@ -12,7 +12,7 @@ protected:
 	vector<Hotel> h_arr;
 	FoodService fServ;
 	TourArr tour_arr;
-	Map map(int length = 20, int width = 20);
+	Map map;
 	int loggedIn = -1;
 	string wayToData;
 public:
@@ -21,6 +21,8 @@ public:
 
 	void setName(string _name) {}
 	string getName()const { return name; }
+
+	void loadAllInfo() {}
 
 	void display() {
 		int chooseTmp;
@@ -37,10 +39,34 @@ public:
 			cin >> chooseTmp;
 			switch (chooseTmp)
 			{
+			case 0:
+				break;
+			case 1:
+				if (h_arr.size() == 0) {
+					cout << "There are no hotels, at lest for now.\n";
+				}
+				else {
+					for (int i = 0; i < h_arr.size(); i++) {
+						cout << i + 1 << h_arr[i].getAdress() << endl;
+						cout << "==============================================\n";
+						h_arr[i].showAval();
+						cout << "==============================================\n";
+					}
+				}
+				break;
+			case 2:
+				tour_arr.showTourArr();
+				break;
+			case 3:
+				fServ.showFoodServices();
+				break;
+			case 4:
+				map.show();
+				break;
 			default:
 				break;
 			}
-		} while (chooseTmp!=0);
+		} while (chooseTmp != 0);
 	}
 };
 
@@ -53,3 +79,4 @@ public:
 // string userPhone
 // public:
 //
+		

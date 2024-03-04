@@ -33,13 +33,15 @@ protected:
 	Date infiltrationD;
 
 public:
-	Room() { oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01,01,1001); haveBodyNeeds = false; rooms = 0; days = 0; updateId(); }
+	Room() { oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); haveBodyNeeds = false; rooms = 0; days = 0; updateId(); }
 	Room(int rooms, bool haveBalcony, bool haveBodyNeeds = false, bool haveKitchen = false, bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false)
-	{ updateId(); setRooms(rooms); setBalcony(haveBalcony); }
+	{
+		updateId(); setRooms(rooms); setBalcony(haveBalcony);
+	}
 	~Room() {}
-	
+
 	void freeRoom() {
-		if (getOqqupied()==true){
+		if (getOqqupied() == true) {
 			oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); oqqupied = false;
 		}
 	}
@@ -57,7 +59,7 @@ public:
 	void setGames(bool haveGames) { (haveGames == true) ? this->haveGames = true : this->haveGames = false; }
 	void setSave(bool haveSafe) { (haveSafe == true) ? this->haveSafe = true : this->haveSafe = false; }
 	void setHeliAccsess(bool haveHeliAccsess) { (haveHeliAccsess == true) ? this->haveHeliAccsess = true : this->haveHeliAccsess = false; }
-	
+
 	int showId() const { return id; }
 	bool getOqqupied() const { return oqqupied; }
 	string getOqqupierName() const { return oqqupierName; }
@@ -103,14 +105,14 @@ public:
 		}
 		int select;
 		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++){
-			cout << i+1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		for (int i = 0; i < extra.size(); i++) {
+			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 		}
-		do{
+		do {
 			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
 			cin >> select;
 
-			if (select<=extra.size()){
+			if (select <= extra.size()) {
 				cout << "Item added: " + extra[select] << endl;
 				extra_ordered.push_back(select);
 			}
@@ -127,7 +129,7 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.find("#Init#") != string::npos){
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
 			else if (line.find("#Init#") != string::npos) {
@@ -150,7 +152,7 @@ public:
 				continue;
 			}
 		}
-		if (extra.size()==0&&extra_price.size()==0){
+		if (extra.size() == 0 && extra_price.size() == 0) {
 			cout << "File is empty or no data have been loaded!\n";
 		}
 		file.close();
@@ -169,21 +171,21 @@ public:
 		cout << type() << endl;
 		cout << "Rooms: " << getRooms() << endl;
 		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		if ((oqqupierName == "" && oqqupierPhone == ""|| oqqupierName == "unknown" && oqqupierPhone == "unknown") && getOqqupied() == false) {
+		if ((oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") && getOqqupied() == false) {
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
-		(getBalcony() == true) ? price+=500 : price += 0;
+		(getBalcony() == true) ? price += 500 : price += 0;
 		//----------------------
 		for (int i = 0; i < extra_ordered.size(); i++) {
 			price += extra_price[extra_ordered[i]];
 		}
 		return price;
 	}
-	
+
 };
 
 //+sanUzel
@@ -217,6 +219,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -225,11 +228,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -240,6 +246,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -310,6 +319,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -318,13 +328,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -335,6 +346,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -407,6 +421,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -415,13 +430,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -432,6 +448,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -506,6 +525,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -514,13 +534,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -531,6 +552,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -607,6 +631,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -615,13 +640,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -632,6 +658,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -710,6 +739,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -718,13 +748,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -735,6 +766,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -815,6 +849,7 @@ public:
 	}
 
 	virtual void loadAddInfo(string filename) override {
+		bool uploading = false;
 		//string filename = "test.txt";
 		ifstream file(filename);
 		if (!file.is_open()) {
@@ -823,13 +858,14 @@ public:
 		}
 		string line;
 		while (getline(file, line)) {
-			if (line.empty() || line[0] == '#') {
-				// Skip empty lines or lines starting with #
+			if (!(line.find("#Init#") != string::npos)) {
 				continue;
 			}
-
-			if (line.find("#"+type()+"#") != string::npos) {
-				// Process special line
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			else if (line.find("#" + type() + "#") != string::npos) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -840,6 +876,9 @@ public:
 				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
+			}
+			else {
+				continue;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
