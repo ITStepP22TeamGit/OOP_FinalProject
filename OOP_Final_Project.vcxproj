@@ -150,6 +150,7 @@
     <ClCompile Include="TourAgency.cpp" />
     <ClCompile Include="TourArr.cpp" />
     <ClCompile Include="TourSomeDays.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="YachtTour.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,8 @@
     <ClInclude Include="TourArr.h" />
     <ClInclude Include="TourException.h" />
     <ClInclude Include="TourSomeDays.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserException.h" />
     <ClInclude Include="YachtTour.h" />
   </ItemGroup>
   <ItemGroup>
