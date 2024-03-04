@@ -136,6 +136,7 @@
     <ClCompile Include="Excursion.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="FoodService.cpp" />
+    <ClCompile Include="HelicopterFlightTour.cpp" />
     <ClCompile Include="HikingTour.cpp" />
     <ClCompile Include="Hotel.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="FoodException.h" />
     <ClInclude Include="FoodService.h" />
+    <ClInclude Include="HelicopterFlightTour.h" />
     <ClInclude Include="HikingTour.h" />
     <ClInclude Include="Hotel.h" />
     <ClInclude Include="Map.h" />

@@ -18,15 +18,68 @@ void TourArr::addTour(Tour* obj)
 
 void TourArr::addTour()
 {
-	string str;
 	int intVar;
-	float floatVar;
-	Date date;
-	Time_ time;
-	cout << "|   Enter type of tour: ";
-	cin.ignore();
-	getline(cin, str);
-	if (str == "Safari") {
+	cout << "|   Choose type of tour:\n|\n";
+	cout << "|   1. Safari.\n";
+	cout << "|   2. Sightseeing.\n";
+	cout << "|   3. BeachTour.\n";
+	cout << "|   4. YachtTour.\n";
+	cout << "|   5. Excursion.\n";
+	cout << "|   6. HikingTour.\n";
+	cout << "|   7. HelicopterFlightTour.\n";
+	cout << "\nYour choice >> ";
+	cin >> intVar;
+	cout << endl;
+	switch (intVar)
+	{
+	case 1:
+	{
+		Safari* obj = new Safari(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 2:
+	{
+		Sightseeing* obj = new Sightseeing(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 3:
+	{
+		BeachTour* obj = new BeachTour(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 4:
+	{
+		YachtTour* obj = new YachtTour(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 5:
+	{
+		Excursion* obj = new Excursion(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 6:
+	{
+		HikingTour* obj = new HikingTour(1);
+		arr.push_back(obj);
+		break;
+	}
+	case 7:
+	{
+		HelicopterFlightTour* obj = new HelicopterFlightTour(1);
+		arr.push_back(obj);
+		break;
+	}
+	default:
+		throw new TourArrayException(4);
+		break;
+	}
+
+	/*if (str == "Safari") {
 		cout << endl;
 		Safari* obj = new Safari(1);
 		arr.push_back(obj);
@@ -56,9 +109,14 @@ void TourArr::addTour()
 		YachtTour* obj = new YachtTour(1);
 		arr.push_back(obj);
 	}
+	else if (str == "HelicopterFlightTour") {
+		cout << endl;
+		HelicopterFlightTour* obj = new HelicopterFlightTour(1);
+		arr.push_back(obj);
+	}
 	else {
 		throw new TourArrayException(4);
-	}
+	}*/
 }
 
 void TourArr::delTour(int index)
@@ -609,13 +667,9 @@ void TourArr::loadFromFile(string fileName)
 	ifstream file(fileName + ".txt");
 	if (file.is_open()) {
 		string str;
-		while (!file.eof())
+		while (getline(file, str))
 		{
-			//file.ignore(3);
-			getline(file, str);
-			//cout << str << endl;
-			getline(file, str);
-			cout << str << endl;
+			if (str[0] == '#') continue;
 			if (str == "Safari") {
 				Safari* a = new Safari();
 				a->loadFromFile(file);
@@ -643,6 +697,11 @@ void TourArr::loadFromFile(string fileName)
 			}
 			else if (str == "HikingTour") {
 				HikingTour* a = new HikingTour();
+				a->loadFromFile(file);
+				arr.push_back(a);
+			}
+			else if (str == "HelicopterFlightTour") {
+				HelicopterFlightTour* a = new HelicopterFlightTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}

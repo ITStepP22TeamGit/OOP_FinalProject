@@ -20,6 +20,7 @@ HikingTour::HikingTour(bool a)
     Date date1;
     Time_ time1;
     cout << "|   Enter name: ";
+    cin.ignore();
     getline(cin, str);
     setName(str);
     cout << "|   Enter address: ";
@@ -38,7 +39,7 @@ HikingTour::HikingTour(bool a)
     equipment.push_back(str);
     cout << "|   Enter description: ";
     getline(cin, str);
-    setAddress(str);
+    setDescription(str);
     cout << "|   Enter height: ";
     cin >> floatVar;
     setHeight(floatVar);
@@ -350,7 +351,6 @@ void HikingTour::TourEdit()
             switch (intVar)
             {
             case 1:
-                cout << "|\n";
                 setEquipment();
                 break;
             case 2:

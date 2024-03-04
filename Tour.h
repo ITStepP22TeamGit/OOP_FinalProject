@@ -3,10 +3,11 @@
 #include<iostream>
 #include<string>
 #include"Date.h"
-#include"Time.h"
+#include"Time_.h"
 #include"TourException.h"
 #include<fstream>
 #include<vector>
+#include<list>
 #include<conio.h>
 #include<Windows.h>
 using namespace std;

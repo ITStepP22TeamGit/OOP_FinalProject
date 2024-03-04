@@ -612,7 +612,6 @@ void Tour::TourEdit()
             switch (intVar)
             {
             case 1:
-                cout << "|\n";
                 setEquipment();
                 break;
             case 2:
@@ -753,7 +752,6 @@ void Tour::loadFromFile(ifstream& file)
     int i1, i2, i3;
     float fl1;
     bool b1;
-    //file.get();
     getline(file, s1);
     setName(s1);
     getline(file, s1);
@@ -799,8 +797,7 @@ void Tour::loadFromFile(ifstream& file)
     file >> i2;
     file >> i3;
     setNumbers(i1, i2, i3);
-    //file.get();
-    
+    file.get();
 }
 
 void Tour::askClient()

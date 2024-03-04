@@ -26,6 +26,7 @@ BeachTour::BeachTour(bool a)
     Date date1;
     Time_ time1;
     cout << "|   Enter name: ";
+    cin.ignore();
     getline(cin, str);
     setName(str);
     cout << "|   Enter address: ";
@@ -44,7 +45,7 @@ BeachTour::BeachTour(bool a)
     equipment.push_back(str);
     cout << "|   Enter description: ";
     getline(cin, str);
-    setAddress(str);
+    setDescription(str);
     cout << "|   Enter date: ";
     cin >> date1;
     setDate(date1);
@@ -82,6 +83,8 @@ BeachTour::BeachTour(bool a)
     cout << "|   Enter max number of tourists: ";
     cin >> intVar2;
     setNumbers(intVar, intVar1, intVar2);
+    aquasuit = 0;
+    divingMask = 0;
 }
 
 BeachTour::~BeachTour()
@@ -149,7 +152,6 @@ void BeachTour::TourEdit()
             switch (intVar)
             {
             case 1:
-                cout << "|\n";
                 setEquipment();
                 break;
             case 2:

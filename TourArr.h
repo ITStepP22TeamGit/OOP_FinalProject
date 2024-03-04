@@ -7,6 +7,7 @@
 #include"YachtTour.h"
 #include"Excursion.h"
 #include"HikingTour.h"
+#include"HelicopterFlightTour.h"
 #include<vector>
 #include<algorithm>
 

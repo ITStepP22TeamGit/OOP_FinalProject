@@ -292,7 +292,6 @@ void TourSomeDays::TourEdit()
             switch (intVar)
             {
             case 1:
-                cout << "|\n";
                 setEquipment();
                 break;
             case 2:
