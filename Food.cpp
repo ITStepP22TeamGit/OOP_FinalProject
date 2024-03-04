@@ -95,6 +95,9 @@ int Food::getRating() const
 
 void Food::changeCoordinates(int _x, int _y)
 {
+    if (_x > 50 || _x < 1 || _y > 40 || _y < 1) {
+        throw new FoodCoordinatesException();
+    }
     x = _x;
     y = _y;
 }

@@ -3,14 +3,14 @@
 #include <string>
 #include "Time.h"
 
+FoodService::FoodService()
+{
+    setName("BestFood");
+}
+
 FoodService::FoodService(string _name)
 {
     setName(_name);
-}
-
-FoodService::FoodService()
-{
-    setName("TestName");
 }
 
 FoodService::~FoodService()
@@ -39,7 +39,7 @@ void FoodService::addFoodService(Food* obj)
     foodServices.push_back(obj);
 }
 
-void FoodService::addFoodService()
+void FoodService::addFoodService(Map& map)
 {
     int cmd;
     do {
@@ -55,6 +55,7 @@ void FoodService::addFoodService()
             Cafe* obj = new Cafe;
             obj->setInfo();
             foodServices.push_back(obj);
+            map.addPoint(obj->getX(), obj->getY(), obj->getName(), 0);
             cout << "\nThe cafe \"" << obj->getName() << "\" has been successfully added!" << endl;
         }
         catch (FoodException* err) {
@@ -67,6 +68,7 @@ void FoodService::addFoodService()
             Canteen* obj = new Canteen;
             obj->setInfo();
             foodServices.push_back(obj);
+            map.addPoint(obj->getX(), obj->getY(), obj->getName(), 0);
             cout << "\nThe canteen \"" << obj->getName() << "\" has been successfully added!" << endl;
         }
         catch (FoodException* err) {
@@ -79,6 +81,7 @@ void FoodService::addFoodService()
             Restaraunt* obj = new Restaraunt;
             obj->setInfo();
             foodServices.push_back(obj);
+            map.addPoint(obj->getX(), obj->getY(), obj->getName(), 0);
             cout << "\nThe restaraunt \"" << obj->getName() << "\" has been successfully added!" << endl;
         }
         catch (FoodException* err) {
@@ -100,7 +103,7 @@ void FoodService::delFoodServiceByName(string userName)
     cout << "No establishment by that name was found!" << endl;
 }
 
-void FoodService::delFoodService()
+void FoodService::delFoodService(Map& map)
 {
     if (!foodServices.empty()) {
         int tmpInt;
@@ -115,6 +118,7 @@ void FoodService::delFoodService()
             cin >> tmpInt;
         } while ((tmpInt != 0) && !(tmpInt >= 1 && tmpInt <= foodServices.size()));
         if (tmpInt != 0) {
+            map.delPoint(foodServices[tmpInt - 1]->getX(), foodServices[tmpInt - 1]->getY(), 0);
             foodServices.erase(foodServices.begin() + (tmpInt - 1));
             cout << "\nSuccessfully deleted!" << endl;
         }
@@ -143,7 +147,7 @@ int FoodService::getTotalFoodCount() const
     return foodServices.size();
 }
 
-void FoodService::edit()
+void FoodService::edit(Map& map)
 {
     int num;
     //if (foodServices.empty()) cout << "There are no establishments to edit them!" << endl;
@@ -163,11 +167,11 @@ void FoodService::edit()
                 break;
             case 2:
                 system("cls");
-                addFoodService();
+                addFoodService(map);
                 system("pause");
                 break;
             case 3:   
-                delFoodService();
+                delFoodService(map);
                 system("pause");
                 break;
             case 4:
@@ -186,7 +190,7 @@ void FoodService::edit()
                     } while ((tmpInt != 0) && !(tmpInt >= 1 && tmpInt <= foodServices.size()));
                     if (tmpInt != 0) {
                         try {
-                            foodServices[tmpInt - 1]->edit();
+                            foodServices[tmpInt - 1]->edit(map);
                             cout << "The establishment has been successfully edited!" << endl;
                         }
                         catch (FoodException* err) {
@@ -436,7 +440,7 @@ void FoodService::saveFoodServicesToFile(const string& filename) const
     file.close();
 }
 
-void FoodService::loadFoodServicesFromFile(const string& filename)
+void FoodService::loadFoodServicesFromFile(const string& filename, Map& map)
 {
     ifstream file(filename);
     if (!file.is_open()) cout << "File open error!" << endl;
@@ -452,16 +456,19 @@ void FoodService::loadFoodServicesFromFile(const string& filename)
                 nCafe->loadFromFile(file);
                 //foodServices[i]->loadFromFile(file);
                 foodServices.push_back(nCafe);
+                map.addPoint(nCafe->getX(), nCafe->getY(), nCafe->getName(), 0);
             }
             else if (typeN == 2) {
                 Canteen* nCanteen = new Canteen;
                 nCanteen->loadFromFile(file);
                 foodServices.push_back(nCanteen);
+                map.addPoint(nCanteen->getX(), nCanteen->getY(), nCanteen->getName(), 0);
             }
             else if (typeN == 3) {
                 Restaraunt* nRest = new Restaraunt;
                 nRest->loadFromFile(file);
                 foodServices.push_back(nRest);
+                map.addPoint(nRest->getX(), nRest->getY(), nRest->getName(), 0);
             }
         }
     }

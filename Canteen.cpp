@@ -78,7 +78,7 @@ string Canteen::type() const
     return "CANTEEN";
 }
 
-void Canteen::edit()
+void Canteen::edit(Map& map)
 {
     int tmpInt, tmpN, tmpK, tmpCMD;
     float tmpFloat;
@@ -93,6 +93,8 @@ void Canteen::edit()
         cout << "0. Exit" << endl;
         cout << "Your choice: ";
         cin >> tmpInt;
+        int tmpX = getX();
+        int tmpY = getY();
         switch (tmpInt)
         {
         case 1:
@@ -101,6 +103,8 @@ void Canteen::edit()
             cout << "Enter new name: ";
             getline(cin, tmpStr);
             setName(tmpStr);
+            map.delPoint(getX(), getY(), 0);
+            map.addPoint(getX(), getY(), getName(), 0);
             cout << "Name was succesfully changed!" << endl;
             system("pause");
             break;
@@ -126,6 +130,8 @@ void Canteen::edit()
             cout << "Enter new coordinates (x y): ";
             cin >> tmpN >> tmpK;
             changeCoordinates(tmpN, tmpK);
+            map.delPoint(tmpX, tmpY, 0);
+            map.addPoint(getX(), getY(), getName(), 0);
             cout << "Coordinates were succesfully changed!" << endl;
             system("pause");
             break;

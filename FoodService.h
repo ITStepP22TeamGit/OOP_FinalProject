@@ -3,6 +3,7 @@
 #include "Restaraunt.h"
 #include "Canteen.h"
 #include "Cafe.h"
+#include "Map.h"
 #include <vector>
 
 //Хранит вектор заведений
@@ -13,9 +14,10 @@ protected:
 	string name; //название
 
 public:
-	//Конструктор
-	FoodService(string _name);
+	//Конструктор по умолчанию
 	FoodService();
+	//Конструктор с параметром
+	FoodService(string _name);
 	//Деструктор
 	~FoodService();
 
@@ -25,16 +27,16 @@ public:
 
 	//добавление и удаление заведений с перегрузкой методов
 	void addFoodService(Food* obj);
-	void addFoodService();
+	void addFoodService(Map& map);
 	void delFoodServiceByName(string userName);
-	void delFoodService();
+	void delFoodService(Map& map);
 
 	//подсчет количества заведений и их среднего рейтенга
 	double calculateAverageRating() const;
 	int getTotalFoodCount() const;
 
 	//метод для редактирования
-	void edit();
+	void edit(Map& map);
 
 	//методы для поиска
 	void searchByName(string _name) const;
@@ -52,5 +54,5 @@ public:
 	float askClient() const;
 
 	void saveFoodServicesToFile(const string& filename) const;
-	void loadFoodServicesFromFile(const string& filename);
+	void loadFoodServicesFromFile(const string& filename, Map& map);
 };

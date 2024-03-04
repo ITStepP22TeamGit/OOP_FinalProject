@@ -79,3 +79,10 @@ public:
 		return "The price cannot be negative or be equal to zero!";
 	}
 };
+
+class FoodCoordinatesException : public FoodException {
+public:
+	virtual string message() const override {
+		return "The x coordinate cannot be greater than 50 or less than 1.\nThe y coordinate cannot be less than 1 or greater than 40.";
+	}
+};
