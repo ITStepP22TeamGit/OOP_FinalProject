@@ -6,13 +6,13 @@ class User
 protected:
 	string login;
 	string password;
-	bool isAdmin;
+	int isAdmin;			//0 - user; 1 - admin; 2 - host;
 	string userName;
 	string userPhone;
 	FoodService fArr;
 	TourArr TArr;
 	vector<Hotel> HArr;
-
+	float totalPrice;
 public:
 	User() {
 		

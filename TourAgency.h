@@ -18,8 +18,9 @@ protected:
 	int loggedIn = -1;
 	string wayToData;
 	vector<User> users;
+	float price;
 public:
-	TourAgency(string name) { setName(name); /*full load as function*/ display(); }
+	TourAgency(string name) { setName(name); price = 0; /*full load as function*/ displayMain(); }
 	~TourAgency() {}
 
 	void setName(string _name) {}
@@ -27,9 +28,92 @@ public:
 
 	void loadAllInfo() {}
 
-	void display() {
+	void displayMain() {
 		int chooseTmp;
+		string s_choose;
 		//сделать запрос гость или пользователь
+		do {
+			cout << "Welcome to Tour agency: " + getName() << endl;
+			cout << "===============================\n";
+			cout << "1. Show Hotels\n";
+			cout << "2. Show Tours\n";
+			cout << "3. Show Food Services\n";
+			cout << "4. Show Map\n";
+			cout << "5. Make an order\n";
+			cout << "6. Log in\n";
+			cout << "0. Exit\n";
+			cout << "===============================\n";
+			cin >> chooseTmp;
+			switch (chooseTmp)
+			{
+			case 0:
+				break;
+			case 1:
+				if (h_arr.size() == 0) {
+					cout << "There are no hotels, at lest for now.\n";
+				}
+				else {
+					for (int i = 0; i < h_arr.size(); i++) {
+						cout << i + 1 << h_arr[i].getAdress() << endl;
+						cout << "==============================================\n";
+						h_arr[i].showAval();
+						cout << "==============================================\n";
+					}
+					cout << "===============================\n";
+				}
+				break;
+			case 2:
+				tour_arr.showTourArr();
+				break;
+			case 3:
+				fServ.showFoodServices();
+				break;
+			case 4:
+				map.show();
+				break;
+			case 5: {
+				verification();
+				cout << "Input categories on which you wish to make an order: \n";
+				cout << "1. Hotel\n";
+				cout << "2. Retoraunt\n";
+				cout << "3. Tour\n";
+				
+				int t_one=0, t_two=0, t_tree=0;
+				do
+				{
+					cout << "Input your choice: ";
+					getline(cin, s_choose);
+					for (int i = 0; i < s_choose.length(); i++) {
+						if (s_choose[i] == 1 || s_choose[i] == 2 || s_choose[i] == 3) {
+							switch (s_choose[i])
+							{
+							case 1:
+								t_one = 1;
+								break;
+							case 2:
+								t_two = 1;
+								break;
+							case 3:
+								t_tree = 1;
+								break;
+							default:
+								break;
+							}
+						}
+					}
+				} while (t_one == 0 && t_two == 0 && t_tree == 0);
+				makeOrder(t_one, t_two, t_tree);
+				break;
+			}
+			default:
+				break;
+			}
+		} while (chooseTmp != 0);
+	}
+
+	//void compareUsersLogins
+
+	void verification() {
 		if (loggedIn == -1) {
 			int menu;
 			do {
@@ -108,60 +192,25 @@ public:
 				}
 			} while (menu != 0);
 		}
-		if (loggedIn > -1) {
-			do {
-				cout << "Welcome to Tour agency: " + getName() << endl;
-				cout << "===============================\n";
-				cout << "1. Show Hotels\n";
-				cout << "2. Show Tours\n";
-				cout << "3. Show Food Services\n";
-				cout << "3. Show Map\n";
-				cout << "0. Exit\n";
-				cout << "===============================\n";
-				cin >> chooseTmp;
-				switch (chooseTmp)
-				{
-				case 0:
-					break;
-				case 1:
-					if (h_arr.size() == 0) {
-						cout << "There are no hotels, at lest for now.\n";
-					}
-					else {
-						for (int i = 0; i < h_arr.size(); i++) {
-							cout << i + 1 << h_arr[i].getAdress() << endl;
-							cout << "==============================================\n";
-							h_arr[i].showAval();
-							cout << "==============================================\n";
-						}
-					}
-					break;
-				case 2:
-					tour_arr.showTourArr();
-					break;
-				case 3:
-					fServ.showFoodServices();
-					break;
-				case 4:
-					map.show();
-					break;
-				default:
-					break;
-				}
-			} while (chooseTmp != 0);
-		}
 	}
 
-	//void compareUsersLogins
+	void makeOrder(bool hotel, bool food, bool tour) {
+		if (hotel&&!food&&!tour){
+			int hid = 0, rid = 0;
+			for (int i = 0; i < h_arr.size(); i++) {
+				cout << i + 1 << h_arr[i].getAdress() << endl;
+				cout << "==============================================\n";
+				h_arr[i].showAval();
+				cout << "==============================================\n";
+			}
+			cout << "===============================\n";
+			//two cin for adress and roomid
+			//cin date
+			//cin term
+			//h_arr[hid].addOqqupier();
+			price += h_arr[hid].calcSumm(rid);
+			cout << "Final price: " << price;
+		}
+	}
 };
-
-//class User
-// protected:
-// string login
-// string password
-// bool isAdmin 
-// string userName
-// string userPhone
-// public:
-//
-		
+	

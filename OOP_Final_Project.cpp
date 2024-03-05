@@ -11,18 +11,19 @@ int Map::staticRestaurants = 0;
 
 int main()
 {
-    TourAgency albania("Alb Escorts");
+    //TourAgency albania("Alb Escorts");
 
     srand(time(0));
     cout << "Hello World!\n";
 
-    //Hotel a("Somewhere in city", 5, 5);
-    //a.addRoom(new LRoom(6, true));
+    Hotel a("Somewhere in city","Albania Grand Deluxe", 5, 5);
+    a.addRoom(new LRoom(6, true));
     //a.loadMainInfo("data/Hotel/tro.txt");
     //a.saveMainInfo("data/Hotel/tra.txt");
-    //a.dispAllRooms();
+    a.dispAllRooms();
 
     //a.addRoom();
+    //a.editRoom();
 
     //a.dispAllRooms();
 }

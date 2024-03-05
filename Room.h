@@ -65,6 +65,7 @@ public:
 	string getOqqupierName() const { return oqqupierName; }
 	string getOqqupierPhone() const { return oqqupierPhone; }
 	Date getInfiltrationDate() const { return infiltrationD; }
+	int getDays() const { return days; }
 	int getRooms() const { return rooms; }
 	bool getBalcony() const { return haveBalcony; }
 	bool getBodyNeeds() const { return haveBodyNeeds; }
@@ -98,45 +99,47 @@ public:
 	~LRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("data/Hotel/Extras/test.txt");
-		if (true)
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-
+			cout << "There arent any extras for you(\n";
 		}
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
-		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
 		while (getline(file, line)) {
-			if (!(line.find("#Init#") != string::npos)) {
+			if (line.find("#Init#") == string::npos) {
 				continue;
 			}
 			else if (line.find("#Init#") != string::npos) {
 				uploading = true;
 				continue;
 			}
-			else if (line.find("#" + type() + "#") != string::npos) {
+			if (line.find("#" + type() + "#") != string::npos && uploading) {
 				istringstream iss(line);
 				string t_name;
 				float t_price;
@@ -148,8 +151,9 @@ public:
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
-			else {
-				continue;
+			else if (line.find("#")!=string::npos&&line.find(type())==string::npos) {
+				uploading = false;
+				break;
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
@@ -165,6 +169,9 @@ public:
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; ((getInfiltrationDate() != Date(01, 01, 2000)) && getInfiltrationDate() > Date(01, 01, 2000)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
 		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			
+		}
 	}
 	virtual void show() const override {
 		cout << "\tRoom # " << showId() << endl;
@@ -176,6 +183,7 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+
 	virtual float calcSumm() override {
 		price += 1000.0;
 		(getBalcony() == true) ? price += 500 : price += 0;
@@ -201,27 +209,33 @@ public:
 	~SRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -301,27 +315,33 @@ public:
 	~MRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -403,27 +423,33 @@ public:
 	~PRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -507,27 +533,33 @@ public:
 	~HRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -613,27 +645,33 @@ public:
 	~VRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -721,27 +759,33 @@ public:
 	~LxRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;
@@ -831,27 +875,33 @@ public:
 	~PresRoom() {}
 
 	virtual void askClients() override {
-		loadAddInfo("test.txt");
-		int select;
-		cout << "List of extra`s avalible for purchasing:\n";
-		for (int i = 0; i < extra.size(); i++) {
-			cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+		loadAddInfo("data/");
+		if (extra.size() == 0 && extra_price.size() == 0)
+		{
+			cout << "There arent any extras for you(\n";
 		}
-		do {
-			cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
-			cin >> select;
-
-			if (select <= extra.size()) {
-				cout << "Item added: " + extra[select] << endl;
-				extra_ordered.push_back(select);
+		else {
+			int select;
+			cout << "List of extra`s avalible for purchasing:\n";
+			for (int i = 0; i < extra.size(); i++) {
+				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
-		} while (select != 0);
+			do {
+				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cin >> select;
+
+				if (select <= extra.size()) {
+					cout << "Item added: " + extra[select] << endl;
+					extra_ordered.push_back(select);
+				}
+			} while (select != 0);
+		}
 	}
 
 	virtual void loadAddInfo(string filename) override {
 		bool uploading = false;
 		//string filename = "test.txt";
-		ifstream file(filename);
+		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
 			cerr << "Unable to open file: " << filename << endl;
 			return;

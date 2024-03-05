@@ -13,10 +13,11 @@ protected:
 	int hotelY;
 	vector<Room*> r_arr;
 	string adress;
+	string name;
 
 public:
-	Hotel() { updateId(); }
-	Hotel(string adress, int hotelX, int hotelY) { updateId(); } //loadMainInfo("data/Hotel/test.txt");
+	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; }
+	Hotel(string adress, string name, int hotelX, int hotelY) { updateId(); setCoords(hotelX,hotelY); setName(name); } //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -26,11 +27,13 @@ public:
 	}
 	
 	string setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
+	string setName(string name) { (name.length()>2) ? this->name = name : this->name = "unknown"; }
 	void setCoords(int hotelX, int hotelY) {
 		this->hotelX = hotelX;
 		this->hotelY = hotelY;
 	}
 	string getAdress()const { return adress; }
+	string getName()const { return name; }
 	int getHotelId()const { return hotel_id; }
 
 	void addRoom() { 
@@ -293,6 +296,9 @@ public:
 			bool bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six, bul_sev, bul_eig;
 			//system("cls");
 			cout << "\tEditing existing Room\n";
+			for (int i = 0; i < r_arr.size(); i++){
+				cout << r_arr[i]->type() + " "; r_arr[i]->DispId(); cout << endl;
+			}
 			cout << "Enter Room number to edit (0: Exit): ";
 			cin >> choose;
 			
@@ -636,14 +642,21 @@ public:
 		}
 	}
 
-	void addOqqupier(string type, int max_rooms, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
+	void addOqqupier(int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		for (int i = 0; i < r_arr.size(); i++){
-			if ((type.compare(r_arr[i]->type())==0)&& r_arr[i]->getRooms()==max_rooms){
+			if (i == rId){
 				if (r_arr[i]->getOqqupied()==false){
 					r_arr[i]->setOqqupie(days,oqqupierName,oqqupierPhone,infiltration_d);
+					r_arr[i]->askClients();
+					break;
+				}
+				else {
+					cout << "This room misteriously got oqqupied(\n";
+					break;
 				}
 			}
 		}
+		cout << "Unable to make order to this room, hope you luck next time!\n";
 	}
 
 	void dispAllRooms()const {
@@ -668,13 +681,10 @@ public:
 		}
 	}
 
-	void loadMainInfo(string input) {
+	float calcSumm(int rId) { return r_arr[rId]->calcSumm(); }
+
+	void loadMainInfo(ifstream& file) {
 		char delimiter = '|';
-		ifstream file(input);
-		if (!file.is_open()) {
-			cerr << "Failed to open file: " << input << endl;
-			return;
-		}
 		string line;
 		while (getline(file, line)) {
 			//cout << line << endl;
@@ -767,6 +777,7 @@ public:
 		
 		file.close();
 	}
+	//EDIT
 
 	void saveMainInfo(string output) {
 		ofstream file(output);
@@ -817,4 +828,5 @@ public:
 			file.close();
 		}
 	}
+	//EDIT
 };

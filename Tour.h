@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include"Date.h"
-#include"Time_.h"
+#include"Time.h"
 #include"TourException.h"
 #include<fstream>
 #include<vector>

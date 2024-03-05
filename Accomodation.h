@@ -4,6 +4,7 @@
 #include <vector>
 #include "Room.h"
 using namespace std;
+
 class Accomodation{
 protected:
 	static string id;
