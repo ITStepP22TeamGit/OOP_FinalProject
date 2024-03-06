@@ -76,5 +76,121 @@ public:
 			HArr[i].saveMainInfo("UserArr.txt");
 		}
 	}
+	
+	void addTour(Tour* obj) {
+		TArr.addTour(obj);
+	}
+
+	void showUser() {
+		cout << "Login: " << login << endl;
+		cout << "Name: " << userName << endl;
+		cout << endl << "Choose an action:\n";
+		int menu;
+		cout << "1. Show my purchases.\n";
+		cout << "2. Edit my profile.\n";
+		cin >> menu;
+		switch (menu)
+		{
+		case 1:
+		{
+			int menu1;
+			cout << "Select a purchase to see:\n";
+			cout << "1. Show hotels.\n";
+			cout << "2. Show food services.\n";
+			cout << "3. Show tours.\n";
+			cin >> menu1;
+			switch (menu1)
+			{
+			case 1:
+				if (HArr.size() == 0) {
+					cout << "There are no hotels, at lest for now.\n";
+				}
+				else {
+					for (int i = 0; i < HArr.size(); i++) {
+						cout << i + 1 << HArr[i].getAdress() << endl;
+						cout << "==============================================\n";
+						HArr[i].dispAllRooms();
+						cout << "==============================================\n";
+					}
+					cout << "===============================\n";
+				}
+				break;
+			case 2:
+				fArr.showFoodServices();
+				break;
+			case 3:
+				TArr.showAllForClient();
+				break;
+			default:
+				//exception
+				cout << "Input error!\n";
+				break;
+			}
+			break;
+		}
+		case 2:
+		{
+			int menu1;
+			cout << "Select an option to edit:\n";
+			cout << "1. Name.\n";
+			cout << "2. Password.\n";
+			cout << "3. Phone number.\n";
+			cin >> menu1;
+			switch (menu1)
+			{
+			case 1:
+			{
+				string str;
+				cout << "Enter new name: ";
+				cin.ignore();
+				getline(cin, str);
+				if (str == userName) {
+					//exception
+					cout << "It is already your name!\n";
+				}
+				else {
+					setUserName(str);
+				}
+				break;
+			}
+			case 2:
+			{
+				string str;
+				cout << "Enter new password: ";
+				cin.ignore();
+				getline(cin, str);
+				if (str == userName) {
+					//exception
+					cout << "It is already your password!\n";
+				}
+				else {
+					setPassword(str);
+				}
+				break;
+			}
+			case 3:
+			{
+				string str;
+				cout << "Enter new phone number: ";
+				cin.ignore();
+				getline(cin, str);
+				if (str == userName) {
+					//exception
+					cout << "It is already your phone number!\n";
+				}
+				else {
+					setUserPhone(str);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
 };
 

@@ -32,89 +32,200 @@ public:
 		int chooseTmp;
 		string s_choose;
 		//сделать запрос гость или пользователь
-		do {
-			cout << "Welcome to Tour agency: " + getName() << endl;
-			cout << "===============================\n";
-			cout << "1. Show Hotels\n";
-			cout << "2. Show Tours\n";
-			cout << "3. Show Food Services\n";
-			cout << "4. Show Map\n";
-			cout << "5. Make an order\n";
-			cout << "6. Log in\n";
-			cout << "0. Exit\n";
-			cout << "===============================\n";
-			cin >> chooseTmp;
-			switch (chooseTmp)
-			{
-			case 0:
-				break;
-			case 1:
-				if (h_arr.size() == 0) {
-					cout << "There are no hotels, at lest for now.\n";
-				}
-				else {
-					for (int i = 0; i < h_arr.size(); i++) {
-						cout << i + 1 << h_arr[i].getAdress() << endl;
-						cout << "==============================================\n";
-						h_arr[i].showAval();
-						cout << "==============================================\n";
-					}
-					cout << "===============================\n";
-				}
-				break;
-			case 2:
-				try {
-					tour_arr.showTourArr();
-				}
-				catch (TourArrayException* err) {
-					err->message();
-					delete err;
-				}
-				break;
-			case 3:
-				fServ.showFoodServices();
-				break;
-			case 4:
-				map.show();
-				break;
-			case 5: {
-				verification();
-				cout << "Input categories on which you wish to make an order: \n";
-				cout << "1. Hotel\n";
-				cout << "2. Retoraunt\n";
-				cout << "3. Tour\n";
-				
-				int t_one=0, t_two=0, t_tree=0;
-				do
+		do
+		{
+			if (loggedIn == -1) {
+				/*do {
+					
+				} while (chooseTmp != 0);*/
+				cout << "Welcome to Tour agency: " + getName() << endl;
+				cout << "===============================\n";
+				cout << "1. Show Hotels\n";
+				cout << "2. Show Tours\n";
+				cout << "3. Show Food Services\n";
+				cout << "4. Show Map\n";
+				cout << "5. Make an order\n";
+				cout << "6. Log in\n";
+				cout << "0. Exit\n";
+				cout << "===============================\n";
+				cin >> chooseTmp;
+				switch (chooseTmp)
 				{
-					cout << "Input your choice: ";
-					getline(cin, s_choose);
-					for (int i = 0; i < s_choose.length(); i++) {
-						if (s_choose[i] == 1 || s_choose[i] == 2 || s_choose[i] == 3) {
-							switch (s_choose[i])
-							{
-							case 1:
-								t_one = 1;
-								break;
-							case 2:
-								t_two = 1;
-								break;
-							case 3:
-								t_tree = 1;
-								break;
-							default:
-								break;
-							}
-						}
+				case 0:
+					break;
+				case 1:
+					if (h_arr.size() == 0) {
+						cout << "There are no hotels, at lest for now.\n";
 					}
-				} while (t_one == 0 && t_two == 0 && t_tree == 0);
-				makeOrder(t_one, t_two, t_tree);
-				break;
+					else {
+						for (int i = 0; i < h_arr.size(); i++) {
+							cout << i + 1 << h_arr[i].getAdress() << endl;
+							cout << "==============================================\n";
+							h_arr[i].showAval();
+							cout << "==============================================\n";
+						}
+						cout << "===============================\n";
+					}
+					break;
+				case 2:
+					try {
+						tour_arr.showTourArr();
+					}
+					catch (TourArrayException* err) {
+						err->message();
+						delete err;
+					}
+					break;
+				case 3:
+					fServ.showFoodServices();
+					break;
+				case 4:
+					map.show();
+					break;
+				case 5: {
+					verification();
+					cout << "Input categories on which you wish to make an order: \n";
+					cout << "1. Hotel\n";
+					cout << "2. Retoraunt\n";
+					cout << "3. Tour\n";
+
+					int t_one = 0, t_two = 0, t_tree = 0;
+					do
+					{
+						cout << "Input your choice: ";
+						getline(cin, s_choose);
+						for (int i = 0; i < s_choose.length(); i++) {
+							if (s_choose[i] == '1' || s_choose[i] == '2' || s_choose[i] == '3') {
+								int intVar = s_choose[i] - '0';
+								switch (intVar)
+								{
+								case 1:
+									t_one = 1;
+									break;
+								case 2:
+									t_two = 1;
+									break;
+								case 3:
+									t_tree = 1;
+									break;
+								default:
+									break;
+								}
+							}
+							// 1           2 3
+						}
+					} while (t_one == 0 && t_two == 0 && t_tree == 0);
+					makeOrder(t_one, t_two, t_tree);
+					break;
+				}
+				default:
+					break;
+				}
 			}
-			default:
-				break;
-			}
-		} while (chooseTmp != 0);
+			else {
+				cout << "Welcome to Tour agency: " + getName() << endl;
+				cout << "===============================\n";
+				cout << "1. Show Hotels\n";
+				cout << "2. Show Tours\n";
+				cout << "3. Show Food Services\n";
+				cout << "4. Show Map\n";
+				cout << "5. Make an order\n";
+				cout << "6. My account\n";
+				cout << "7. Log out\n";
+				cout << "0. Exit\n";
+				cout << "===============================\n";
+				cin >> chooseTmp;
+				switch (chooseTmp)
+				{
+				case 0:
+					break;
+				case 1:
+					if (h_arr.size() == 0) {
+						cout << "There are no hotels, at lest for now.\n";
+					}
+					else {
+						for (int i = 0; i < h_arr.size(); i++) {
+							cout << i + 1 << h_arr[i].getAdress() << endl;
+							cout << "==============================================\n";
+							h_arr[i].showAval();
+							cout << "==============================================\n";
+						}
+						cout << "===============================\n";
+					}
+					break;
+				case 2:
+					try {
+						tour_arr.showTourArr();
+					}
+					catch (TourArrayException* err) {
+						err->message();
+						delete err;
+					}
+					break;
+				case 3:
+					fServ.showFoodServices();
+					break;
+				case 4:
+					map.show();
+					break;
+				case 5: {
+					cout << "Input categories on which you wish to make an order: \n";
+					cout << "1. Hotel\n";
+					cout << "2. Retoraunt\n";
+					cout << "3. Tour\n";
+
+					int t_one = 0, t_two = 0, t_tree = 0;
+					do
+					{
+						cout << "Input your choice: ";
+						getline(cin, s_choose);
+						for (int i = 0; i < s_choose.length(); i++) {
+							if (s_choose[i] == '1' || s_choose[i] == '2' || s_choose[i] == '3') {
+								int intVar = s_choose[i] - '0';
+								switch (intVar)
+								{
+								case 1:
+									t_one = 1;
+									break;
+								case 2:
+									t_two = 1;
+									break;
+								case 3:
+									t_tree = 1;
+									break;
+								default:
+									break;
+								}
+							}
+							// 1           2 3
+						}
+					} while (t_one == 0 && t_two == 0 && t_tree == 0);
+					makeOrder(t_one, t_two, t_tree);
+					break;
+				}
+				case 6:
+					users[loggedIn].showUser();
+					break;
+				case 7:
+				{
+					string str;
+					cout << "Are you sure you want to log out?\n";
+					do {
+						cout << "Your choice (yes/no) >> ";
+						cin >> str;
+						cout << endl;
+					} while (str != "yes" && str != "no" && str != "Yes" && str != "No");
+					if (str == "Yes" || str == "yes") {
+						users.erase(users.begin() + loggedIn);
+						loggedIn = -1;
+						cout << "Successfully logged out!\n";;
+					}
+				}
+				default:
+					break;
+				}
+			} 
+		}while (chooseTmp != 0);
 	}
 
 	//void compareUsersLogins
@@ -156,6 +267,7 @@ public:
 					if (loggedIn == -1) cout << "Incorrect login! There are no users with that login!\n";
 					break;
 				case 2:
+				{
 					cout << "Input login: ";
 					cin >> tmpStr;
 					for (int i = 0; i < users.size(); i++) {
@@ -163,19 +275,22 @@ public:
 							//Exception equal login
 						}
 					}
-					users.push_back(User());
-					users[users.size()].setLogin(tmpStr);
+					User tmpUser;
+					tmpUser.setLogin(tmpStr);
 					cout << "Input password: ";
 					cin >> tmpStr;
-					users[users.size()].setPassword(tmpStr);
+					tmpUser.setPassword(tmpStr);
 					cout << "Input name: ";
 					cin >> tmpStr;
-					users[users.size()].setUserName(tmpStr);
-					cout << "Input phone number";
+					tmpUser.setUserName(tmpStr);
+					cout << "Input phone number: ";
 					cin >> tmpStr;
-					users[users.size()].setUserPhone(tmpStr);
+					tmpUser.setUserPhone(tmpStr);
 					cout << "Successfully signed in!\n";
-					loggedIn = users.size();
+					users.push_back(tmpUser);
+					loggedIn = users.size() - 1;
+					menu = 0;
+					
 					/*bool login(db * arr, int arr_sz, char* log, char* pss) {
 
 						for (int i = 0; i < arr_sz; i++)
@@ -192,7 +307,7 @@ public:
 						cout << "Error";
 						return false;
 					}*/
-
+				}
 				default:
 					break;
 				}
@@ -201,7 +316,7 @@ public:
 	}
 
 	void makeOrder(bool hotel, bool food, bool tour) {
-		if (hotel&&!food&&!tour){
+		if (hotel == 1){
 			int hid = 0, rid = 0;
 			for (int i = 0; i < h_arr.size(); i++) {
 				cout << i + 1 << h_arr[i].getAdress() << endl;
@@ -217,7 +332,18 @@ public:
 			price += h_arr[hid].calcSumm(rid);
 			cout << "Final price: " << price;
 		}
-		else if (!hotel && food && !tour)
+		if (tour == 1) {
+			int index = tour_arr.showAllForClientOrder();
+			users[loggedIn].addTour(tour_arr.returnTour(index));
+		}
+		if (food == 1) {
+			//int index; //= showTourForClient();
+			//users[loggedIn].addTour(tour_arr.returnTour(index));
+		}
+		if (hotel == 1 && tour == 1 && food == 1) {
+			price *= 0.7;
+		}
+		//else if (!hotel && food && !tour)
 	}
 };
 	

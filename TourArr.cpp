@@ -628,7 +628,197 @@ void TourArr::showAllForClient()
 			{
 			case 1:
 				showTourArr();
+				/*int index1;
+				cout << "Make your choice: ";
+				return index1;*/
 				break;
+			case 2:
+			{
+				cout << "|   Choose sort type:\n|\n";
+				cout << "|   1. By date.\n";
+				cout << "|   2. By time.\n";
+				cout << "|   3. By price.\n";
+				cout << "|   4. By guide.\n";
+				cout << "|   5. By amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 5);
+				cout << endl;
+				int intVar1;
+				cout << "|   Choose sort order:\n|\n";
+				cout << "|   1. From smaller to larger.\n";
+				cout << "|   2. From larger to smaller.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar1;
+				} while (intVar1 < 1 && intVar1 > 2);
+				intVar1--;
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+					showSortTourArrayByDate(intVar1);
+					break;
+				case 2:
+					showSortTourArrayByTime(intVar1);
+					break;
+				case 3:
+					showSortTourArrayByPrice(intVar1);
+					break;
+				case 4:
+					showSortTourArrayByGuide(intVar1);
+					break;
+				case 5:
+					showSortTourArrayByNumber(intVar1);
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			case 3:
+				cout << "|   Choose object you want to search:\n|\n";
+				cout << "|   1. Name.\n";
+				cout << "|   2. Address.\n";
+				cout << "|   3. Equipment.\n";
+				cout << "|   4. Date.\n";
+				cout << "|   5. Time.\n";
+				cout << "|   6. Price.\n";
+				cout << "|   7. Guide.\n";
+				cout << "|   8. Amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 8);
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByName(str);
+					break;
+				}
+				case 2:
+				{
+					cout << "|   Enter address: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByAddress(str);
+					break;
+				}
+				case 3:
+				{
+					cout << "|   Enter equipment: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByEquipment(str);
+					break;
+				}
+				case 4:
+				{
+					Date d;
+					cout << "|   Enter date: ";
+					cin >> d;
+					cout << endl;
+					findTourByDate(d);
+					break;
+				}
+				case 5:
+				{
+					Time_ t;
+					cout << "|   Enter time: ";
+					cin >> t;
+					cout << endl;
+					findTourByTime(t);
+					break;
+				}
+				case 6:
+				{
+					float flVar, flVar1;
+					cout << "|   Enter min price: ";
+					cin >> flVar;
+					cout << "|   Enter max price: ";
+					cin >> flVar1;
+					cout << endl;
+					findTourByPrice(flVar, flVar1);
+					break;
+				}
+				case 7:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByGuide(str);
+					break;
+				}
+				case 8:
+				{
+					int iVar, iVar1;
+					cout << "|   Enter min amount: ";
+					cin >> iVar;
+					cout << "|   Enter max amount: ";
+					cin >> iVar1;
+					cout << endl;
+					findTourByNumber(iVar, iVar1);
+					break;
+				}
+				default:
+					break;
+				}
+				break;
+			case 4:
+				break;
+			default:
+				cout << "|   Input error!\n";
+				break;
+			}
+		} while (menu != 4);
+	}
+}
+
+int TourArr::showAllForClientOrder()
+{
+	if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	else {
+		int menu, intVar;
+		string str;
+		do {
+			cout << " ============== Tour Show ==============\n|\n";
+			cout << "|   Enter what you want to edit:\n|\n";
+			cout << "|   1. Show all tours.\n";
+			cout << "|   2. Show sorted tours.\n";
+			cout << "|   3. Find tour.\n";
+			cout << "|   4. Leave.\n";
+			do
+			{
+				cout << "\nYour choice >> ";
+				cin >> menu;
+			} while (menu < 1 && menu > 4);
+			cout << endl;
+			switch (menu)
+			{
+			case 1:
+			{
+				showTourArr();
+				int index444441;
+				cout << "Make your choice: ";
+				cin >> index444441;
+				return index444441;
+				break;
+			}
 			case 2:
 			{
 				cout << "|   Choose sort type:\n|\n";
@@ -1144,4 +1334,9 @@ void TourArr::loadFromFile(string fileName)
 	else {
 		throw new TourInputErrorException(10, fileName);
 	}
+}
+
+Tour* TourArr::returnTour(int index)
+{
+	return arr[index];
 }

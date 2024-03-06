@@ -49,8 +49,11 @@ public:
 	void findTourByNumber(int _minNumber, int _maxNumber);
 
 	void showAllForClient();
+	int showAllForClientOrder();
 	void showAllForAdmin();
 
 	void saveToFile(string fileName);
 	void loadFromFile(string fileName);
+
+	Tour* returnTour(int index);
 };
