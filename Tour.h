@@ -3,13 +3,14 @@
 #include<iostream>
 #include<string>
 #include"Date.h"
-#include"Time.h"
+#include"Time_.h"
 #include"TourException.h"
 #include<fstream>
 #include<vector>
 #include<list>
 #include<conio.h>
 #include<Windows.h>
+#include"LocalisationTour.h"
 using namespace std;
 
 class Tour
@@ -35,7 +36,13 @@ protected:
 	int number;
 	int minNumber;
 	int maxNumber;
+
+	LocalisationTour loc;
+	bool language;
 public:
+	//Tour(bool _language);
+	//Tour(string _name, string _address, string _description, Date _date, Time_ _time, float _rating, float _price,
+	//	float _photosPrice, string _guide, int _number, int _minNumber, int _maxNumber, bool _language);
 	Tour();
 	Tour(string _name, string _address, string _description, Date _date, Time_ _time, float _rating, float _price,
 		float _photosPrice, string _guide, int _number, int _minNumber, int _maxNumber);

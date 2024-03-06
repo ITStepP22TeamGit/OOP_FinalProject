@@ -11,6 +11,16 @@ TourArr::~TourArr()
 	}
 }
 
+int TourArr::getVectotSize() const
+{
+	return arr.size();
+}
+
+Date TourArr::getDateTour(int index) const
+{
+	return arr[index]->getDate();
+}
+
 void TourArr::addTour(Tour* obj)
 {
 	arr.push_back(obj);
@@ -177,8 +187,21 @@ void TourArr::showTourArr() const
 		for (int i = 0; i < arr.size(); i++)
 		{
 			cout << "|   #" << i + 1 << endl << endl;
+			//cout << " ";
+			////cout << arr[i]->TourType();
+			//for (int i = 0; i < (ceil(35 - arr[i]->TourType().size())) / 2 - 1; i++)
+			//{
+			//	cout << "-";
+			//}
+			/*cout << " " << arr[i]->TourType() << " ";
+			for (int i = 0; i < (floor(35 - arr[i]->TourType().size())) / 2; i++)
+			{
+				cout << "-";
+			}*/
+			//cout << " >\n|\n";
 			arr[i]->TourShow();
 			cout << endl;
+			//cout << "|\n ---------------------------------------- <\n\n";
 		}
 	}
 }
@@ -218,99 +241,45 @@ float TourArr::calcAllSumm()
 
 void TourArr::editTourArray()
 {
-	if (arr.empty()) {
-		throw new TourArrayException(3);
-	}
-	else {
-		int menu, intVar;
-		do {
-			cout << " ============== Tour Edit ==============\n|\n";
-			string str;
-			cout << "|   Enter what you want to edit:\n|\n";
-			cout << "|   1. Add tour.\n";
-			cout << "|   2. Delete tour.\n";
-			cout << "|   3. Edit tour.\n";
-			cout << "|   4. Leave.\n";
-			cout << "\nYour choice >> ";
-			cin >> menu;
-			cout << endl;
-			switch (menu)
-			{
-			case 1:
-				addTour();
-				break;
-			case 2:
-				cout << "|   Enter what you want to delete object by:\n|\n";
-				cout << "|   1. By index.\n";
-				cout << "|   2. By name.\n";
-				cout << "\nYour choice >> ";
-				cin >> intVar;
-				cout << endl;
-				switch (intVar)
-				{
-				case 1:
-					cout << "|   Enter index: ";
-					cin >> intVar;
-					delTour(intVar);
-					break;
-				case 2:
-					cout << "|   Enter name: ";
-					cin.ignore();
-					getline(cin, str);
-					delTour(str);
-					break;
-				default:
-					cout << "|   Input error!\n";
-					break;
-				}
-				break;
-			case 3:
-				cout << "|   Enter what you want to edit object by:\n|\n";
-				cout << "|   1. By index.\n";
-				cout << "|   2. By name.\n";
-				cout << "\nYour choice >> ";
-				cin >> intVar;
-				cout << endl;
-				switch (intVar)
-				{
-				case 1:
-					cout << "|   Enter index: ";
-					cin >> intVar;
-					cout << endl;
-					arr[intVar]->TourEdit();
-					break;
-				case 2:
-				{
-					cout << "|   Enter name: ";
-					cin.ignore();
-					getline(cin, str);
-					bool check = 0;
-					for (int i = 0; i < arr.size(); i++)
-					{
-						if (arr[i]->getName() == str) {
-							cout << "|\n";
-							arr[i]->TourEdit();
-							check = 1;
-							break;
-						}
-					}
-					if (check == 0) {
-						throw new TourArrayException(1);
-					}
-					break;
-				}
-				default:
-					cout << "|   Input error!\n";
-					break;
-				}
-				break;
-			case 4:
-				break;
-			default:
-				cout << "|   Input error!\n";
+	int intVar;
+	string str;
+	cout << "|   Enter what you want to edit object by:\n|\n";
+	cout << "|   1. By index.\n";
+	cout << "|   2. By name.\n";
+	cout << "\nYour choice >> ";
+	cin >> intVar;
+	cout << endl;
+	switch (intVar)
+	{
+	case 1:
+		cout << "|   Enter index: ";
+		cin >> intVar;
+		cout << endl;
+		arr[intVar]->TourEdit();
+		break;
+	case 2:
+	{
+		cout << "|   Enter name: ";
+		cin.ignore();
+		getline(cin, str);
+		bool check = 0;
+		for (int i = 0; i < arr.size(); i++)
+		{
+			if (arr[i]->getName() == str) {
+				cout << "|\n";
+				arr[i]->TourEdit();
+				check = 1;
 				break;
 			}
-		} while (menu != 4);
+		}
+		if (check == 0) {
+			throw new TourArrayException(1);
+		}
+		break;
+	}
+	default:
+		cout << "|   Input error!\n";
+		break;
 	}
 }
 
@@ -632,6 +601,467 @@ void TourArr::findTourByNumber(int _minNumber, int _maxNumber)
 	if (counter == 0) {
 		throw new TourArrayException(1);
 	}
+}
+
+void TourArr::showAllForClient()
+{
+	if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	else {
+		int menu, intVar;
+		string str;
+		do {
+			cout << " ============== Tour Show ==============\n|\n";
+			cout << "|   Enter what you want to edit:\n|\n";
+			cout << "|   1. Show all tours.\n";
+			cout << "|   2. Show sorted tours.\n";
+			cout << "|   3. Find tour.\n";
+			cout << "|   4. Leave.\n";
+			do
+			{
+				cout << "\nYour choice >> ";
+				cin >> menu;
+			} while (menu < 1 && menu > 4);
+			cout << endl;
+			switch (menu)
+			{
+			case 1:
+				showTourArr();
+				break;
+			case 2:
+			{
+				cout << "|   Choose sort type:\n|\n";
+				cout << "|   1. By date.\n";
+				cout << "|   2. By time.\n";
+				cout << "|   3. By price.\n";
+				cout << "|   4. By guide.\n";
+				cout << "|   5. By amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 5);
+				cout << endl;
+				int intVar1;
+				cout << "|   Choose sort order:\n|\n";
+				cout << "|   1. From smaller to larger.\n";
+				cout << "|   2. From larger to smaller.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar1;
+				} while (intVar1 < 1 && intVar1 > 2);
+				intVar1--;
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+					showSortTourArrayByDate(intVar1);
+					break;
+				case 2:
+					showSortTourArrayByTime(intVar1);
+					break;
+				case 3:
+					showSortTourArrayByPrice(intVar1);
+					break;
+				case 4:
+					showSortTourArrayByGuide(intVar1);
+					break;
+				case 5:
+					showSortTourArrayByNumber(intVar1);
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			case 3:
+				cout << "|   Choose object you want to search:\n|\n";
+				cout << "|   1. Name.\n";
+				cout << "|   2. Address.\n";
+				cout << "|   3. Equipment.\n";
+				cout << "|   4. Date.\n";
+				cout << "|   5. Time.\n";
+				cout << "|   6. Price.\n";
+				cout << "|   7. Guide.\n";
+				cout << "|   8. Amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 8);
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByName(str);
+					break;
+				}
+				case 2:
+				{
+					cout << "|   Enter address: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByAddress(str);
+					break;
+				}
+				case 3:
+				{
+					cout << "|   Enter equipment: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByEquipment(str);
+					break;
+				}
+				case 4:
+				{
+					Date d;
+					cout << "|   Enter date: ";
+					cin >> d;
+					cout << endl;
+					findTourByDate(d);
+					break;
+				}
+				case 5:
+				{
+					Time_ t;
+					cout << "|   Enter time: ";
+					cin >> t;
+					cout << endl;
+					findTourByTime(t);
+					break;
+				}
+				case 6:
+				{
+					float flVar, flVar1;
+					cout << "|   Enter min price: ";
+					cin >> flVar;
+					cout << "|   Enter max price: ";
+					cin >> flVar1;
+					cout << endl;
+					findTourByPrice(flVar, flVar1);
+					break;
+				}
+				case 7:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByGuide(str);
+					break;
+				}
+				case 8:
+				{
+					int iVar, iVar1;
+					cout << "|   Enter min amount: ";
+					cin >> iVar;
+					cout << "|   Enter max amount: ";
+					cin >> iVar1;
+					cout << endl;
+					findTourByNumber(iVar, iVar1);
+					break;
+				}
+				default:
+					break;
+				}
+				break;
+			case 4:
+				break;
+			default:
+				cout << "|   Input error!\n";
+				break;
+			}
+		} while (menu != 4);
+	}
+}
+
+void TourArr::showAllForAdmin()
+{
+	if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	else {
+		int menu, intVar;
+		string str;
+		do {
+			cout << " ============== Tour Show ==============\n|\n";
+			cout << "|   Enter what you want to edit:\n|\n";
+			cout << "|   1. Show all tours.\n";
+			cout << "|   2. Show sorted tours.\n";
+			cout << "|   3. Find tour.\n";
+			cout << "|   4. Add tour.\n";
+			cout << "|   5. Delete tour.\n";
+			cout << "|   6. Edit tour.\n";
+			cout << "|   7. Leave.\n";
+			do
+			{
+				cout << "\nYour choice >> ";
+				cin >> menu;
+			} while (menu < 1 && menu > 7);
+			cout << endl;
+			switch (menu)
+			{
+			case 1:
+				showTourArr();
+				break;
+			case 2:
+			{
+				cout << "|   Choose sort type:\n|\n";
+				cout << "|   1. By date.\n";
+				cout << "|   2. By time.\n";
+				cout << "|   3. By price.\n";
+				cout << "|   4. By guide.\n";
+				cout << "|   5. By amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 5);
+				cout << endl;
+				int intVar1;
+				cout << "|   Choose sort order:\n|\n";
+				cout << "|   1. From smaller to larger.\n";
+				cout << "|   2. From larger to smaller.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar1;
+				} while (intVar1 < 1 && intVar1 > 2);
+				intVar1--;
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+					showSortTourArrayByDate(intVar1);
+					break;
+				case 2:
+					showSortTourArrayByTime(intVar1);
+					break;
+				case 3:
+					showSortTourArrayByPrice(intVar1);
+					break;
+				case 4:
+					showSortTourArrayByGuide(intVar1);
+					break;
+				case 5:
+					showSortTourArrayByNumber(intVar1);
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			case 3:
+				cout << "|   Choose object you want to search:\n|\n";
+				cout << "|   1. Name.\n";
+				cout << "|   2. Address.\n";
+				cout << "|   3. Equipment.\n";
+				cout << "|   4. Date.\n";
+				cout << "|   5. Time.\n";
+				cout << "|   6. Price.\n";
+				cout << "|   7. Guide.\n";
+				cout << "|   8. Amount of tourists.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 8);
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByName(str);
+					break;
+				}
+				case 2:
+				{
+					cout << "|   Enter address: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByAddress(str);
+					break;
+				}
+				case 3:
+				{
+					cout << "|   Enter equipment: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByEquipment(str);
+					break;
+				}
+				case 4:
+				{
+					Date d;
+					cout << "|   Enter date: ";
+					cin >> d;
+					cout << endl;
+					findTourByDate(d);
+					break;
+				}
+				case 5:
+				{
+					Time_ t;
+					cout << "|   Enter time: ";
+					cin >> t;
+					cout << endl;
+					findTourByTime(t);
+					break;
+				}
+				case 6:
+				{
+					float flVar, flVar1;
+					cout << "|   Enter min price: ";
+					cin >> flVar;
+					cout << "|   Enter max price: ";
+					cin >> flVar1;
+					cout << endl;
+					findTourByPrice(flVar, flVar1);
+					break;
+				}
+				case 7:
+				{
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					cout << endl;
+					findTourByGuide(str);
+					break;
+				}
+				case 8:
+				{
+					int iVar, iVar1;
+					cout << "|   Enter min amount: ";
+					cin >> iVar;
+					cout << "|   Enter max amount: ";
+					cin >> iVar1;
+					cout << endl;
+					findTourByNumber(iVar, iVar1);
+					break;
+				}
+				default:
+					break;
+				}
+				break;
+			case 4:
+				addTour();
+				break;
+			case 5:
+				cout << "|   Enter what you want to delete object by:\n|\n";
+				cout << "|   1. By index.\n";
+				cout << "|   2. By name.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 2);
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+					cout << "|   Enter index: ";
+					cin >> intVar;
+					delTour(intVar);
+					break;
+				case 2:
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					delTour(str);
+					break;
+				default:
+					cout << "|   Input error!\n";
+					break;
+				}
+				break;
+			case 6:
+				editTourArray();
+				break;
+			case 7:
+				break;
+			default:
+				cout << "|   Input error!\n";
+				break;
+			}
+		} while (menu != 7);
+	}
+
+	/*if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	else {
+		int menu, intVar;
+		do {
+			cout << " ============== Tour Edit ==============\n|\n";
+			string str;
+			cout << "|   Enter what you want to edit:\n|\n";
+			cout << "|   1. Add tour.\n";
+			cout << "|   2. Delete tour.\n";
+			cout << "|   3. Edit tour.\n";
+			cout << "|   4. Leave.\n";
+			cout << "\nYour choice >> ";
+			cin >> menu;
+			cout << endl;
+			switch (menu)
+			{
+			case 1:
+				addTour();
+				break;
+			case 2:
+				
+				cout << "|   Enter what you want to delete object by:\n|\n";
+				cout << "|   1. By index.\n";
+				cout << "|   2. By name.\n";
+				do
+				{
+					cout << "\nYour choice >> ";
+					cin >> intVar;
+				} while (intVar < 1 && intVar > 2);
+				cout << endl;
+				switch (intVar)
+				{
+				case 1:
+					cout << "|   Enter index: ";
+					cin >> intVar;
+					delTour(intVar);
+					break;
+				case 2:
+					cout << "|   Enter name: ";
+					cin.ignore();
+					getline(cin, str);
+					delTour(str);
+					break;
+				default:
+					cout << "|   Input error!\n";
+					break;
+				}
+				break;
+			case 3:
+				editTourArray();
+				break;
+			case 4:
+				break;
+			default:
+				cout << "|   Input error!\n";
+				break;
+			}
+		} while (menu != 4);
+	}*/
 }
 
 void TourArr::saveToFile(string fileName)

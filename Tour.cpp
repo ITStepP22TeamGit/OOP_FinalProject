@@ -2,7 +2,8 @@
 
 Tour::Tour()
 {
-    name = "Undefined";
+    //name = "Undefined";
+    ///name = loc.message(0, 1);
     address = "Undefined";
     description = "Undefined";
     date = Date(1, 1, 1);
@@ -279,6 +280,36 @@ void Tour::setArriveTransport(int _arriveTransport)
         throw new TourInputErrorException(15);
     }
     else {
+        if (arriveTransport != _arriveTransport) {
+            switch (arriveTransport)
+            {
+            case 1:
+                price -= priceTransportType1;
+                break;
+            case 2:
+                price -= priceTransportType2;
+                break;
+            case 3:
+                price -= priceTransportType3;
+                break;
+            default:
+                break;
+            }
+            switch (_arriveTransport)
+            {
+            case 1:
+                price += priceTransportType1;
+                break;
+            case 2:
+                price += priceTransportType2;
+                break;
+            case 3:
+                price += priceTransportType3;
+                break;
+            default:
+                break;
+            }
+        }
         arriveTransport = _arriveTransport;
     }
 }
@@ -427,14 +458,14 @@ void Tour::addClientsRating(int _rating)
 void Tour::TourShow() const
 {
     cout << " ";
-    for (int i = 0; i < (ceil(38 - TourType().size())) / 2 - 1; i++)
+    for (int i = 0; i < (ceil(35 - TourType().size())) / 2 - 1; i++)
     {
-        cout << "~";
+        cout << "-";
     }
     cout << " " << TourType() << " ";
-    for (int i = 0; i < (floor(38 - TourType().size())) / 2; i++)
+    for (int i = 0; i < (floor(35 - TourType().size())) / 2; i++)
     {
-        cout << "~";
+        cout << "-";
     }
     cout << " >\n|\n";
     cout << "|   Name: " << name << endl;
@@ -474,7 +505,8 @@ void Tour::TourShow() const
     else {
         cout << "not available,\n|   (less than the required number of people)\n";
     }
-    cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
+    //cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
+    cout << "|\n ----------------------------------------<\n";
 }
 
 void Tour::TourShowClients() const
@@ -811,11 +843,11 @@ void Tour::askClient()
         cout << endl;
     } while (str != "yes" && str != "no" && str != "Yes" && str != "No");
     if (str == "yes" || str == "Yes") {
-        photos = 1;
-        price += photosPrice;
+        setPhotos(1);
+        cout << "Video shooting service was successfully added!\n\n";
     }
     else {
-        photos = 0;
+        setPhotos(0);
     }
 
     cout << "|   Do you want transport to pick you up?\n\n";
@@ -825,35 +857,45 @@ void Tour::askClient()
         cout << endl;
     } while (str != "yes" && str != "no" && str != "Yes" && str != "No");
     if (str == "yes" || str == "Yes") {
-        cout << "|   Choose type of transport:\n";
+        cout << "|   Choose type of transport:\n|\n";
         for (int i = 0; i < 3; i++)
         {
-            cout << "|   " << i + 1 << ". " << TransportType[i] << endl;
+            str = TransportType[i];
+            str[0] = toupper(str[0]);
+            cout << "|   " << i + 1 << ". " << str << ". Price: ";
             if (i == 0) {
-                cout << "|   " << priceTransportType1 << endl;
+                cout << priceTransportType1 << " $\n";
             }
             else if (i == 1) {
-                cout << "|   " << priceTransportType2 << endl;
+                cout << priceTransportType2 << " $\n";
             }
             else {
-                cout << "|   " << priceTransportType3 << endl;
+                cout << priceTransportType3 << " $\n";
             }
         }
+        int intVar;
         do {
             cout << "\nYour choice >> ";
-            cin >> arriveTransport;
+            cin >> intVar;
             cout << endl;
-        } while (arriveTransport != 1 && arriveTransport != 2 && arriveTransport != 3);
+        } while (intVar != 1 && intVar != 2 && intVar != 3);
+        setArriveTransport(intVar);
         switch (arriveTransport)
         {
         case 1:
-            price += priceTransportType1;
+            str = TransportType[0];
+            str[0] = toupper(str[0]);
+            cout << "|   " << str << " ride was successfully added!\n\n";
             break;
         case 2:
-            price += priceTransportType2;
+            str = TransportType[1];
+            str[0] = toupper(str[0]);
+            cout << "|   " << str << " ride was successfully added!\n\n";
             break;
         case 3:
-            price += priceTransportType3;
+            str = TransportType[2];
+            str[0] = toupper(str[0]);
+            cout << "|   " << str << " ride was successfully added!\n\n";
             break;
         default:
             cout << "|   Input error!\n";
@@ -861,7 +903,7 @@ void Tour::askClient()
         }
     }
     else {
-        arriveTransport = 0;
+        setArriveTransport(0);
     }
 
     int a, b;

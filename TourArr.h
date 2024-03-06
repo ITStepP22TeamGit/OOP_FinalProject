@@ -16,6 +16,8 @@ class TourArr
 	vector<Tour*>arr;
 public:
 	~TourArr();
+	int getVectotSize()const;
+	Date getDateTour(int index)const;
 
 	void addTour(Tour* obj);
 	void addTour();
@@ -45,6 +47,9 @@ public:
 	void findTourByPrice(float minPrice, float maxPrice);
 	void findTourByGuide(string _guide);
 	void findTourByNumber(int _minNumber, int _maxNumber);
+
+	void showAllForClient();
+	void showAllForAdmin();
 
 	void saveToFile(string fileName);
 	void loadFromFile(string fileName);
