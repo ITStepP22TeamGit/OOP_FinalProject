@@ -63,7 +63,13 @@ public:
 				}
 				break;
 			case 2:
-				tour_arr.showTourArr();
+				try {
+					tour_arr.showTourArr();
+				}
+				catch (TourArrayException* err) {
+					err->message();
+					delete err;
+				}
 				break;
 			case 3:
 				fServ.showFoodServices();
@@ -211,6 +217,7 @@ public:
 			price += h_arr[hid].calcSumm(rid);
 			cout << "Final price: " << price;
 		}
+		else if (!hotel && food && !tour)
 	}
 };
 	

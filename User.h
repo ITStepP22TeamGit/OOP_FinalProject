@@ -1,5 +1,11 @@
 #pragma once
-#include "TourAgency.h"
+#include <iostream>
+#include <string>
+#include "Hotel.h"
+#include "TourArr.h"
+#include "FoodService.h"
+#include "UserException.h"
+using namespace std;
 
 class User
 {
@@ -15,7 +21,12 @@ protected:
 	float totalPrice;
 public:
 	User() {
-		
+		isAdmin = 0;
+		totalPrice = 0;
+		login = "login";
+		password = "password";
+		userName = "un";
+		userPhone = "up";
 	}
 
 	void setLogin(string _login) {

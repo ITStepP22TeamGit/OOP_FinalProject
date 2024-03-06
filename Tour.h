@@ -3,14 +3,14 @@
 #include<iostream>
 #include<string>
 #include"Date.h"
-#include"Time_.h"
+#include"Time.h"
 #include"TourException.h"
 #include<fstream>
 #include<vector>
 #include<list>
 #include<conio.h>
 #include<Windows.h>
-#include"LocalisationTour.h"
+//#include"LocalisationTour.h"
 using namespace std;
 
 class Tour
@@ -37,7 +37,7 @@ protected:
 	int minNumber;
 	int maxNumber;
 
-	LocalisationTour loc;
+	//LocalisationTour loc;
 	bool language;
 public:
 	//Tour(bool _language);
