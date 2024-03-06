@@ -34,6 +34,11 @@ string FoodService::getName() const
     return name;
 }
 
+int FoodService::getFoodServicesSize() const
+{
+    return foodServices.size();
+}
+
 void FoodService::addFoodService(Food* obj)
 {
     foodServices.push_back(obj);
@@ -244,6 +249,7 @@ void FoodService::edit(Map& map)
                         tempInteger = 0;
                     }
                 } while (tempInteger != 0);
+                break;
             case 6:
                 system("cls");
                 int tempIntgr;
@@ -274,6 +280,7 @@ void FoodService::edit(Map& map)
                         break;
                     }
                 } while (tempIntgr != 0);
+                break;
             default:
                 break;
             }
@@ -286,6 +293,15 @@ void FoodService::searchByName(string _name) const
     bool find = false;
     for (int i = 0; i < foodServices.size(); i++) {
         if (foodServices[i]->getName() == _name) {
+            if (foodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ------------>" << endl;
+            }
             foodServices[i]->showFoodService();
             find = true;
         }
@@ -301,6 +317,15 @@ void FoodService::searchByAdress(string _adress) const
     bool find = false;
     for (int i = 0; i < foodServices.size(); i++) {
         if (foodServices[i]->getAdress() == _adress) {
+            if (foodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ------------>" << endl;
+            }
             foodServices[i]->showFoodService();
             find = true;
         }
@@ -316,6 +341,15 @@ void FoodService::searchByRating(int _ratingLow, int _ratingHigh) const
     bool find = false;
     for (int i = 0; i < foodServices.size(); i++) {
         if (foodServices[i]->getRating() >= _ratingLow && foodServices[i]->getRating() <= _ratingHigh) {
+            if (foodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ------------>" << endl;
+            }
             foodServices[i]->showFoodService();
             find = true;
         }
@@ -329,6 +363,15 @@ void FoodService::sortByRating() const
     if (foodServices.empty()) cout << "There are no establishments to sort them out!" << endl;
     else if (foodServices.size() == 1) {
         cout << "There's only one available establishment: " << endl;
+        if (foodServices[0]->type() == "CAFE") {
+            cout << "--------------- " << "#" << 1 << " " << foodServices[0]->type() << " ---------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "CANTEEN") {
+            cout << "-------------- " << "#" << 1 << " " << foodServices[0]->type() << " -------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "RESTARAUNT") {
+            cout << "------------- " << "#" << 1 << " " << foodServices[0]->type() << " ------------>" << endl;
+        }
         foodServices[0]->showFoodService();
         return;
     }
@@ -340,6 +383,15 @@ void FoodService::sortByRating() const
             return a->getRating() > b->getRating();
             });
         for (int i = 0; i < tmpFoodServices.size(); i++) {
+            if (tmpFoodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ------------>" << endl;
+            }
             tmpFoodServices[i]->showFoodService();
         }
         tmpFoodServices.clear();
@@ -352,6 +404,15 @@ void FoodService::sortByOpeningTime() const
     if (foodServices.empty()) cout << "There are no establishments to sort them out!" << endl;
     else if (foodServices.size() == 1) {
         cout << "There's only one available establishment: " << endl;
+        if (foodServices[0]->type() == "CAFE") {
+            cout << "--------------- " << "#" << 1 << " " << foodServices[0]->type() << " ---------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "CANTEEN") {
+            cout << "-------------- " << "#" << 1 << " " << foodServices[0]->type() << " -------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "RESTARAUNT") {
+            cout << "------------- " << "#" << 1 << " " << foodServices[0]->type() << " ------------>" << endl;
+        }
         foodServices[0]->showFoodService();
         return;
     }
@@ -363,6 +424,15 @@ void FoodService::sortByOpeningTime() const
             return a->getOpeningTime() < b->getOpeningTime();
             });
         for (int i = 0; i < tmpFoodServices.size(); i++) {
+            if (tmpFoodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ------------>" << endl;
+            }
             tmpFoodServices[i]->showFoodService();
         }
         tmpFoodServices.clear();
@@ -375,6 +445,15 @@ void FoodService::sortByClosingTime() const
     if (foodServices.empty()) cout << "There are no establishments to sort them out!" << endl;
     else if (foodServices.size() == 1) {
         cout << "There's only one available establishment: " << endl;
+        if (foodServices[0]->type() == "CAFE") {
+            cout << "--------------- " << "#" << 1 << " " << foodServices[0]->type() << " ---------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "CANTEEN") {
+            cout << "-------------- " << "#" << 1 << " " << foodServices[0]->type() << " -------------->" << endl;
+        }
+        else if (foodServices[0]->type() == "RESTARAUNT") {
+            cout << "------------- " << "#" << 1 << " " << foodServices[0]->type() << " ------------>" << endl;
+        }
         foodServices[0]->showFoodService();
         return;
     }
@@ -386,6 +465,15 @@ void FoodService::sortByClosingTime() const
             return a->getClosingTime() > b->getClosingTime();
             });
         for (int i = 0; i < tmpFoodServices.size(); i++) {
+            if (tmpFoodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (tmpFoodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << tmpFoodServices[i]->type() << " ------------>" << endl;
+            }
             tmpFoodServices[i]->showFoodService();
         }
         tmpFoodServices.clear();
@@ -402,6 +490,15 @@ void FoodService::showFoodServices() const
         cout << "Average rating: " << calculateAverageRating() << endl;
         cout << "All " << getTotalFoodCount() << " establishments: " << endl;
         for (int i = 0; i < foodServices.size(); i++) {
+            if (foodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ------------>" << endl;
+            }
             foodServices[i]->showFoodService();
         }
     }

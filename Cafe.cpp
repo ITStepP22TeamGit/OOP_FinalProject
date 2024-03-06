@@ -63,7 +63,7 @@ bool Cafe::getPetFriendly() const
 
 void Cafe::showFoodService() const
 {
-    cout << "----------------- " << type() << " ----------------->" << endl;
+    //cout << "----------------- " << type() << " ----------------->" << endl;
     cout << "|   Name: " << name << endl;
     cout << "|   Rating: " << rating << " / 10" << endl;
     if (freeWifi) cout << "|   Free Wi-Fi" << endl;

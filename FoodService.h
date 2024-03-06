@@ -21,9 +21,10 @@ public:
 	//Деструктор
 	~FoodService();
 
-	//сеттер и геттер
+	//сеттер и геттеры
 	void setName(string _name);
 	string getName() const;
+	int getFoodServicesSize() const;
 
 	//добавление и удаление заведений с перегрузкой методов
 	void addFoodService(Food* obj);

@@ -48,7 +48,7 @@ bool Canteen::askClientBanquet() const
 
 void Canteen::showFoodService() const
 {
-    cout << "---------------- " << type() << " --------------->" << endl;
+    //cout << "---------------- " << type() << " --------------->" << endl;
     cout << "|   Name: " << name << endl;
     cout << "|   Rating: " << rating << " / 10" << endl;
     if (banquet) cout << "|   A banquet can be held" << endl;
