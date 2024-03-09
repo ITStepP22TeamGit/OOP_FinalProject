@@ -17,8 +17,9 @@ protected:
 
 public:
 	//Contructors,Destructors
-	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; }
-	Hotel(string adress, string name, int hotelX, int hotelY, Map& map) { updateId(); setCoords(hotelX, hotelY); addHotel(map); setName(name); } //loadMainInfo("data/Hotel/test.txt");
+	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; this->hotelX = -1; this->hotelY = -1; this->hotel_id = -1; }
+	Hotel(string adress, string name, int hotelX, int hotelY, Map& map)
+		{ updateId(); setCoords(hotelX, hotelY); addHotel(map); setName(name); setAdress(adress); } //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -28,8 +29,8 @@ public:
 	}
 	
 	//Setters
-	string setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
-	string setName(string name) { (name.length()>2) ? this->name = name : this->name = "unknown"; }
+	void setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
+	void setName(string name) { (name.length()>2) ? this->name = name : this->name = "unknown"; }
 	void setCoords(int hotelX, int hotelY) {
 		this->hotelX = hotelX;
 		this->hotelY = hotelY;
@@ -792,63 +793,77 @@ public:
 				if (r_arr[i]->type() == "Low Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "Small Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "Meduim Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "Premium Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "High Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "VIP Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "Lux Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave()) + "|" + to_string(r_arr[i]->getJakussi());
 					file << out_tmp;
+					file << endl;
 				}
 				else if (r_arr[i]->type() == "Presidential Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony()) + "|" + to_string(r_arr[i]->getBodyNeeds()) + "|" + to_string(r_arr[i]->getKitchen()) + "|" + to_string(r_arr[i]->getGames()) + "|" + to_string(r_arr[i]->getMovieTV()) + "|" + to_string(r_arr[i]->getSave()) + "|" + to_string(r_arr[i]->getJakussi()) + "|" + to_string(r_arr[i]->getHeliAccsess());
 					file << out_tmp;
+					file << endl;
 				}
 			}
 		}
 	}
 	//EDIT
-	void loadInfo(ifstream& file, Map& map) {
+	void loadInfo(ifstream& file) {
 
 		char delimiter = '|';
 		string line;
 		while (getline(file, line)) {
 			//cout << line << endl;
 			if (line.find("#Hotel#") != string::npos) {
-				vector<string> tokens;
-				stringstream ss(line);
-				string token;
-				while (getline(ss, token, delimiter)) {
-					tokens.push_back(token);
+				while (getline(file,line)){
+					vector<string> tokens;
+					stringstream ss(line);
+					string token;
+					while (getline(ss, token, delimiter)) {
+						tokens.push_back(token);
+					}
+					tokens[0] = this->name;
+					tokens[1] = this->adress;
+					this->hotel_id = stoi(tokens[2], nullptr, 10);
+					this->hotelX = stoi(tokens[3], nullptr, 10);
+					this->hotelY = stoi(tokens[4], nullptr, 10);
+					setName(tokens[0]);
+					setAdress(tokens[1]);
+					setCoords(stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10));
+					return;
 				}
-				tokens[0] = this->name;
-				tokens[1] = this->adress;
-				this->hotel_id = stoi(tokens[2], nullptr, 10);
-				this->hotelX = stoi(tokens[3], nullptr, 10);
-				this->hotelY = stoi(tokens[4], nullptr, 10);
 			}
 			else if ((line.find("#Rooms#") == string::npos) || (line.find("#") != string::npos && line.find("") == string::npos)){
 				return;
 			}
 		}
-		map.addPoint(hotelX, hotelY, name, 1);
+		//map.addPoint(hotelX, hotelY, name, 1);
 
 		//string line;
 		//bool uploading;
@@ -881,7 +896,7 @@ public:
 		//file.close();
 	}
 
-	void saveInfo(ofstream& file, Map& map) {
+	void saveInfo(ofstream& file) {
 		//ofstream file(fil);
 		file << "#Hotel#\n";
 		string tmpStr;

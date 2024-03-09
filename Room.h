@@ -35,9 +35,12 @@ protected:
 public:
 	//Contructors, Destructors
 	Room() { oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); haveBodyNeeds = false; rooms = 0; days = 0; updateId(); }
-	Room(int rooms, bool haveBalcony, bool haveBodyNeeds = false, bool haveKitchen = false, bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false)
-	{
-		updateId(); setRooms(rooms); setBalcony(haveBalcony);
+	Room(int rooms, bool haveBalcony, bool haveBodyNeeds = false, bool haveKitchen = false, 
+		bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false){
+		updateId(); 
+		setRooms(rooms); setBalcony(haveBalcony); setBodyNeeds(haveBodyNeeds);
+		setKitchen(haveKitchen); setJakussi(haveJakussi); setMovieTV(haveMovieTV);
+		setGames(haveGames); setSave(haveSafe); setHeliAccsess(haveHeliAccsess);
 	}
 	~Room() {}
 
@@ -51,15 +54,15 @@ public:
 	void setOqqupie(int days, string oqqupierName = "", string oqqupierPhone = "", Date infiltration_d = Date()) {
 		this->oqqupierName = oqqupierName; this->oqqupierPhone = oqqupierPhone; this->infiltrationD = infiltration_d; this->days = days; setOqqupied();
 	}
-	void setRooms(int rooms) { (rooms > 0 && rooms < 10) ? this->rooms = rooms : this->rooms = 2; }
-	void setBalcony(bool haveBalcony) { (haveBalcony == true) ? this->haveBalcony = true : this->haveBalcony = false; }
-	void setBodyNeeds(bool haveBodyNeeds) { (haveBodyNeeds == true) ? this->haveBodyNeeds = true : this->haveBodyNeeds = false; }
-	void setKitchen(bool haveKitchen) { (haveKitchen == true) ? this->haveKitchen = true : this->haveKitchen = false; }
-	void setJakussi(bool haveJakussi) { (haveJakussi == true) ? this->haveJakussi = true : this->haveJakussi = false; }
-	void setMovieTV(bool haveMovieTV) { (haveMovieTV == true) ? this->haveMovieTV = true : this->haveMovieTV = false; }
-	void setGames(bool haveGames) { (haveGames == true) ? this->haveGames = true : this->haveGames = false; }
-	void setSave(bool haveSafe) { (haveSafe == true) ? this->haveSafe = true : this->haveSafe = false; }
-	void setHeliAccsess(bool haveHeliAccsess) { (haveHeliAccsess == true) ? this->haveHeliAccsess = true : this->haveHeliAccsess = false; }
+	void setRooms(int rooms) { (rooms > 0 && rooms <= 10) ? this->rooms = rooms : this->rooms = 2; }
+	void setBalcony(bool haveBalcony) { (haveBalcony == true || haveBalcony == 1) ? this->haveBalcony = true : this->haveBalcony = false; }
+	void setBodyNeeds(bool haveBodyNeeds) { (haveBodyNeeds == true || haveBodyNeeds == 1) ? this->haveBodyNeeds = true : this->haveBodyNeeds = false; }
+	void setKitchen(bool haveKitchen) { (haveKitchen == true || haveKitchen == 1) ? this->haveKitchen = true : this->haveKitchen = false; }
+	void setJakussi(bool haveJakussi) { (haveJakussi == true || haveJakussi == 1) ? this->haveJakussi = true : this->haveJakussi = false; }
+	void setMovieTV(bool haveMovieTV) { (haveMovieTV == true || haveMovieTV == 1) ? this->haveMovieTV = true : this->haveMovieTV = false; }
+	void setGames(bool haveGames) { (haveGames == true || haveGames == 1) ? this->haveGames = true : this->haveGames = false; }
+	void setSave(bool haveSafe) { (haveSafe == true || haveSafe == 1) ? this->haveSafe = true : this->haveSafe = false; }
+	void setHeliAccsess(bool haveHeliAccsess) { (haveHeliAccsess == true || haveHeliAccsess == 1) ? this->haveHeliAccsess = true : this->haveHeliAccsess = false; }
 
 	//Getters
 	int showId() const { return id; }

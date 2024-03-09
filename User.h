@@ -82,6 +82,10 @@ public:
 		TArr.addTour(obj);
 	}
 
+	void addFoodService(Food* obj) {
+		fArr.addFoodService(obj);
+	}
+
 	void showUser() {
 		cout << "Login: " << login << endl;
 		cout << "Name: " << userName << endl;

@@ -2280,7 +2280,7 @@ int TourArr::showAllForAdminOrder()
 void TourArr::saveToFile(string fileName)
 {
 	try {
-		ofstream file(fileName + ".txt");
+		ofstream file(fileName+"tourArray.txt");
 		if (file.is_open()) {
 			string str;
 			for (int i = 0; i < arr.size(); i++)
@@ -2335,7 +2335,7 @@ void TourArr::loadFromFile(string fileName)
 			}
 			arr.clear();
 		}
-		ifstream file(fileName + ".txt");
+		ifstream file(fileName);
 		if (file.is_open()) {
 			string str;
 			while (getline(file, str))

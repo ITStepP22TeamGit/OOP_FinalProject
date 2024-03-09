@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <string>
 #include "Hotel.h"
@@ -29,32 +29,64 @@ public:
 
 	void loadAllInfo(Map& map) {
 
+		//system("cls");
+		//cout << "//";
+		//for (int i = 0; i < 100; i++) {
+		//	cout << '=';
+		//}
+		//cout << "\\\\\n";
+		//cout << "||";
+		////cool loading screen
+		//for (int i = 0; i < 100; i++){
+		//	cout << 'Р«';
+		//	
+		//	Sleep(50);
+		//}
+		//cout << "||\n";
+		//cout << "\\\\";
+		//for (int i = 0; i < 100; i++) {
+		//	cout << '=';
+		//}
+		//cout << "//\n";
+		tour_arr.loadFromFile("data/TourArray.txt");
+		fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
+
+		//Hotels
+		ifstream file("data/hotelData.txt");
+		string tmpStr;
+		getline(file, tmpStr);
+		int size = stoi(tmpStr, nullptr, 10);
+		cout << size;
+		
 		system("cls");
-		cout << "//";
-		for (int i = 0; i < 100; i++) {
-			cout << '=';
+	}
+
+	void saveAllInfo() {
+		//Global Directory URL
+		string fileDir = "data/";
+
+		//Hotels
+		ofstream file("data/hotelData.txt");
+		file << h_arr.size();
+		file << endl;
+		for (int i = 0; i < h_arr.size(); i++){
+			h_arr[i].saveInfo(file);
+			h_arr[i].saveMainInfo(file);
 		}
-		cout << "\\\\\n";
-		cout << "||";
-		//cool loading screen
-		for (int i = 0; i < 100; i++){
-			cout << 'Ы';
-			
-			Sleep(50);
-		}
-		cout << "||\n";
-		cout << "\\\\";
-		for (int i = 0; i < 100; i++) {
-			cout << '=';
-		}
-		cout << "//\n";
-		system("cls");
+		file << "#End#";
+
 	}
 
 	void displayMain() {
 		int chooseTmp;
 		string s_choose;
-		//сделать запрос гость или пользователь
+
+		users.push_back(User());
+		users[0].setLogin("admin");
+		users[0].setPassword("admin");
+		users[0].setUserPhone("12344667890");
+		users[0].setUserName("admin");
+
 		do
 		{
 			if (loggedIn == -1) {
@@ -78,11 +110,12 @@ public:
 					break;
 				case 1:
 					if (h_arr.size() == 0) {
-						cout << "There are no hotels, at lest for now.\n";
+						cout << "There are no hotels, at least for now.\n";
 					}
 					else {
 						for (int i = 0; i < h_arr.size(); i++) {
-							cout << i + 1 << h_arr[i].getAdress() << endl;
+							cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
+							cout << i + 1 <<". "+h_arr[i].getName()+" on "+ h_arr[i].getAdress() << endl;
 							cout << "==============================================\n";
 							h_arr[i].showAval();
 							cout << "==============================================\n";
@@ -103,10 +136,15 @@ public:
 					fServ.showFoodServices();
 					break;
 				case 4:
-					map.show();
+					try
+					{
+						map.show();
+					}
+					catch (MapException* err) { cout<<err->message(); delete err; }
+					
 					break;
 				case 5: {
-					verification();
+					//verification();
 					cout << "Input categories on which you wish to make an order: \n";
 					cout << "1. Hotel\n";
 					cout << "2. Retoraunt\n";
@@ -135,12 +173,15 @@ public:
 									break;
 								}
 							}
-							// 1           2 3
+							// 1 2 3
 						}
 					} while (t_one == 0 && t_two == 0 && t_tree == 0);
 					makeOrder(t_one, t_two, t_tree);
 					break;
 				}
+				case 6:
+					verification();
+					break;
 				default:
 					break;
 				}
@@ -359,8 +400,11 @@ public:
 			users[loggedIn].addTour(tour_arr.returnTour(index));
 		}
 		if (food == 1) {
-			//int index; //= showTourForClient();
-			//users[loggedIn].addTour(tour_arr.returnTour(index));
+			int index = fServ.editForClient();
+			if (index == -1){
+				return;
+			}
+			users[loggedIn].addFoodService(fServ.returnFoodService(index));
 		}
 		if (hotel == 1 && tour == 1 && food == 1) {
 			price *= 0.7;

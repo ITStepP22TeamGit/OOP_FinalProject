@@ -69,4 +69,8 @@ public:
 
 	void loadFoodServicesFromFile(const string& filename, Map& map);
 	void loadFoodServicesFromFile(ifstream& file);
+
+	Food* returnFoodService(int index) {
+		return foodServices[index];
+	}
 };

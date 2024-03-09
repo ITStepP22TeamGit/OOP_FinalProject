@@ -416,7 +416,7 @@ void FoodService::editForTour()
                 } while ((tmpInt != 0) && !(tmpInt >= 1 && tmpInt <= foodServices.size()));
                 if (tmpInt != 0) {
                     try {
-                        foodServices[tmpInt - 1]->edit(map);
+                        //foodServices[tmpInt - 1]->edit(map);
                         cout << "The establishment has been successfully edited!" << endl;
                     }
                     catch (FoodException* err) {
@@ -1112,7 +1112,7 @@ float FoodService::askClient() const
 
 void FoodService::saveFoodServicesToFile(const string& filename) const
 {
-    ofstream file(filename);
+    ofstream file(filename + "foodData.txt");
     if (!file.is_open()) cout << "File open error!" << endl;
     else {
         file << foodServices.size();
