@@ -692,7 +692,7 @@ public:
 		char delimiter = '|';
 		string line;
 		while (getline(file, line)) {
-			//cout << line << endl;
+			cout << line << endl;
 			if (line.find("#Rooms#") != string::npos) {
 				vector<string> tokens;
 				stringstream ss(line);
@@ -779,8 +779,6 @@ public:
 				cout << "File is empty or it is unable to find correct info, please check info for fixing problem.\n";
 			}
 		}
-		
-		file.close();
 	}
 	//EDIT
 	void saveMainInfo(ofstream& file) {
@@ -789,7 +787,7 @@ public:
 			file.close();
 		}
 		else {
-			//file << "#Init#\n";
+			file << "#Rooms#\n";
 			for (int i = 0; i < r_arr.size(); i++){
 				if (r_arr[i]->type() == "Low Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony());
@@ -824,47 +822,72 @@ public:
 					file << out_tmp;
 				}
 			}
-			file.close();
 		}
 	}
 	//EDIT
 	void loadInfo(ifstream& file, Map& map) {
+
+		char delimiter = '|';
 		string line;
-		bool uploading;
 		while (getline(file, line)) {
-			if (line.find("#Init#") == string::npos) {
-				continue;
-			}
-			else if (line.find("#Init#") != string::npos) {
-				uploading = true;
-				continue;
-			}
-			if (line.find("##") != string::npos && uploading) {
-				istringstream iss(line);
-				string t_name;
-				float t_price;
-				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
-					continue;
+			//cout << line << endl;
+			if (line.find("#Hotel#") != string::npos) {
+				vector<string> tokens;
+				stringstream ss(line);
+				string token;
+				while (getline(ss, token, delimiter)) {
+					tokens.push_back(token);
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
-				//extra.push_back(t_name);
-				//extra_price.push_back(t_price);
+				tokens[0] = this->name;
+				tokens[1] = this->adress;
+				this->hotel_id = stoi(tokens[2], nullptr, 10);
+				this->hotelX = stoi(tokens[3], nullptr, 10);
+				this->hotelY = stoi(tokens[4], nullptr, 10);
 			}
-			else if (line.find("#") != string::npos && line.find("") == string::npos) {
-				uploading = false;
-				break;
+			else if ((line.find("#Rooms#") == string::npos) || (line.find("#") != string::npos && line.find("") == string::npos)){
+				return;
 			}
 		}
-		loadMainInfo(file);
-		file.close();
+		map.addPoint(hotelX, hotelY, name, 1);
+
+		//string line;
+		//bool uploading;
+		//while (getline(file, line)) {
+		//	if (line.find("#Hotel#") == string::npos) {
+		//		continue;
+		//	}
+		//	else if (line.find("#Hotel#") != string::npos) {
+		//		uploading = true;
+		//		continue;
+		//	}
+		//	if (line.find("##") != string::npos && uploading) {
+		//		istringstream iss(line);
+		//		string t_name;
+		//		float t_price;
+		//		if (!(iss >> t_name >> t_price)) {
+		//			cerr << "Error parsing line: " << line << endl;
+		//			continue;
+		//		}
+		//		cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+		//		//extra.push_back(t_name);
+		//		//extra_price.push_back(t_price);
+		//	}
+		//	else if (line.find("#") != string::npos && line.find("") == string::npos) {
+		//		uploading = false;
+		//		break;
+		//	}
+		//}
+		//loadMainInfo(file);
+		//file.close();
 	}
 
 	void saveInfo(ofstream& file, Map& map) {
 		//ofstream file(fil);
+		file << "#Hotel#\n";
 		string tmpStr;
 		tmpStr = name + "|" + adress + "|" + to_string(hotel_id) + "|" + to_string(hotelX) + "|" + to_string(hotelY);
 		file << tmpStr;
+		file << endl;
 	}
 
 };
