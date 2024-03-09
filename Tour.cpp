@@ -457,7 +457,7 @@ void Tour::addClientsRating(int _rating)
 
 void Tour::TourShow() const
 {
-    cout << " ";
+    /*cout << " ";
     for (int i = 0; i < (ceil(35 - TourType().size())) / 2 - 1; i++)
     {
         cout << "-";
@@ -467,7 +467,7 @@ void Tour::TourShow() const
     {
         cout << "-";
     }
-    cout << " >\n|\n";
+    cout << " >\n|\n";*/
     cout << "|   Name: " << name << endl;
     cout << "|   Address: " << address << endl;
     cout << "|   Guide name: " << guide << endl;
@@ -506,22 +506,11 @@ void Tour::TourShow() const
         cout << "not available,\n|   (less than the required number of people)\n";
     }
     //cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
-    cout << "|\n ----------------------------------------<\n";
+    //cout << "|\n ----------------------------------------<\n";
 }
 
 void Tour::TourShowClients() const
 {
-    cout << " ";
-    for (int i = 0; i < (ceil(38 - TourType().size())) / 2 - 1; i++)
-    {
-        cout << "~";
-    }
-    cout << " " << TourType() << " ";
-    for (int i = 0; i < (floor(38 - TourType().size())) / 2; i++)
-    {
-        cout << "~";
-    }
-    cout << ">\n|\n";
     cout << "|   Name: " << name << endl;
     cout << "|   Address: " << address << endl;
     cout << "|   Guide name: " << guide << endl;
@@ -587,7 +576,6 @@ void Tour::TourShowClients() const
     else {
         cout << "not available\n|   (less than the required number of people)\n";
     }
-    cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
 }
 
 void Tour::TourEdit()

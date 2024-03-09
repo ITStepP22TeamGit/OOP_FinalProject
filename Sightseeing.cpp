@@ -86,17 +86,6 @@ Sightseeing::~Sightseeing()
 
 void Sightseeing::TourShow() const
 {
-    cout << " ";
-    for (int i = 0; i < (ceil(38 - TourType().size())) / 2 - 1; i++)
-    {
-        cout << "~";
-    }
-    cout << " " << TourType() << " ";
-    for (int i = 0; i < (floor(38 - TourType().size())) / 2; i++)
-    {
-        cout << "~";
-    }
-    cout << " >\n|\n";
     cout << "|   Name: " << name << endl;
     cout << "|   Address: " << address << endl;
     cout << "|   Sightseeing transport: " << sightseeingTransport << endl;
@@ -135,22 +124,10 @@ void Sightseeing::TourShow() const
     else {
         cout << "not available,\n|   (less than the required number of people)\n";
     }
-    cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
 }
 
 void Sightseeing::TourShowClients() const
 {
-    cout << " ";
-    for (int i = 0; i < (ceil(38 - TourType().size())) / 2 - 1; i++)
-    {
-        cout << "~";
-    }
-    cout << " " << TourType() << " ";
-    for (int i = 0; i < (floor(38 - TourType().size())) / 2; i++)
-    {
-        cout << "~";
-    }
-    cout << ">\n|\n";
     cout << "|   Name: " << name << endl;
     cout << "|   Address: " << address << endl;
     cout << "|   Sightseeing transport: " << sightseeingTransport << endl;
@@ -217,7 +194,6 @@ void Sightseeing::TourShowClients() const
     else {
         cout << "not available\n|   (less than the required number of people)\n";
     }
-    cout << "|\n ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ <\n";
 }
 
 void Sightseeing::TourEdit()

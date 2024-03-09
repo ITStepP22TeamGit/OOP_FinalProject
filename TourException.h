@@ -168,6 +168,7 @@ class TourArrayException : public TourException
 {
 protected:
 	int choice;
+	Date t = Date();
 public:
 	TourArrayException() {
 		choice = 0;
@@ -195,6 +196,15 @@ public:
 			break;
 		case 5:
 			cout << "|   Too small string!\n";
+			break;
+		case 6:
+			cout << "|   The input date can only be after the current one (" + to_string(t.getDay() / 10) + to_string(t.getDay() % 10) + "." + to_string(t.getMonth() / 10) + to_string(t.getMonth() % 10) + "." + to_string(t.getYear() / 10) + to_string(t.getYear() % 10) + ")\n";
+			break;
+		case 7:
+			cout << "|   Too small price!\n";
+			break;
+		case 8:
+			cout << "|   Too small number!\n";
 			break;
 		default:
 			cout << "|   Input error!\n";

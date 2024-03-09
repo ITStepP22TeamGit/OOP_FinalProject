@@ -26,9 +26,10 @@ public:
 	void delTour(Tour* obj);
 
 	void showTourArr()const;
+	void showTourArrAny(vector<Tour*> arrT) const;
 	void showTourArrClients()const;
 	void askClient(int index);
-	float calcAllSumm();
+	float calcAllSumm() const;
 	void editTourArray();
 
 	//sort
@@ -37,23 +38,47 @@ public:
 	void showSortTourArrayByPrice(bool order)const;
 	void showSortTourArrayByGuide(bool order)const;
 	void showSortTourArrayByNumber(bool order)const;
+	void showSortTourArrayByType(bool order)const;
+
+	//sort to order
+	int showSortTourArrayByDateOrder(bool order)const;
+	int showSortTourArrayByTimeOrder(bool order)const;
+	int showSortTourArrayByPriceOrder(bool order)const;
+	int showSortTourArrayByGuideOrder(bool order)const;
+	int showSortTourArrayByNumberOrder(bool order)const;
+	int showSortTourArrayByTypeOrder(bool order)const;
 
 	//find
-	void findTourByName(string _name);
-	void findTourByAddress(string _address);
-	void findTourByEquipment(string _equipment);
-	void findTourByDate(Date _date);
-	void findTourByTime(Time_ _time);
-	void findTourByPrice(float minPrice, float maxPrice);
-	void findTourByGuide(string _guide);
-	void findTourByNumber(int _minNumber, int _maxNumber);
+	void findTourByName(string _name) const;
+	void findTourByAddress(string _address) const;
+	void findTourByEquipment(string _equipment) const;
+	void findTourByDate(Date _date) const;
+	void findTourByTime(Time_ _time) const;
+	void findTourByPrice(float minPrice, float maxPrice) const;
+	void findTourByGuide(string _guide) const;
+	void findTourByNumber(int _minNumber, int _maxNumber) const;
+	void findTourByType(string _type) const;
 
-	void showAllForClient();
-	int showAllForClientOrder();
+	//find to order
+	int findTourByNameOrder(string _name) const;
+	int findTourByAddressOrder(string _address) const;
+	int findTourByEquipmentOrder(string _equipment) const;
+	int findTourByDateOrder(Date _date) const;
+	int findTourByTimeOrder(Time_ _time) const;
+	int findTourByPriceOrder(float minPrice, float maxPrice) const;
+	int findTourByGuideOrder(string _guide) const;
+	int findTourByNumberOrder(int _minNumber, int _maxNumber) const;
+	int findTourByTypeOrder(string _type) const;
+
+	void showAllForClient() const;
+	int showAllForClientOrder() const;
 	void showAllForAdmin();
+	int showAllForAdminOrder();
 
 	void saveToFile(string fileName);
+	void saveToFile(ofstream& file);
 	void loadFromFile(string fileName);
+	void loadFromFile(ifstream& file);
 
 	Tour* returnTour(int index);
 };
