@@ -38,16 +38,26 @@ public:
 
 	//метод для редактирования
 	void edit(Map& map);
+	void editForTour();
+	int editForClient();
 
 	//методы для поиска
-	void searchByName(string _name) const;
-	void searchByAdress(string _adress) const;
-	void searchByRating(int _ratingLow, int _ratingHigh) const;
+	void searchByName(string _name, bool flag) const;
+	int searchByName(string _name);
+	void searchByAdress(string _adress, bool flag) const;
+	int searchByAdress(string _adress);
+	void searchByRating(int _ratingLow, int _ratingHigh, bool flag) const;
+	int searchByRating(int _ratingLow, int _ratingHigh);
+	void searchByType(string _type, bool flag) const;
+	int searchByType(string _type);
 
 	//методы для сортировки
-	void sortByRating() const;
-	void sortByOpeningTime() const;
-	void sortByClosingTime() const;
+	void sortByRating(bool flag) const;
+	int sortByRating();
+	void sortByOpeningTime(bool flag) const;
+	int sortByOpeningTime();
+	void sortByClosingTime(bool flag) const;
+	int sortByClosingTime();
 
 	//вывод всех заведений
 	void showFoodServices() const;
@@ -55,5 +65,8 @@ public:
 	float askClient() const;
 
 	void saveFoodServicesToFile(const string& filename) const;
+	void saveFoodServicesToFile(ofstream& file) const;
+
 	void loadFoodServicesFromFile(const string& filename, Map& map);
+	void loadFoodServicesFromFile(ifstream& file);
 };
