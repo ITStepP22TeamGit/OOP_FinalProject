@@ -1,23 +1,24 @@
-#pragma once
+﻿#pragma once
 #include "Room.h"
 #include "Map.h"
 #include <fstream>
 class Hotel
 {
 private:
-	static int h_counter;
+	static int h_counter;//counter to hotels id; honestly idk why ¯\_(ツ)_/¯
 	void updateId() { hotel_id = ++h_counter; }
 protected:
-	int hotel_id;
-	int hotelX;
+	int hotel_id;//global id maybe to map
+	int hotelX;//coords
 	int hotelY;
-	vector<Room*> r_arr;
-	string adress;
-	string name;
+	vector<Room*> r_arr;//array of rooms
+	string adress;//adress
+	string name;//name of hotel
 
 public:
+	//Contructors,Destructors
 	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; }
-	Hotel(string adress, string name, int hotelX, int hotelY) { updateId(); setCoords(hotelX,hotelY); setName(name); } //loadMainInfo("data/Hotel/test.txt");
+	Hotel(string adress, string name, int hotelX, int hotelY, Map& map) { updateId(); setCoords(hotelX, hotelY); addHotel(map); setName(name); } //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -26,6 +27,7 @@ public:
 		r_arr.clear();
 	}
 	
+	//Setters
 	string setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
 	string setName(string name) { (name.length()>2) ? this->name = name : this->name = "unknown"; }
 	void setCoords(int hotelX, int hotelY) {
@@ -36,6 +38,7 @@ public:
 	string getName()const { return name; }
 	int getHotelId()const { return hotel_id; }
 
+	//Manipulators
 	void addRoom() { 
 		int choose;
 		cout << "=================================================\n";
@@ -243,9 +246,7 @@ public:
 			
 		} while (choose != 0);
 	}
-
 	void addRoom(Room* obj) { r_arr.push_back(obj); }
-
 	void delRoom() {
 		int choose;
 		do {
@@ -269,7 +270,6 @@ public:
 			
 		} while (choose != 0);
 	}
-
 	void delRoom(int id) { 
 		if (id != 0) {
 			for (int i = 0; i < r_arr.size(); i++) {
@@ -285,7 +285,6 @@ public:
 		}
 		else { cout << "\nYou have entered wrong number.\n"; }
 	}
-
 	void editRoom() {
 		int choose;
 		cout << "=================================================\n";
@@ -470,7 +469,6 @@ public:
 			}
 		} while (choose != 0);
 	}
-	
 	void editRoom(int r_id) {
 		int rooms;
 		bool bul;
@@ -642,6 +640,13 @@ public:
 		}
 	}
 
+	void addHotel(Map& map) {
+		
+	}
+	void delHotel(Map& map) {}
+	void editHotel(Map& map) {}
+
+	//Accessors
 	void addOqqupier(int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		for (int i = 0; i < r_arr.size(); i++){
 			if (i == rId){
@@ -658,7 +663,9 @@ public:
 		}
 		cout << "Unable to make order to this room, hope you luck next time!\n";
 	}
+	float calcSumm(int rId) { return r_arr[rId]->calcSumm(); }
 
+	//Displayers
 	void dispAllRooms()const {
 		if (r_arr.size()==0){
 			cout << "How already created hotel can be without rooms???\n";
@@ -670,7 +677,6 @@ public:
 			}
 		}
 	}
-
 	void showAval()const {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -681,14 +687,13 @@ public:
 		}
 	}
 
-	float calcSumm(int rId) { return r_arr[rId]->calcSumm(); }
-
+	//File manipulation
 	void loadMainInfo(ifstream& file) {
 		char delimiter = '|';
 		string line;
 		while (getline(file, line)) {
 			//cout << line << endl;
-			if (line.find("#Init#") != string::npos) {
+			if (line.find("#Rooms#") != string::npos) {
 				vector<string> tokens;
 				stringstream ss(line);
 				string token;
@@ -778,19 +783,13 @@ public:
 		file.close();
 	}
 	//EDIT
-
-	void saveMainInfo(string output) {
-		ofstream file(output);
+	void saveMainInfo(ofstream& file) {
 		string out_tmp;
-		if (!file.is_open()) {
-			cerr << "Failed to create file: " << output << endl;
-			return;
-		}
 		if (r_arr.size() == 0){
 			file.close();
 		}
 		else {
-			file << "#Init#\n";
+			//file << "#Init#\n";
 			for (int i = 0; i < r_arr.size(); i++){
 				if (r_arr[i]->type() == "Low Cost Room") {
 					out_tmp = to_string(r_arr[i]->getRooms()) + "|" + to_string(r_arr[i]->getBalcony());
@@ -829,4 +828,43 @@ public:
 		}
 	}
 	//EDIT
+	void loadInfo(ifstream& file, Map& map) {
+		string line;
+		bool uploading;
+		while (getline(file, line)) {
+			if (line.find("#Init#") == string::npos) {
+				continue;
+			}
+			else if (line.find("#Init#") != string::npos) {
+				uploading = true;
+				continue;
+			}
+			if (line.find("##") != string::npos && uploading) {
+				istringstream iss(line);
+				string t_name;
+				float t_price;
+				if (!(iss >> t_name >> t_price)) {
+					cerr << "Error parsing line: " << line << endl;
+					continue;
+				}
+				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				//extra.push_back(t_name);
+				//extra_price.push_back(t_price);
+			}
+			else if (line.find("#") != string::npos && line.find("") == string::npos) {
+				uploading = false;
+				break;
+			}
+		}
+		loadMainInfo(file);
+		file.close();
+	}
+
+	void saveInfo(ofstream& file, Map& map) {
+		//ofstream file(fil);
+		string tmpStr;
+		tmpStr = name + "|" + adress + "|" + to_string(hotel_id) + "|" + to_string(hotelX) + "|" + to_string(hotelY);
+		file << tmpStr;
+	}
+
 };

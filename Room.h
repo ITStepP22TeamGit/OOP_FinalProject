@@ -10,18 +10,18 @@ using namespace std;
 class Room
 {
 private:
-	static int r_counter;
+	static int r_counter;//counter for roomids
 	void updateId() { id = ++r_counter; }
 protected:
-	int id;
-	bool oqqupied;
-	int days;
-	string oqqupierName;
-	string oqqupierPhone;
-	int rooms;
-	float price;
+	int id;//rooms id
+	bool oqqupied;//is someone live there
+	int days;//for how long someone will live there
+	string oqqupierName;//liver name
+	string oqqupierPhone;//liver phone
+	int rooms;//amount of rooms in room
+	float price;//price of all
 
-	bool haveBalcony;
+	bool haveBalcony;//specials as standart
 	bool haveBodyNeeds;
 	bool haveKitchen;
 	bool haveJakussi;
@@ -30,9 +30,10 @@ protected:
 	bool haveSafe;
 	bool haveHeliAccsess;
 
-	Date infiltrationD;
+	Date infiltrationD;//when someone will live in room
 
 public:
+	//Contructors, Destructors
 	Room() { oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); haveBodyNeeds = false; rooms = 0; days = 0; updateId(); }
 	Room(int rooms, bool haveBalcony, bool haveBodyNeeds = false, bool haveKitchen = false, bool haveGames = false, bool haveMovieTV = false, bool haveSafe = false, bool haveJakussi = false, bool haveHeliAccsess = false)
 	{
@@ -40,12 +41,12 @@ public:
 	}
 	~Room() {}
 
+	//Setters
 	void freeRoom() {
 		if (getOqqupied() == true) {
 			oqqupierName = "unknown"; oqqupierPhone = "unknown"; infiltrationD = Date(01, 01, 1001); oqqupied = false;
 		}
 	}
-
 	void setOqqupied() { if (this->oqqupied == false) { this->oqqupied = true; } }
 	void setOqqupie(int days, string oqqupierName = "", string oqqupierPhone = "", Date infiltration_d = Date()) {
 		this->oqqupierName = oqqupierName; this->oqqupierPhone = oqqupierPhone; this->infiltrationD = infiltration_d; this->days = days; setOqqupied();
@@ -60,6 +61,7 @@ public:
 	void setSave(bool haveSafe) { (haveSafe == true) ? this->haveSafe = true : this->haveSafe = false; }
 	void setHeliAccsess(bool haveHeliAccsess) { (haveHeliAccsess == true) ? this->haveHeliAccsess = true : this->haveHeliAccsess = false; }
 
+	//Getters
 	int showId() const { return id; }
 	bool getOqqupied() const { return oqqupied; }
 	string getOqqupierName() const { return oqqupierName; }
@@ -75,7 +77,8 @@ public:
 	bool getGames() const { return haveGames; }
 	bool getSave() const { return haveSafe; }
 	bool getHeliAccsess() const { return haveHeliAccsess; }
-
+	
+	//Virtuals and diplayers
 	void DispId() const { cout << "ID: " << showId() << endl; }
 
 	virtual void showRoomInfo() const = 0;
@@ -151,7 +154,7 @@ public:
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
-			else if (line.find("#")!=string::npos&&line.find(type())==string::npos) {
+			else if (line.find("#") != string::npos && line.find(type()) == string::npos) {
 				uploading = false;
 				break;
 			}
@@ -193,8 +196,8 @@ public:
 		}
 		return price;
 	}
-
 };
+//end showRoomsInfo
 
 //+sanUzel
 class SRoom : public Room {

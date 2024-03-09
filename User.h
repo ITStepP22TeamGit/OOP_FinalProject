@@ -72,8 +72,9 @@ public:
 		file << userPhone << endl;
 		fArr.saveFoodServicesToFile("UserArr.txt");
 		TArr.saveToFile("UserArr.txt");
+		file << "#Init#\n";
 		for (int i = 0; i < HArr.size(); i++) {
-			HArr[i].saveMainInfo("UserArr.txt");
+			HArr[i].saveMainInfo(file);
 		}
 	}
 	

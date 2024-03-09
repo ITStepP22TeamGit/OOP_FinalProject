@@ -12,7 +12,7 @@ int Map::staticRestaurants = 0;
 int main()
 {
     TourAgency tourAgency("Tour Agency");
-    tourAgency.displayMain();
+    //tourAgency.displayMain();
     //TourAgency albania("Alb Escorts");
 
     //srand(time(0));

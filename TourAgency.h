@@ -6,6 +6,7 @@
 #include "FoodService.h"
 #include "UserException.h"
 #include "User.h"
+#include "Windows.h"
 using namespace std;
 class TourAgency
 {
@@ -20,13 +21,35 @@ protected:
 	vector<User> users;
 	float price;
 public:
-	TourAgency(string name) { setName(name); price = 0; /*full load as function*/ displayMain(); }
+	TourAgency(string name) { setName(name); price = 0; loadAllInfo(map); displayMain(); }
 	~TourAgency() {}
 
 	void setName(string _name) {}
 	string getName()const { return name; }
 
-	void loadAllInfo() {}
+	void loadAllInfo(Map& map) {
+
+		system("cls");
+		cout << "//";
+		for (int i = 0; i < 100; i++) {
+			cout << '=';
+		}
+		cout << "\\\\\n";
+		cout << "||";
+		//cool loading screen
+		for (int i = 0; i < 100; i++){
+			cout << 'Û';
+			
+			Sleep(50);
+		}
+		cout << "||\n";
+		cout << "\\\\";
+		for (int i = 0; i < 100; i++) {
+			cout << '=';
+		}
+		cout << "//\n";
+		system("cls");
+	}
 
 	void displayMain() {
 		int chooseTmp;
@@ -197,7 +220,6 @@ public:
 									break;
 								}
 							}
-							// 1           2 3
 						}
 					} while (t_one == 0 && t_two == 0 && t_tree == 0);
 					makeOrder(t_one, t_two, t_tree);
@@ -228,7 +250,7 @@ public:
 		}while (chooseTmp != 0);
 	}
 
-	//void compareUsersLogins
+	//void compareUsersLogins() {}
 
 	void verification() {
 		if (loggedIn == -1) {
