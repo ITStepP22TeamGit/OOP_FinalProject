@@ -86,6 +86,7 @@ public:
 		users[0].setPassword("admin");
 		users[0].setUserPhone("12344667890");
 		users[0].setUserName("admin");
+		loggedIn = 0;
 
 		do
 		{
@@ -133,7 +134,7 @@ public:
 					}
 					break;
 				case 3:
-					fServ.showFoodServices();
+					fServ.editForClient(true);
 					break;
 				case 4:
 					try
@@ -154,6 +155,7 @@ public:
 					do
 					{
 						cout << "Input your choice: ";
+						cin.ignore();
 						getline(cin, s_choose);
 						for (int i = 0; i < s_choose.length(); i++) {
 							if (s_choose[i] == '1' || s_choose[i] == '2' || s_choose[i] == '3') {
@@ -219,7 +221,7 @@ public:
 					break;
 				case 2:
 					try {
-						tour_arr.showTourArr();
+						tour_arr.showAllForClient();
 					}
 					catch (TourArrayException* err) {
 						err->message();
@@ -227,7 +229,7 @@ public:
 					}
 					break;
 				case 3:
-					fServ.showFoodServices();
+					fServ.editForClient(true);
 					break;
 				case 4:
 					map.show();
@@ -242,6 +244,7 @@ public:
 					do
 					{
 						cout << "Input your choice: ";
+						cin.ignore();
 						getline(cin, s_choose);
 						for (int i = 0; i < s_choose.length(); i++) {
 							if (s_choose[i] == '1' || s_choose[i] == '2' || s_choose[i] == '3') {

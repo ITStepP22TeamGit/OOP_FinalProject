@@ -147,6 +147,19 @@ void Time_::showTime() const
 {
     if (getFormat() == true)
     {
+        cout << hour / 10 << hour % 10 << ":" << minutes / 10 << minutes % 10 << ":" << seconds / 10 << seconds % 10 << endl;
+    }
+    else if (getFormat() == false)
+    {
+        cout << hour / 24 << hour % 12 << ":" << minutes / 10 << minutes % 10 << ":" << seconds / 10 << seconds % 10 << endl;
+    }
+    
+}
+
+void Time_::displayTime() const
+{
+    if (getFormat() == true)
+    {
         cout << "Current time: ";
         cout << hour / 10 << hour % 10 << ":" << minutes / 10 << minutes % 10 << ":" << seconds / 10 << seconds % 10 << endl;
     }
@@ -155,7 +168,6 @@ void Time_::showTime() const
         cout << "Current time: ";
         cout << hour / 24 << hour % 12 << ":" << minutes / 10 << minutes % 10 << ":" << seconds / 10 << seconds % 10 << endl;
     }
-    
 }
 
 bool Time_::operator==(const Time_& obj) const&

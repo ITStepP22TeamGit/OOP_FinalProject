@@ -30,6 +30,7 @@ public:
 	void tickTime(); //every tick add one second
 	void untickTime(); //every tick remove one second
 	void showTime()const; //show time by the format
+	void displayTime()const;
 
 	//--------- Comparison operators ---------
 	bool operator == (const Time_& obj)const&;

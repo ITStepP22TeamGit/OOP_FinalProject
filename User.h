@@ -29,6 +29,11 @@ public:
 		userPhone = "up";
 	}
 
+	~User() {
+		fArr.~FoodService();
+		TArr.~TourArr();
+	}
+
 	void setLogin(string _login) {
 		if (_login.empty()) {
 			throw new UserStringException();
@@ -79,9 +84,16 @@ public:
 	}
 	
 	void addTour(Tour* obj) {
+		//obj->TourType();
 		TArr.addTour(obj);
+		if (obj->TourType() == "Safari") {
+			//TArr.addTour(new Sightseeing(obj->getName(), obj->getAddress(), obj->getDescription(), obj->getDate(), obj->getTime(), obj->getRating(), obj->getPrice(), obj->getPhotosPrice(), obj->getGuide(), obj->getNumber(), obj->getMinNumber(), obj->getMaxNumber()));
+		}
 	}
-
+	/*if (obj->TourType() == "Safari") {
+			Safari obj1 = obj;
+			TArr.addTour(&obj1);
+		}*/
 	void addFoodService(Food* obj) {
 		fArr.addFoodService(obj);
 	}
@@ -121,10 +133,10 @@ public:
 				}
 				break;
 			case 2:
-				fArr.showFoodServices();
+				fArr.showFoodServices(1);
 				break;
 			case 3:
-				TArr.showAllForClient();
+				TArr.showTourArrClients();
 				break;
 			default:
 				//exception

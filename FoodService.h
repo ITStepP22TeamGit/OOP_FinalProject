@@ -40,6 +40,7 @@ public:
 	void edit(Map& map);
 	void editForTour();
 	int editForClient();
+	void editForClient(bool flag);
 
 	//методы для поиска
 	void searchByName(string _name, bool flag) const;
@@ -60,7 +61,8 @@ public:
 	int sortByClosingTime();
 
 	//вывод всех заведений
-	void showFoodServices() const;
+	void showFoodServices(bool flag) const;
+	int showFoodServices();
 
 	float askClient() const;
 
@@ -70,7 +72,5 @@ public:
 	void loadFoodServicesFromFile(const string& filename, Map& map);
 	void loadFoodServicesFromFile(ifstream& file);
 
-	Food* returnFoodService(int index) {
-		return foodServices[index];
-	}
+	Food* returnFoodService(int index);
 };

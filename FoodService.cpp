@@ -16,7 +16,7 @@ FoodService::FoodService(string _name)
 FoodService::~FoodService()
 {
     for (int i = 0; i < foodServices.size(); i++) {
-        delete foodServices[i];
+        //delete foodServices[i];
     }
     foodServices.clear();
 }
@@ -446,7 +446,7 @@ int FoodService::editForClient()
         {
         case 1:
             system("cls");
-            showFoodServices();
+            return showFoodServices();
             system("pause");
             break;
         case 2:
@@ -590,6 +590,128 @@ int FoodService::editForClient()
         }
     } while (num != 0);
     return -1;
+}
+
+void FoodService::editForClient(bool flag)
+{
+    int num;
+    do {
+        system("cls");
+        cout << "=========================== FOOD ===========================" << endl;
+        cout << "|   1. Show all establishments\n";
+        cout << "|   2. Search for establishments\n|   3. Sort establishments\n| 0. EXIT\n\n>>> ";
+        cin >> num;
+        switch (num)
+        {
+        case 1:
+            system("cls");
+            showFoodServices(1);
+            system("pause");
+            break;
+        case 2:
+            system("cls");
+            int tempInteger;
+            do {
+                system("cls");
+                cout << "Enter which parameter you want to search for:" << endl;
+                cout << "1. Search by name" << endl;
+                cout << "2. Search by adress" << endl;
+                cout << "3. Search by rating" << endl;
+                cout << "4. Search by type" << endl;
+                cout << "0 - BACK" << endl;
+                cout << ">>> ";
+                cin >> tempInteger;
+                string tmpString;
+                if (tempInteger == 1) {
+                    system("cls");
+                    cout << "Enter a name: " << endl;
+                    cin.ignore();
+                    getline(cin, tmpString);
+                    searchByName(tmpString, true);
+                    system("pause");
+                    tempInteger = 0;
+                }
+                else if (tempInteger == 2) {
+                    system("cls");
+                    cout << "Enter an adress: " << endl;
+                    cin.ignore();
+                    getline(cin, tmpString);
+                    searchByAdress(tmpString, true);
+                    system("pause");
+                    tempInteger = 0;
+                }
+                else if (tempInteger == 3) {
+                    system("cls");
+                    int tempInt1, tmpInt2;
+                    cout << "Enter a lower rating threshold: ";
+                    cin >> tempInt1;
+                    cout << "Enter the upper rating threshold: ";
+                    cin >> tmpInt2;
+                    searchByRating(tempInt1, tmpInt2, true);
+                    system("pause");
+                    tempInteger = 0;
+                }
+                else if (tempInteger == 4) {
+                    int tempInt3;
+                    do {
+                        system("cls");
+                        cout << "Choose type:" << endl;
+                        cout << "1. Cafe" << endl;
+                        cout << "2. Canteen" << endl;
+                        cout << "3. Restaraunt" << endl;
+                        cout << ">>> ";
+                        cin >> tempInt3;
+                    } while (tempInt3 != 1 && tempInt3 != 2 && tempInt3 != 3);
+                    if (tempInt3 == 1) {
+                        searchByType("CAFE", true);
+                    }
+                    else if (tempInt3 == 2) {
+                        searchByType("CANTEEN", true);
+                    }
+                    else if (tempInt3 == 3) {
+                        searchByType("RESTARAUNT", true);
+                    }
+                    system("pause");
+                    tempInteger = 0;
+                }
+            } while (tempInteger != 0);
+            break;
+        case 3:
+            system("cls");
+            int tempIntgr;
+            do {
+                system("cls");
+                cout << "Select which parameter to sort by:" << endl;
+                cout << "1. Sort by rating" << endl;
+                cout << "2. Sort by opening time" << endl;
+                cout << "3. Sort by closing time" << endl;
+                cout << "0 - BACK" << endl;
+                cout << ">>> ";
+                cin >> tempIntgr;
+                int searchTmp = -1;
+                switch (tempIntgr)
+                {
+                case 1:
+                    sortByRating(true);
+                    system("pause");
+                    break;
+                case 2:
+                    sortByOpeningTime(true);
+                    system("pause");
+                    break;
+                case 3:
+                    sortByClosingTime(true);
+                    system("pause");
+                    break;
+                default:
+                    break;
+                }
+            } while (tempIntgr != 0);
+            break;
+        default:
+            break;
+        }
+    } while (num != 0);
 }
 
 void FoodService::searchByName(string _name, bool flag) const
@@ -1070,7 +1192,7 @@ int FoodService::sortByClosingTime()
     }
 }
 
-void FoodService::showFoodServices() const
+void FoodService::showFoodServices(bool flag) const
 {
     if (foodServices.empty()) {
         cout << "There are no establishments in the " << name << "!" << endl;
@@ -1094,6 +1216,35 @@ void FoodService::showFoodServices() const
     }
 }
 
+int FoodService::showFoodServices()
+{
+    if (foodServices.empty()) {
+        cout << "There are no establishments in the " << name << "!" << endl;
+        return -1;
+    }
+    else {
+        cout << "======================- " << name << " -======================" << endl;
+        cout << "Average rating: " << calculateAverageRating() << endl;
+        cout << "All " << getTotalFoodCount() << " establishments: " << endl;
+        for (int i = 0; i < foodServices.size(); i++) {
+            if (foodServices[i]->type() == "CAFE") {
+                cout << "--------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ---------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "CANTEEN") {
+                cout << "-------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " -------------->" << endl;
+            }
+            else if (foodServices[i]->type() == "RESTARAUNT") {
+                cout << "------------- " << "#" << i + 1 << " " << foodServices[i]->type() << " ------------>" << endl;
+            }
+            foodServices[i]->showFoodService();
+        }
+        int tmp;
+        cout << "Choose what you want to order: ";
+        cin >> tmp;
+        return tmp - 1;
+    }
+}
+
 float FoodService::askClient() const
 {
     int askInt = -1;
@@ -1112,7 +1263,7 @@ float FoodService::askClient() const
 
 void FoodService::saveFoodServicesToFile(const string& filename) const
 {
-    ofstream file(filename + "foodData.txt");
+    ofstream file(filename);
     if (!file.is_open()) cout << "File open error!" << endl;
     else {
         file << foodServices.size();
@@ -1224,4 +1375,9 @@ void FoodService::loadFoodServicesFromFile(ifstream& file)
             //map.addPoint(nRest->getX(), nRest->getY(), nRest->getName(), 0);
         }
     }
+}
+
+Food* FoodService::returnFoodService(int index)
+{
+    return foodServices[index];
 }

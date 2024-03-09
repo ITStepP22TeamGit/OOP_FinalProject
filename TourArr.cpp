@@ -2,13 +2,11 @@
 
 TourArr::~TourArr()
 {
-	if (!arr.empty()) {
-		for (int i = 0; i < arr.size(); i++)
-		{
-			delete arr[i];
-		}
-		arr.clear();
+	for (int i = 0; i < arr.size(); i++)
+	{
+		//delete arr[i];
 	}
+	arr.clear();
 }
 
 int TourArr::getVectotSize() const
@@ -543,7 +541,7 @@ int TourArr::showSortTourArrayByDateOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
+	//vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -560,7 +558,7 @@ int TourArr::showSortTourArrayByDateOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
+	/*for (int i = 0; i < arr.size() - 1; i++)
 	{
 		for (int j = 0; j < arr.size() - i - 1; j++)
 		{
@@ -569,15 +567,24 @@ int TourArr::showSortTourArrayByDateOrder(bool order) const
 				vecInt.push_back(j);
 			}
 		}
-	}
+	}*/
 
 	showTourArrAny(arr1);
-	int tmp;
+	/*int tmp;
 	do {
 		cout << "\n|   Choose what you want to order: ";
 		cin >> tmp;
 	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	return vecInt[tmp - 1];*/
+	int tmp;
+	cout << "Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 int TourArr::showSortTourArrayByTimeOrder(bool order) const
