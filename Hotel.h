@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Room.h"
-#include "Map.h"
 #include <fstream>
 class Hotel
 {
@@ -18,8 +17,8 @@ protected:
 public:
 	//Contructors,Destructors
 	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; this->hotelX = -1; this->hotelY = -1; this->hotel_id = -1; }
-	Hotel(string adress, string name, int hotelX, int hotelY, Map& map)
-		{ updateId(); setCoords(hotelX, hotelY); addHotel(map); setName(name); setAdress(adress); } //loadMainInfo("data/Hotel/test.txt");
+	Hotel(string adress, string name, int hotelX, int hotelY)
+		{ updateId(); setCoords(hotelX, hotelY); setName(name); setAdress(adress); } //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -38,6 +37,8 @@ public:
 	string getAdress()const { return adress; }
 	string getName()const { return name; }
 	int getHotelId()const { return hotel_id; }
+	int getX()const { return hotelX; }
+	int getY()const { return hotelY; }
 
 	//Manipulators
 	void addRoom() { 
@@ -641,12 +642,6 @@ public:
 		}
 	}
 
-	void addHotel(Map& map) {
-		
-	}
-	void delHotel(Map& map) {}
-	void editHotel(Map& map) {}
-
 	//Accessors
 	void addOqqupier(int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		for (int i = 0; i < r_arr.size(); i++){
@@ -688,13 +683,28 @@ public:
 		}
 	}
 
+	void showForClients()const {
+		for (int i = 0; i < r_arr.size(); i++)
+		{
+			r_arr[i]->showClient();
+		}
+	}
+
 	//File manipulation
 	void loadMainInfo(ifstream& file) {
+		bool uploading = false;
 		char delimiter = '|';
 		string line;
 		while (getline(file, line)) {
-			cout << line << endl;
+			//cout << line << endl;
 			if (line.find("#Rooms#") != string::npos) {
+				uploading = true;
+			}
+			else if (line.find("#Rooms#") == string::npos && !uploading) {
+				continue;
+			}
+			if (line.find("#Rooms#") != string::npos && uploading || uploading && line.find("#Hotel#") == string::npos) {
+				getline(file, line);
 				vector<string> tokens;
 				stringstream ss(line);
 				string token;
@@ -708,20 +718,20 @@ public:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
 					r_arr.push_back(new LRoom(r_tmp, bul_on));
-					break;
+					continue;
 				case 3:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
 					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
 					r_arr.push_back(new SRoom(r_tmp, bul_on, bul_two));
-					break;
+					continue;
 				case 4:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
 					(stoi(tokens[2], nullptr, 10) == 1) ? bul_two = true : bul_two = false;
 					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
 					r_arr.push_back(new MRoom(r_tmp, bul_on, bul_two, bul_tre));
-					break;
+					continue;
 				case 5:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
@@ -729,7 +739,7 @@ public:
 					(stoi(tokens[3], nullptr, 10) == 1) ? bul_tre = true : bul_tre = false;
 					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
 					r_arr.push_back(new PRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for));
-					break;
+					continue;
 				case 6:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
@@ -738,7 +748,7 @@ public:
 					(stoi(tokens[4], nullptr, 10) == 1) ? bul_for = true : bul_for = false;
 					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
 					r_arr.push_back(new HRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv));
-					break;
+					continue;
 				case 7:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
@@ -748,7 +758,7 @@ public:
 					(stoi(tokens[5], nullptr, 10) == 1) ? bul_fiv = true : bul_fiv = false;
 					(stoi(tokens[6], nullptr, 10) == 1) ? bul_six = true : bul_six = false;
 					r_arr.push_back(new VRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six));
-					break;
+					continue;
 				case 8:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
@@ -759,7 +769,7 @@ public:
 					(stoi(tokens[6], nullptr, 10) == 1) ? bul_six = true : bul_six = false;
 					(stoi(tokens[7], nullptr, 10) == 1) ? bul_sev = true : bul_sev = false;
 					r_arr.push_back(new LxRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six, bul_sev));
-					break;
+					continue;
 				case 9:
 					r_tmp = stoi(tokens[0], nullptr, 10);
 					(stoi(tokens[1], nullptr, 10) == 1) ? bul_on = true : bul_on = false;
@@ -771,10 +781,14 @@ public:
 					(stoi(tokens[7], nullptr, 10) == 1) ? bul_sev = true : bul_sev = false;
 					(stoi(tokens[8], nullptr, 10) == 1) ? bul_eig = true : bul_eig = false;
 					r_arr.push_back(new PresRoom(r_tmp, bul_on, bul_two, bul_tre, bul_for, bul_fiv, bul_six, bul_sev, bul_eig));
-					break;
+					continue;
 				case 0: case 1:
 					cout << "Not enought data to load into system.\n";
 				}
+			}
+			else if (line.find("#Hotel#") != string::npos||line.find("") == string::npos) {
+				uploading = false;
+				break;
 			}
 			else if (!(line.find("#Init#") != string::npos)) {
 				cout << "File is empty or it is unable to find correct info, please check info for fixing problem.\n";
@@ -834,75 +848,4 @@ public:
 		}
 	}
 	//EDIT
-	void loadInfo(ifstream& file) {
-
-		char delimiter = '|';
-		string line;
-		while (getline(file, line)) {
-			//cout << line << endl;
-			if (line.find("#Hotel#") != string::npos) {
-				while (getline(file,line)){
-					vector<string> tokens;
-					stringstream ss(line);
-					string token;
-					while (getline(ss, token, delimiter)) {
-						tokens.push_back(token);
-					}
-					tokens[0] = this->name;
-					tokens[1] = this->adress;
-					this->hotel_id = stoi(tokens[2], nullptr, 10);
-					this->hotelX = stoi(tokens[3], nullptr, 10);
-					this->hotelY = stoi(tokens[4], nullptr, 10);
-					setName(tokens[0]);
-					setAdress(tokens[1]);
-					setCoords(stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10));
-					return;
-				}
-			}
-			else if ((line.find("#Rooms#") == string::npos) || (line.find("#") != string::npos && line.find("") == string::npos)){
-				return;
-			}
-		}
-		//map.addPoint(hotelX, hotelY, name, 1);
-
-		//string line;
-		//bool uploading;
-		//while (getline(file, line)) {
-		//	if (line.find("#Hotel#") == string::npos) {
-		//		continue;
-		//	}
-		//	else if (line.find("#Hotel#") != string::npos) {
-		//		uploading = true;
-		//		continue;
-		//	}
-		//	if (line.find("##") != string::npos && uploading) {
-		//		istringstream iss(line);
-		//		string t_name;
-		//		float t_price;
-		//		if (!(iss >> t_name >> t_price)) {
-		//			cerr << "Error parsing line: " << line << endl;
-		//			continue;
-		//		}
-		//		cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
-		//		//extra.push_back(t_name);
-		//		//extra_price.push_back(t_price);
-		//	}
-		//	else if (line.find("#") != string::npos && line.find("") == string::npos) {
-		//		uploading = false;
-		//		break;
-		//	}
-		//}
-		//loadMainInfo(file);
-		//file.close();
-	}
-
-	void saveInfo(ofstream& file) {
-		//ofstream file(fil);
-		file << "#Hotel#\n";
-		string tmpStr;
-		tmpStr = name + "|" + adress + "|" + to_string(hotel_id) + "|" + to_string(hotelX) + "|" + to_string(hotelY);
-		file << tmpStr;
-		file << endl;
-	}
-
 };

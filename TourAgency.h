@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Hotel.h"
-#include "TourArr.h"
+#include "Accomodation.h"
 #include "FoodService.h"
 #include "UserException.h"
 #include "User.h"
@@ -12,7 +12,7 @@ class TourAgency
 {
 protected:
 	string name;
-	vector<Hotel> h_arr;
+	Accomodation hArr;
 	FoodService fServ;
 	TourArr tour_arr;
 	Map map;
@@ -52,11 +52,7 @@ public:
 		fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
 
 		//Hotels
-		ifstream file("data/hotelData.txt");
-		string tmpStr;
-		getline(file, tmpStr);
-		int size = stoi(tmpStr, nullptr, 10);
-		cout << size;
+		hArr.loadInfo("data/hotelData.txt");
 		
 		system("cls");
 	}
@@ -66,14 +62,6 @@ public:
 		string fileDir = "data/";
 
 		//Hotels
-		ofstream file("data/hotelData.txt");
-		file << h_arr.size();
-		file << endl;
-		for (int i = 0; i < h_arr.size(); i++){
-			h_arr[i].saveInfo(file);
-			h_arr[i].saveMainInfo(file);
-		}
-		file << "#End#";
 
 	}
 
@@ -110,18 +98,11 @@ public:
 				case 0:
 					break;
 				case 1:
-					if (h_arr.size() == 0) {
+					if (hArr.size() == 0) {
 						cout << "There are no hotels, at least for now.\n";
 					}
 					else {
-						for (int i = 0; i < h_arr.size(); i++) {
-							cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
-							cout << i + 1 <<". "+h_arr[i].getName()+" on "+ h_arr[i].getAdress() << endl;
-							cout << "==============================================\n";
-							h_arr[i].showAval();
-							cout << "==============================================\n";
-						}
-						cout << "===============================\n";
+						hArr.showHotelForClients();
 					}
 					break;
 				case 2:
@@ -206,17 +187,11 @@ public:
 				case 0:
 					break;
 				case 1:
-					if (h_arr.size() == 0) {
+					if (hArr.size() == 0) {
 						cout << "There are no hotels, at lest for now.\n";
 					}
 					else {
-						for (int i = 0; i < h_arr.size(); i++) {
-							cout << i + 1 << h_arr[i].getAdress() << endl;
-							cout << "==============================================\n";
-							h_arr[i].showAval();
-							cout << "==============================================\n";
-						}
-						cout << "===============================\n";
+						hArr.showHotelForClients();
 					}
 					break;
 				case 2:
@@ -280,8 +255,8 @@ public:
 						cout << "Your choice (yes/no) >> ";
 						cin >> str;
 						cout << endl;
-					} while (str != "yes" && str != "no" && str != "Yes" && str != "No");
-					if (str == "Yes" || str == "yes") {
+					} while (str != "yes" && str != "no" && str != "Yes" && str != "No"&&str!="y"&&str!="n");
+					if (str == "Yes" || str == "yes"||str=="y") {
 						users.erase(users.begin() + loggedIn);
 						loggedIn = -1;
 						cout << "Successfully logged out!\n";;
@@ -384,18 +359,12 @@ public:
 	void makeOrder(bool hotel, bool food, bool tour) {
 		if (hotel == 1){
 			int hid = 0, rid = 0;
-			for (int i = 0; i < h_arr.size(); i++) {
-				cout << i + 1 << h_arr[i].getAdress() << endl;
-				cout << "==============================================\n";
-				h_arr[i].showAval();
-				cout << "==============================================\n";
-			}
-			cout << "===============================\n";
+			hArr.showForOrder();
 			//two cin for adress and roomid
 			//cin date
 			//cin term
 			//h_arr[hid].addOqqupier();
-			price += h_arr[hid].calcSumm(rid);
+			price += hArr.calcSumm(hid, rid);
 			cout << "Final price: " << price;
 		}
 		if (tour == 1) {

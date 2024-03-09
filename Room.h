@@ -86,6 +86,7 @@ public:
 
 	virtual void showRoomInfo() const = 0;
 	virtual void show() const = 0;
+	virtual void showClient() const = 0;
 	virtual string type() const = 0;
 	virtual float calcSumm() = 0;
 	virtual void askClients() = 0;
@@ -169,6 +170,7 @@ public:
 	}
 
 	virtual string type() const override { return "Low Cost Room"; }
+
 	virtual void showRoomInfo() const override {
 		cout << "\tRoom # " << showId() << endl;
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
@@ -188,6 +190,13 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+
+	virtual void showClient() const override {
+		cout << "\tRoom # " << showId() << endl;
+		cout << type() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 
 	virtual float calcSumm() override {
@@ -296,6 +305,13 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual void showClient() const override {
+		cout << "\tRoom # " << showId() << endl;
+		cout << type() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+	}
 	virtual float calcSumm() override {
 		price += 1000.0;
 		(getBalcony() == true) ? price += 500 : price += 0;
@@ -403,6 +419,15 @@ public:
 		}
 		else { showRoomInfo(); }
 	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+	}
+
 	virtual float calcSumm() override {
 		price += 1000.0;
 		(getBalcony() == true) ? price += 500 : price += 0;
@@ -511,6 +536,15 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -622,6 +656,16 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -735,6 +779,17 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -850,6 +905,18 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -967,6 +1034,19 @@ public:
 			cout << "Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
+	}
+	virtual void showClient() const override {
+		cout << type() << endl;
+		cout << "\tRoom # " << showId() << endl;
+		cout << "Rooms: " << getRooms() << endl;
+		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "Does have accsess to Helicopter: "; (getHeliAccsess() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 9000.0;
