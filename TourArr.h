@@ -14,8 +14,9 @@
 
 class TourArr
 {
-	vector<Tour*>arr;
+	
 public:
+	vector<Tour*>arr;
 	~TourArr();
 	int getVectotSize()const;
 	Date getDateTour(int index)const;

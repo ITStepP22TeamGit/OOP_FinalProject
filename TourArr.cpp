@@ -2,11 +2,11 @@
 
 TourArr::~TourArr()
 {
-	for (int i = 0; i < arr.size(); i++)
+	/*for (int i = 0; i < arr.size(); i++)
 	{
 		delete arr[i];
 	}
-	arr.clear();
+	arr.clear();*/
 }
 
 int TourArr::getVectotSize() const
@@ -191,7 +191,6 @@ void TourArr::showTourArr() const
 		else {
 			for (int i = 0; i < arr.size(); i++)
 			{
-				//cout << "|   #" << i + 1 << endl << endl;
 				cout << " ";
 				for (int j = 0; j < ceil(float(35 - arr[i]->TourType().size()) / 2) - 1; j++)
 				{
@@ -2454,45 +2453,53 @@ void TourArr::loadFromFile(ifstream& file)
 		for (int i = 0; i < sizeN; i++)
 		{
 			file >> typeN;
-			getline(file, str);
+			//getline(file, str);
 			//if (str[0] == '#') continue;
 			//if(str.find("#")!=string::npos&&)
 			if (typeN == 1) {
+				file.ignore();
 				Safari* a = new Safari();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (typeN == 2) {
+				file.ignore();
 				Sightseeing* a = new Sightseeing();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "BeachTour") {
+			else if (typeN == 3) {
+				file.ignore();
 				BeachTour* a = new BeachTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "YachtTour") {
+			else if (typeN == 4) {
+				file.ignore();
 				YachtTour* a = new YachtTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "Excursion") {
+			else if (typeN == 5) {
+				file.ignore();
 				Excursion* a = new Excursion();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "HikingTour") {
+			else if (typeN == 6) {
+				file.ignore();
 				HikingTour* a = new HikingTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "HelicopterFlightTour") {
+			else if (typeN == 7) {
+				file.ignore();
 				HelicopterFlightTour* a = new HelicopterFlightTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "GastroTour") {
+			else if (typeN == 8) {
+				file.ignore();
 				GastroTour* a = new GastroTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
