@@ -10,7 +10,7 @@ Safari::Safari(string _name, string _address, string _description, Date _date, T
 {
 }
 
-Safari::Safari(bool a)
+Safari::Safari(int a)
 {
     string str;
     int intVar, intVar1, intVar2;

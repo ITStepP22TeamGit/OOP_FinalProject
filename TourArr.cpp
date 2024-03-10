@@ -4,7 +4,7 @@ TourArr::~TourArr()
 {
 	for (int i = 0; i < arr.size(); i++)
 	{
-		//delete arr[i];
+		delete arr[i];
 	}
 	arr.clear();
 }
@@ -358,6 +358,7 @@ void TourArr::showSortTourArrayByDate(bool order) const //0 - от меньшего к боль
 	if (arr.empty()) {
 		throw new TourArrayException(3);
 	}
+	TourArr arr2;
 	vector<Tour*>arr1;
 	for (int i = 0; i < arr.size(); i++)
 	{
@@ -374,13 +375,16 @@ void TourArr::showSortTourArrayByDate(bool order) const //0 - от меньшего к боль
 			return *left < *right;
 			});
 	}
-
 	for (int i = 0; i < arr1.size(); i++)
+	{
+		arr2.addTour(arr1[i]);
+	}arr2.showTourArr();
+	/*for (int i = 0; i < arr1.size(); i++)
 	{
 		cout << "|   #" << i + 1 << endl << endl;
 		arr1[i]->TourShow();
 		cout << endl;
-	}
+	}*/
 }
 
 void TourArr::showSortTourArrayByTime(bool order) const
@@ -1616,7 +1620,7 @@ int TourArr::showAllForClientOrder() const
 						cout << "Make your choice: ";
 						cin >> index;
 					} while (index < 0 || index > arr.size());
-					return index;
+					return index - 1;
 					break;
 				}
 				case 2:
@@ -2435,6 +2439,8 @@ void TourArr::loadFromFile(string fileName)
 void TourArr::loadFromFile(ifstream& file)
 {
 	try {
+		int typeN, sizeN;
+		file >> sizeN;
 		if (!arr.empty()) {
 			for (int i = 0; i < arr.size(); i++)
 			{
@@ -2443,15 +2449,20 @@ void TourArr::loadFromFile(ifstream& file)
 			arr.clear();
 		}
 		string str;
-		while (getline(file, str))
+		
+		//while (getline(file, str))
+		for (int i = 0; i < sizeN; i++)
 		{
-			if (str[0] == '#') continue;
-			if (str == "Safari") {
+			file >> typeN;
+			getline(file, str);
+			//if (str[0] == '#') continue;
+			//if(str.find("#")!=string::npos&&)
+			if (typeN == 1) {
 				Safari* a = new Safari();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (str == "Sightseeing") {
+			else if (typeN == 2) {
 				Sightseeing* a = new Sightseeing();
 				a->loadFromFile(file);
 				arr.push_back(a);

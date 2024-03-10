@@ -517,12 +517,12 @@ void GastroTour::saveToFile(ofstream& file) const
     file << priceTransportType1 << endl;
     file << priceTransportType2 << endl;
     file << priceTransportType3 << endl;
+    arr.saveFoodServicesToFile(file);
     file << number << endl;
     file << minNumber << endl;
-    /*string str = to_string(maxNumber);
-    file.write(str.c_str(), str.size());*/
-    file << maxNumber << endl;
-    arr.saveFoodServicesToFile(file);
+    string str = to_string(maxNumber);
+    file.write(str.c_str(), str.size());
+    
     /*file << foodServices.size();
     file << "\n";
     for (int i = 0; i < foodServices.size(); i++) {
@@ -591,6 +591,7 @@ void GastroTour::loadFromFile(ifstream& file)
     setPriceTransportType2(fl1);
     file >> fl1;
     setPriceTransportType3(fl1);
+    arr.loadFoodServicesFromFile(file);
     file >> i1;
     file >> i2;
     file >> i3;
@@ -618,7 +619,6 @@ void GastroTour::loadFromFile(ifstream& file)
     //        foodServices.push_back(nRest);
     //    }
     //}
-    arr.loadFoodServicesFromFile(file);
     file.get();
 }
 

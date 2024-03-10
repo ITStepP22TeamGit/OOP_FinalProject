@@ -48,11 +48,39 @@ public:
 		//	cout << '=';
 		//}
 		//cout << "//\n";
+
+		ifstream file("data/TourAgencyData.txt");
+		if (file.is_open()) {
+			file >> name;
+			file >> loggedIn;
+			file >> price;
+		}
+		else {
+			cout << "|  File couldn't open!\n";
+		}
+		
 		tour_arr.loadFromFile("data/TourArray.txt");
+
 		fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
 
 		//Hotels
 		hArr.loadInfo("data/hotelData.txt");
+
+		ifstream file1("data/UserData.txt");
+		int intVar;
+		if (file1.is_open()) {
+			file1 >> intVar;
+			for (int i = 0; i < intVar; i++)
+			{
+				User usTmp;
+				usTmp.loadFromUserFile(file1);
+				users.push_back(usTmp);
+			}
+			file1.close();
+		}
+		else {
+			cout << "|  File couldn't open!\n";
+		}
 		
 		system("cls");
 	}
@@ -69,12 +97,12 @@ public:
 		int chooseTmp;
 		string s_choose;
 
-		users.push_back(User());
+		/*users.push_back(User());
 		users[0].setLogin("admin");
 		users[0].setPassword("admin");
 		users[0].setUserPhone("12344667890");
 		users[0].setUserName("admin");
-		loggedIn = 0;
+		loggedIn = 0;*/
 
 		do
 		{
@@ -126,7 +154,7 @@ public:
 					
 					break;
 				case 5: {
-					//verification();
+					verification();
 					cout << "Input categories on which you wish to make an order: \n";
 					cout << "1. Hotel\n";
 					cout << "2. Retoraunt\n";
@@ -267,6 +295,18 @@ public:
 				}
 			} 
 		}while (chooseTmp != 0);
+
+		ofstream file("data/UserData.txt");
+		if (file.is_open()) {
+			file << users.size() << endl;
+			for (int i = 0; i < users.size(); i++)
+			{
+				users[i].saveUserToFile(file);
+			}
+		}
+		else {
+			cout << "|  File couldn't create!\n";
+		}
 	}
 
 	//void compareUsersLogins() {}
@@ -369,6 +409,9 @@ public:
 		}
 		if (tour == 1) {
 			int index = tour_arr.showAllForClientOrder();
+			if (index == -1) {
+				return;
+			}
 			users[loggedIn].addTour(tour_arr.returnTour(index));
 		}
 		if (food == 1) {

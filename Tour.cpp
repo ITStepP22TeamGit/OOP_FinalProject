@@ -545,7 +545,6 @@ void Tour::TourShowClients() const
     else {
         cout << "not included\n";
     }
-
     cout << "|   Transport: ";
     if (arriveTransport > 0) {
         cout << TransportType[arriveTransport - 1] << " included\n";

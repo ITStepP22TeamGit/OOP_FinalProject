@@ -30,8 +30,6 @@ public:
 	}
 
 	~User() {
-		fArr.~FoodService();
-		TArr.~TourArr();
 	}
 
 	void setLogin(string _login) {
@@ -75,19 +73,87 @@ public:
 		file << isAdmin << endl;
 		file << userName << endl;
 		file << userPhone << endl;
-		fArr.saveFoodServicesToFile("UserArr.txt");
-		TArr.saveToFile("UserArr.txt");
+		fArr.saveFoodServicesToFile(file);
+		TArr.saveToFile(file);
 		file << "#Init#\n";
 		for (int i = 0; i < HArr.size(); i++) {
 			HArr[i].saveMainInfo(file);
 		}
 	}
+
+	void loadFromUserFile(ifstream& file) {
+		file >> login;
+		file >> password;
+		file >> isAdmin;
+		file >> userName;
+		file >> userPhone;
+		TArr.loadFromFile(file);
+		fArr.loadFoodServicesFromFile(file);
+		/*string str1;
+		file >> str1;*/
+		
+		string str;
+		file >> str;
+		for (int i = 0; i < HArr.size(); i++) {
+			HArr[i].loadMainInfo(file);
+		}
+	}
 	
 	void addTour(Tour* obj) {
 		//obj->TourType();
-		TArr.addTour(obj);
+		
+		//TArr.addTour(obj);
+		//if (obj->TourType() == "Safari") {
+		//	Safari* b = ((Safari*)& obj);
+		//	cout << "\n\n\n\n\n";
+		//	cout << b->TourType();
+		//	TArr.addTour(b);
+		////	//TArr.addTour(new Sightseeing(obj->getName(), obj->getAddress(), obj->getDescription(), obj->getDate(), obj->getTime(), obj->getRating(), obj->getPrice(), obj->getPhotosPrice(), obj->getGuide(), obj->getNumber(), obj->getMinNumber(), obj->getMaxNumber()));
+		//}
 		if (obj->TourType() == "Safari") {
-			//TArr.addTour(new Sightseeing(obj->getName(), obj->getAddress(), obj->getDescription(), obj->getDate(), obj->getTime(), obj->getRating(), obj->getPrice(), obj->getPhotosPrice(), obj->getGuide(), obj->getNumber(), obj->getMinNumber(), obj->getMaxNumber()));
+			//Safari* b = static_cast<Safari*>(obj);
+			/*Safari c;
+			c = *static_cast<Safari*>(obj);
+			Tour* d = &c;
+			TArr.addTour(d);*/
+			Safari* b = static_cast<Safari*>(obj);
+			Safari* c = new Safari(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "Sightseeing") {
+			Sightseeing* b = static_cast<Sightseeing*>(obj);
+			Sightseeing* c = new Sightseeing(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "BeachTour") {
+			BeachTour* b = static_cast<BeachTour*>(obj);
+			BeachTour* c = new BeachTour(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "YachtTour") {
+			YachtTour* b = static_cast<YachtTour*>(obj);
+			YachtTour* c = new YachtTour(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "Excursion") {
+			Excursion* b = static_cast<Excursion*>(obj);
+			Excursion* c = new Excursion(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "HikingTour") {
+			HikingTour* b = static_cast<HikingTour*>(obj);
+			HikingTour* c = new HikingTour(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "HelicopterFlightTour") {
+			HelicopterFlightTour* b = static_cast<HelicopterFlightTour*>(obj);
+			HelicopterFlightTour* c = new HelicopterFlightTour(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
+		}
+		else if (obj->TourType() == "GastroTour") {
+			GastroTour* b = static_cast<GastroTour*>(obj);
+			GastroTour* c = new GastroTour(*b); // Create a new Safari object on the heap
+			TArr.addTour(c);
 		}
 	}
 	/*if (obj->TourType() == "Safari") {
@@ -95,7 +161,12 @@ public:
 			TArr.addTour(&obj1);
 		}*/
 	void addFoodService(Food* obj) {
-		fArr.addFoodService(obj);
+		//fArr.addFoodService(obj);
+		if (obj->type() == "CAFE") {
+			Cafe* b = static_cast<Cafe*>(obj);
+			Cafe* c = new Cafe(*b); // Create a new Safari object on the heap
+			fArr.addFoodService(c);
+		}
 	}
 
 	void showUser() {
