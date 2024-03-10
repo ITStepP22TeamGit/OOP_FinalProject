@@ -533,6 +533,36 @@ void TourArr::showSortTourArrayByType(bool order) const
 	}
 }
 
+void TourArr::showSortTourArrayByRating(bool order) const
+{
+	if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	vector<Tour*>arr1;
+	for (int i = 0; i < arr.size(); i++)
+	{
+		arr1.push_back(arr[i]);
+	}
+
+	if (order) {
+		sort(arr1.begin(), arr1.end(), [](const Tour* left, const Tour* right) {
+			return left->getRating() > right->getRating();
+			});
+	}
+	else {
+		sort(arr1.begin(), arr1.end(), [](const Tour* left, const Tour* right) {
+			return left->getRating() < right->getRating();
+			});
+	}
+
+	for (int i = 0; i < arr1.size(); i++)
+	{
+		cout << "|   #" << i + 1 << endl << endl;
+		arr1[i]->TourShow();
+		cout << endl;
+	}
+}
+
 //sort to order
 
 int TourArr::showSortTourArrayByDateOrder(bool order) const
@@ -577,7 +607,7 @@ int TourArr::showSortTourArrayByDateOrder(bool order) const
 	} while (tmp < 1 || tmp > arr.size());
 	return vecInt[tmp - 1];*/
 	int tmp;
-	cout << "Choose what you want to order: ";
+	cout << "\n|   Choose what you want to order: ";
 	cin >> tmp;
 	for (int i = 0; i < arr.size(); i++) {
 		if (arr[i] == arr1[tmp - 1]) {
@@ -593,7 +623,6 @@ int TourArr::showSortTourArrayByTimeOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -610,24 +639,17 @@ int TourArr::showSortTourArrayByTimeOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
-	{
-		for (int j = 0; j < arr.size() - i - 1; j++)
-		{
-			if (arr[i] == arr1[j])
-			{
-				vecInt.push_back(j);
-			}
-		}
-	}
 
 	showTourArrAny(arr1);
 	int tmp;
-	do {
-		cout << "\n|   Choose what you want to order: ";
-		cin >> tmp;
-	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 int TourArr::showSortTourArrayByPriceOrder(bool order) const
@@ -636,7 +658,6 @@ int TourArr::showSortTourArrayByPriceOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -653,24 +674,16 @@ int TourArr::showSortTourArrayByPriceOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
-	{
-		for (int j = 0; j < arr.size() - i - 1; j++)
-		{
-			if (arr[i] == arr1[j])
-			{
-				vecInt.push_back(j);
-			}
-		}
-	}
-
 	showTourArrAny(arr1);
 	int tmp;
-	do {
-		cout << "\n|   Choose what you want to order: ";
-		cin >> tmp;
-	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 int TourArr::showSortTourArrayByGuideOrder(bool order) const
@@ -679,7 +692,6 @@ int TourArr::showSortTourArrayByGuideOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -696,24 +708,16 @@ int TourArr::showSortTourArrayByGuideOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
-	{
-		for (int j = 0; j < arr.size() - i - 1; j++)
-		{
-			if (arr[i] == arr1[j])
-			{
-				vecInt.push_back(j);
-			}
-		}
-	}
-
 	showTourArrAny(arr1);
 	int tmp;
-	do {
-		cout << "\n|   Choose what you want to order: ";
-		cin >> tmp;
-	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 int TourArr::showSortTourArrayByNumberOrder(bool order) const
@@ -722,7 +726,6 @@ int TourArr::showSortTourArrayByNumberOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -739,24 +742,16 @@ int TourArr::showSortTourArrayByNumberOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
-	{
-		for (int j = 0; j < arr.size() - i - 1; j++)
-		{
-			if (arr[i] == arr1[j])
-			{
-				vecInt.push_back(j);
-			}
-		}
-	}
-
 	showTourArrAny(arr1);
 	int tmp;
-	do {
-		cout << "\n|   Choose what you want to order: ";
-		cin >> tmp;
-	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 int TourArr::showSortTourArrayByTypeOrder(bool order) const
@@ -765,7 +760,6 @@ int TourArr::showSortTourArrayByTypeOrder(bool order) const
 		throw new TourArrayException(3);
 	}
 	vector<Tour*>arr1;
-	vector<int> vecInt;
 	for (int i = 0; i < arr.size(); i++)
 	{
 		arr1.push_back(arr[i]);
@@ -782,24 +776,50 @@ int TourArr::showSortTourArrayByTypeOrder(bool order) const
 			});
 	}
 
-	for (int i = 0; i < arr.size() - 1; i++)
-	{
-		for (int j = 0; j < arr.size() - i - 1; j++)
-		{
-			if (arr[i] == arr1[j])
-			{
-				vecInt.push_back(j);
-			}
+	showTourArrAny(arr1);
+	int tmp;
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
 		}
+	}
+}
+
+int TourArr::showSortTourArrayByRatingOrder(bool order) const
+{
+	if (arr.empty()) {
+		throw new TourArrayException(3);
+	}
+	vector<Tour*>arr1;
+	for (int i = 0; i < arr.size(); i++)
+	{
+		arr1.push_back(arr[i]);
+	}
+
+	if (order) {
+		sort(arr1.begin(), arr1.end(), [](const Tour* left, const Tour* right) {
+			return left->getRating() > right->getRating();
+			});
+	}
+	else {
+		sort(arr1.begin(), arr1.end(), [](const Tour* left, const Tour* right) {
+			return left->getRating() < right->getRating();
+			});
 	}
 
 	showTourArrAny(arr1);
 	int tmp;
-	do {
-		cout << "\n|   Choose what you want to order: ";
-		cin >> tmp;
-	} while (tmp < 1 || tmp > arr.size());
-	return vecInt[tmp - 1];
+	cout << "\n|   Choose what you want to order: ";
+	cin >> tmp;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == arr1[tmp - 1]) {
+			arr1.clear();
+			return i;
+		}
+	}
 }
 
 //find
@@ -1380,7 +1400,7 @@ void TourArr::showAllForClient() const
 			string str;
 			do {
 				cout << " ============== Tour Show ==============\n|\n";
-				cout << "|   Enter what you want to edit:\n|\n";
+				cout << "|   Enter what you want to see:\n|\n";
 				cout << "|   1. Show all tours.\n";
 				cout << "|   2. Show sorted tours.\n";
 				cout << "|   3. Find tour.\n";
@@ -1574,7 +1594,7 @@ int TourArr::showAllForClientOrder() const
 			string str;
 			do {
 				cout << " ============== Tour Show ==============\n|\n";
-				cout << "|   Enter what you want to edit:\n|\n";
+				cout << "|   Enter what you want to see/edit:\n|\n";
 				cout << "|   1. Show all tours.\n";
 				cout << "|   2. Show sorted tours.\n";
 				cout << "|   3. Find tour.\n";
@@ -2287,7 +2307,7 @@ int TourArr::showAllForAdminOrder()
 void TourArr::saveToFile(string fileName)
 {
 	try {
-		ofstream file(fileName+"tourArray.txt");
+		ofstream file(fileName);
 		if (file.is_open()) {
 			string str;
 			for (int i = 0; i < arr.size(); i++)
@@ -2383,6 +2403,11 @@ void TourArr::loadFromFile(string fileName)
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
+				else if (str == "GastroTour") {
+					GastroTour* a = new GastroTour();
+					a->loadFromFile(file);
+					arr.push_back(a);
+				}
 				else {
 					throw new TourInputErrorException(11);
 				}
@@ -2453,6 +2478,11 @@ void TourArr::loadFromFile(ifstream& file)
 			}
 			else if (str == "HelicopterFlightTour") {
 				HelicopterFlightTour* a = new HelicopterFlightTour();
+				a->loadFromFile(file);
+				arr.push_back(a);
+			}
+			else if (str == "GastroTour") {
+				GastroTour* a = new GastroTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}

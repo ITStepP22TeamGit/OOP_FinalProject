@@ -8,6 +8,7 @@
 #include"Excursion.h"
 #include"HikingTour.h"
 #include"HelicopterFlightTour.h"
+#include"GastroTour.h"
 #include<vector>
 #include<algorithm>
 
@@ -39,6 +40,7 @@ public:
 	void showSortTourArrayByGuide(bool order)const;
 	void showSortTourArrayByNumber(bool order)const;
 	void showSortTourArrayByType(bool order)const;
+	void showSortTourArrayByRating(bool order)const;
 
 	//sort to order
 	int showSortTourArrayByDateOrder(bool order)const;
@@ -47,6 +49,7 @@ public:
 	int showSortTourArrayByGuideOrder(bool order)const;
 	int showSortTourArrayByNumberOrder(bool order)const;
 	int showSortTourArrayByTypeOrder(bool order)const;
+	int showSortTourArrayByRatingOrder(bool order)const;
 
 	//find
 	void findTourByName(string _name) const;
