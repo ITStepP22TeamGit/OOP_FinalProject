@@ -10,15 +10,20 @@ protected:
 	int hotel_id;//global id maybe to map
 	int hotelX;//coords
 	int hotelY;
-	vector<Room*> r_arr;//array of rooms
+	float rating;
+	
 	string adress;//adress
 	string name;//name of hotel
 
 public:
+	vector<Room*> r_arr;//array of rooms
+
 	//Contructors,Destructors
-	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; this->hotelX = -1; this->hotelY = -1; this->hotel_id = -1; }
-	Hotel(string adress, string name, int hotelX, int hotelY)
-		{ updateId(); setCoords(hotelX, hotelY); setName(name); setAdress(adress); } //loadMainInfo("data/Hotel/test.txt");
+	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; this->hotelX = -1; this->hotelY = -1; this->hotel_id = -1; this->rating = -1; }
+	Hotel(string adress, string name, int hotelX, int hotelY, float rating)
+	{
+		updateId(); setCoords(hotelX, hotelY); setName(name); setAdress(adress); setRating(rating);
+	} //loadMainInfo("data/Hotel/test.txt");
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
@@ -31,12 +36,19 @@ public:
 	void setAdress(string adress) { (adress.length()>2) ? this->adress = adress : this->adress = "unknown"; }
 	void setName(string name) { (name.length()>2) ? this->name = name : this->name = "unknown"; }
 	void setCoords(int hotelX, int hotelY) {
-		this->hotelX = hotelX;
-		this->hotelY = hotelY;
+		if (hotelX>0&&hotelY>0)
+		{
+			this->hotelX = hotelX;
+			this->hotelY = hotelY;
+		}
 	}
+	void setRating(float rating) { (rating > 0) ? this->rating = rating : this->rating = -1; }
 	string getAdress()const { return adress; }
 	string getName()const { return name; }
+	float getRating()const { return rating; }
+	float getPrice(int rid)const { return r_arr[rid]->getPrice(); }
 	int getHotelId()const { return hotel_id; }
+	int getRSize()const { return r_arr.size(); }
 	int getX()const { return hotelX; }
 	int getY()const { return hotelY; }
 
@@ -660,6 +672,15 @@ public:
 		cout << "Unable to make order to this room, hope you luck next time!\n";
 	}
 	float calcSumm(int rId) { return r_arr[rId]->calcSumm(); }
+	float calcOqupied()const {
+		int ret = 0;
+		for (int i = 0; i < r_arr.size(); i++) {
+			if (r_arr[i]->getOqqupied()) {
+				ret++;
+			}
+		}
+		return ret;
+	}
 
 	//Displayers
 	void dispAllRooms()const {
@@ -682,12 +703,17 @@ public:
 			}
 		}
 	}
-
 	void showForClients()const {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
 			r_arr[i]->showClient();
 		}
+	}
+	void showHotelInfo() {
+		cout << "\tHotel: " + getName() << endl;
+		cout << "Adress: " + getAdress() + "; Coordinates on map" << getX() << " " << getY() << endl;
+		cout << "Rating: " << getRating() << endl;
+		cout << "Fullness: " << calcOqupied() / r_arr.size() <<"%" << endl;
 	}
 
 	//File manipulation
@@ -703,7 +729,13 @@ public:
 			else if (line.find("#Rooms#") == string::npos && !uploading) {
 				continue;
 			}
-			if (line.find("#Rooms#") != string::npos && uploading || uploading && line.find("#Hotel#") == string::npos) {
+			if (line.find("#Hotel#") != string::npos || line.find("") == string::npos || line.empty()) {
+				if (uploading){
+					uploading = false;
+				}
+				break;
+			}
+			else if (line.find("#Rooms#") != string::npos && uploading || uploading && line.find("#Hotel#") == string::npos) {
 				getline(file, line);
 				vector<string> tokens;
 				stringstream ss(line);
@@ -785,10 +817,6 @@ public:
 				case 0: case 1:
 					cout << "Not enought data to load into system.\n";
 				}
-			}
-			else if (line.find("#Hotel#") != string::npos||line.find("") == string::npos) {
-				uploading = false;
-				break;
 			}
 			else if (!(line.find("#Init#") != string::npos)) {
 				cout << "File is empty or it is unable to find correct info, please check info for fixing problem.\n";

@@ -11,7 +11,9 @@ protected:
 	vector<Hotel> hArr;
 public:
 	Accomodation() {}
-	~Accomodation() {}
+	~Accomodation() {
+		hArr.clear();
+	}
 
 	int size()const {
 		return hArr.size();
@@ -20,8 +22,8 @@ public:
 	void addHotel() {
 		
 	}
-	void addHotel(string adress, string name, int hotelX, int hotelY, Map& map) {
-		hArr.push_back(Hotel(adress, name, hotelX, hotelY));
+	void addHotel(string adress, string name, float rating, int hotelX, int hotelY, Map& map) {
+		hArr.push_back(Hotel(adress, name, hotelX, hotelY, rating));
 		map.addPoint(hotelX, hotelY, name, 1);
 	}
 	void addHotel(Hotel obj) {
@@ -84,15 +86,16 @@ public:
 					while (getline(ss, token, delimiter)) {
 						tokens.push_back(token);
 					}
+					//name|adress|id|rating|x|y
+
 					//tokens[0] = this->name;
 					//tokens[1] = this->adress;
 					//this->hotel_id = stoi(tokens[2], nullptr, 10);
-					//this->hotelX = stoi(tokens[3], nullptr, 10);
-					//this->hotelY = stoi(tokens[4], nullptr, 10);
-					//setName(tokens[0]);
-					//setAdress(tokens[1]);
-					//setCoords(stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10));
-					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10)));
+					//this->rating = stof(tokens[3], nullptr);
+					//this->hotelX = stoi(tokens[4], nullptr, 10);
+					//this->hotelY = stoi(tokens[5], nullptr, 10);
+
+					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3],nullptr)));
 					return;
 				}
 			}
@@ -137,9 +140,9 @@ public:
 		for (int i = 0; i < hArr.size(); i++) {
 			file << "#Hotel#\n";
 			string tmpStr;
-			tmpStr = hArr[i].getName() + "|" + hArr[i].getName() + "|" + to_string(hArr[i].getHotelId()) + "|" + to_string(hArr[i].getX()) + "|" + to_string(hArr[i].getY());
-			file << tmpStr;
-			file << endl;
+			tmpStr = hArr[i].getName() + "|" + hArr[i].getAdress() + "|" + to_string(hArr[i].getHotelId()) + "|" + to_string(hArr[i].getRating()) + "|" + to_string(hArr[i].getX()) + "|" + to_string(hArr[i].getY());
+			file << tmpStr;//name|adress|id|rating|x|y
+			file << endl;//переход на н.с.
 			hArr[i].saveMainInfo(file);
 		}
 		file << "#End#";
@@ -168,7 +171,7 @@ public:
 					//setName(tokens[0]);
 					//setAdress(tokens[1]);
 					//setCoords(stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10));
-					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10)));
+					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3], nullptr)));
 					hArr[hArr.size() - 1].loadMainInfo(file);
 					return;
 				}
@@ -185,11 +188,117 @@ public:
 		for (int i = 0; i < hArr.size(); i++) {
 			file << "#Hotel#\n";
 			string tmpStr;
-			tmpStr = hArr[i].getName() + "|" + hArr[i].getName() + "|" + to_string(hArr[i].getHotelId()) + "|" + to_string(hArr[i].getX()) + "|" + to_string(hArr[i].getY());
-			file << tmpStr;
-			file << endl;
+			tmpStr = hArr[i].getName() + "|" + hArr[i].getAdress() + "|" + to_string(hArr[i].getHotelId()) + "|" + to_string(hArr[i].getRating()) + "|" + to_string(hArr[i].getX()) + "|" + to_string(hArr[i].getY());
+			file << tmpStr;//name|adress|id|rating|x|y
+			file << endl;//переход на н.с.
 			hArr[i].saveMainInfo(file);
 		}
 		file << "#End#";
 	}
+
+	void searchById() {
+		int chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel number to search room: ";
+		cin >> chose;
+		hArr[chose].showForClients();
+	}
+
+	void searchRoomById() {
+		int chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel number to search room: ";
+		cin >> chose;
+		hArr[chose].dispAllRooms();
+	}
+	void searchRoomByOqqupation() {
+		int chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel number to search room: ";
+		cin >> chose;
+		hArr[chose].showAval();
+	}
+
+	void searchByType() {
+		string choose;
+		int chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel number to search room: ";
+		cin >> chose;
+		cin.ignore();
+		cout << "Input Room type ypu want ot search: ";
+		getline(cin, choose);
+		for (int i = 0; i < hArr.size(); i++){
+			if (hArr[chose].r_arr[i]->type()==choose){
+				hArr[chose].r_arr[i]->showClient();
+			}
+		}
+	}
+	void searchRoomByType() {
+		string choose;
+		int chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel number to search room: ";
+		cin >> chose;
+		cin.ignore();
+		cout << "Input Room type ypu want ot search: ";
+		getline(cin, choose);
+		for (int i = 0; i < hArr.size(); i++) {
+			if (hArr[chose].r_arr[i]->type() == choose) {
+				hArr[chose].r_arr[i]->show();
+			}
+		}
+	}
+
+	void searchByName() {
+		string chose;
+		for (int i = 0; i < hArr.size(); i++) {
+			hArr[i].showHotelInfo();
+		}
+		cout << "Input Hotel name you want to find info: ";
+		getline(cin, chose);
+
+		for (int i = 0; i < hArr.size(); i++) {
+			if (hArr[i].getName() == chose) {
+				hArr[i].showHotelInfo();
+			}
+		}
+	}
+
+	void sortByRating() {
+		vector<Hotel> tmp;
+		tmp = hArr;
+		sort(tmp.begin(), tmp.end(), [](const Hotel a, const Hotel b) {
+			return a.getRating() > b.getRating();
+		});
+
+		for (int i = 0; i < tmp.size(); i++){
+			hArr[i].showHotelInfo();
+		}
+	}
+
+	void sortByFullness() {
+		vector<Hotel> tmp;
+		tmp = hArr;
+		sort(tmp.begin(), tmp.end(), [](const Hotel a, const Hotel b) {
+			return a.calcOqupied() / a.getRSize() > b.calcOqupied() / b.getRSize();
+			});
+
+		for (int i = 0; i < tmp.size(); i++) {
+			tmp[i].showHotelInfo();
+		}
+	}
+
+	void sortByPrice() {}
+
 };

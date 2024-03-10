@@ -71,6 +71,7 @@ public:
 	string getOqqupierPhone() const { return oqqupierPhone; }
 	Date getInfiltrationDate() const { return infiltrationD; }
 	int getDays() const { return days; }
+	float getPrice() const { return price; }
 	int getRooms() const { return rooms; }
 	bool getBalcony() const { return haveBalcony; }
 	bool getBodyNeeds() const { return haveBodyNeeds; }
@@ -178,7 +179,10 @@ public:
 		cout << "Infiltration Date: "; ((getInfiltrationDate() != Date(01, 01, 2000)) && getInfiltrationDate() > Date(01, 01, 2000)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
 		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
-			
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
 		}
 	}
 	virtual void show() const override {
