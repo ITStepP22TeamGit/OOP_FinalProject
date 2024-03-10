@@ -261,6 +261,7 @@ void GastroTour::TourShow() const
         }
     }
     cout << "|   Description: " << description << endl;
+    cout << "|   Food services:\n";
     /*cout << "|   Restaurants names and addresses:\n";
     for (int i = 0; i < foodServices.size(); i++)
     {
