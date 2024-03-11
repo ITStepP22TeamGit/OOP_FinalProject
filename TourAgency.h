@@ -1377,6 +1377,7 @@ public:
 					else {
 						hArr.showHotelForClients();
 					}
+					system("pause");
 					break;
 				case 2:
 					try {
