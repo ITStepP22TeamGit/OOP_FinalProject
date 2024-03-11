@@ -11,7 +11,6 @@ protected:
 	int hotelX;//coords
 	int hotelY;
 	float rating;
-	
 	string adress;//adress
 	string name;//name of hotel
 
@@ -20,10 +19,9 @@ public:
 
 	//Contructors,Destructors
 	Hotel() { updateId(); this->name = "unknown"; this->adress = "unknown"; this->hotelX = -1; this->hotelY = -1; this->hotel_id = -1; this->rating = -1; }
-	Hotel(string adress, string name, int hotelX, int hotelY, float rating)
-	{
+	Hotel(string adress, string name, int hotelX, int hotelY, float rating){
 		updateId(); setCoords(hotelX, hotelY); setName(name); setAdress(adress); setRating(rating);
-	} //loadMainInfo("data/Hotel/test.txt");
+	}
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{

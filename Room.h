@@ -213,7 +213,6 @@ public:
 		return price;
 	}
 };
-//end showRoomsInfo
 
 //+sanUzel
 class SRoom : public Room {
@@ -296,7 +295,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -409,7 +414,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -526,7 +537,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -645,7 +662,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -767,7 +790,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -892,7 +921,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -1020,7 +1055,13 @@ public:
 		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;//FIX
+		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		if (extra.size() > 0 && extra_price.size() > 0) {
+			for (int i = 0; i < extra.size(); i++)
+			{
+				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+			}
+		}
 	}
 	virtual void show() const override {
 		cout << type() << endl;
@@ -1069,4 +1110,3 @@ public:
 		return price;
 	}
 };
-

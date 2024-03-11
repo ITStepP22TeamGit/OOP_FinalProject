@@ -287,7 +287,6 @@ public:
 			hArr[i].showHotelInfo();
 		}
 	}
-
 	void sortByFullness() {
 		vector<Hotel> tmp;
 		tmp = hArr;
@@ -299,7 +298,5 @@ public:
 			tmp[i].showHotelInfo();
 		}
 	}
-
-	void sortByPrice() {}
 
 };
