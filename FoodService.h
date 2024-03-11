@@ -31,6 +31,7 @@ public:
 	void addFoodService(Map& map);
 	void delFoodServiceByName(string userName);
 	void delFoodService(Map& map);
+	void delFoodService(int index);
 
 	//подсчет количества заведений и их среднего рейтенга
 	double calculateAverageRating() const;

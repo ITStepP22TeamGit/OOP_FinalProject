@@ -4,7 +4,7 @@ ad
 1
 name
 12334556
-5
+4
 1
 South SnakesOK
 USA, Miami
@@ -88,27 +88,6 @@ Monster
 Bahrainian
 1
 0
-2
-VerCanteen
-Ukraine, Kharkov
-4
-Bulochka
-10
-Sosiska
-12
-Crisps
-5
-Milk
-28
-5
-25
-25
-10
-0
-22
-22
-1
-1
 2
 #1
 Sightseeing

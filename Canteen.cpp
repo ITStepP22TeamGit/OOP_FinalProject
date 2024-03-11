@@ -36,7 +36,7 @@ bool Canteen::getVegan() const
 
 bool Canteen::askClientBanquet() const
 {
-    cout << "Want to include a banquet in your trip? (Yes/No)" << endl;
+    cout << "|   Want to include a banquet in your trip? (Yes/No)" << endl;
     string tmp;
     do {
         cin >> tmp;

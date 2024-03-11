@@ -134,6 +134,16 @@ void FoodService::delFoodService(Map& map)
     }
 }
 
+void FoodService::delFoodService(int index)
+{
+    if (index > 0 && index < foodServices.size()) {
+        foodServices.erase(foodServices.begin() + index);
+    }
+    else {
+        cout << "Incorrect choice!\n";
+    }
+}
+
 double FoodService::calculateAverageRating() const
 {
     if (foodServices.empty()) {

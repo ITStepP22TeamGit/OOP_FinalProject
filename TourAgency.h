@@ -1141,44 +1141,45 @@ public:
 			getline(file1, str);
 		}*/
 		
-		
-		ifstream file("data/TourAgencyData.txt");
-		if (file.is_open()) {
-			file >> name;
-			file >> loggedIn;
-			file >> price;
-		}
-		else {
-			cout << "|  File couldn't open!\n";
-		}
-		
-		tour_arr.loadFromFile("data/TourArray.txt");
-
-		fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
-
-		//Hotels
-		hArr.loadInfo("data/hotelData.txt");
-
-		ifstream file1("data/UserData.txt");
-		int intVar;
-		if (file1.is_open()) {
-			file1 >> intVar;
-			for (int i = 0; i < intVar; i++)
-			{
-				/*User usTmp;
-				usTmp.loadFromUserFile(file1);
-				users.push_back(usTmp);*/
-				User* b = new User();
-				b->loadFromUserFile(file1);
-				users.push_back(*b);
+		try {
+			ifstream file("data/TourAgencyData.txt");
+			if (file.is_open()) {
+				file >> name;
+				file >> loggedIn;
+				file >> price;
 			}
-			file1.close();
+			else {
+				cout << "|  File couldn't open!\n";
+			}
+
+			tour_arr.loadFromFile("data/TourArray.txt");
+
+			fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
+
+			//Hotels
+			hArr.loadInfo("data/hotelData.txt");
+
+			ifstream file1("data/UserData.txt");
+			int intVar;
+			if (file1.is_open()) {
+				file1 >> intVar;
+				for (int i = 0; i < intVar; i++)
+				{
+					/*User usTmp;
+					usTmp.loadFromUserFile(file1);
+					users.push_back(usTmp);*/
+					User* b = new User();
+					b->loadFromUserFile(file1);
+					users.push_back(*b);
+				}
+				file1.close();
+			}
+			else {
+				cout << "|  File couldn't open!\n";
+			}
+			system("cls");
 		}
-		else {
-			cout << "|  File couldn't open!\n";
-		}
-		system("cls");
-		
+		catch (MapException* err) { cout << err->message(); delete err; }
 	}
 
 	void saveAllInfo() {

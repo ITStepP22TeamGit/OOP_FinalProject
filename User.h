@@ -239,7 +239,8 @@ public:
 			cout << "|   Phone number: " << userPhone << endl;
 			cout << "|\n|   Choose an action:\n";
 			cout << "|   1. Show my purchases.\n";
-			cout << "|   2. Edit my profile.\n";
+			cout << "|   2. Cancel a purchase.\n";
+			cout << "|   3. Edit my profile.\n";
 			cout << "|   0. Exit.\n";
 			cout << "\n > > > ";
 			cin >> menu;
@@ -250,10 +251,11 @@ public:
 				system("cls");
 				showMiniVertoZilla();
 				int menu1;
-				cout << "Select a purchase to see:\n";
-				cout << "1. Show hotels.\n";
-				cout << "2. Show food services.\n";
-				cout << "3. Show tours.\n";
+				cout << "|   Select a purchase to see:\n";
+				cout << "|   1. Show hotels.\n";
+				cout << "|   2. Show food services.\n";
+				cout << "|   3. Show tours.\n";
+				cout << "\n > > > ";
 				cin >> menu1;
 				switch (menu1)
 				{
@@ -261,7 +263,7 @@ public:
 					system("cls");
 					showMiniVertoZilla();
 					if (HArr.size() == 0) {
-						cout << "There are no hotels, at lest for now.\n";
+						cout << "|   There are no hotels, at lest for now.\n";
 					}
 					else {
 						for (int i = 0; i < HArr.size(); i++) {
@@ -284,13 +286,12 @@ public:
 					showMiniVertoZilla();
 					try {
 						TArr.showTourArrClients();
-						system("pause");
 					}
 					catch (TourArrayException* err) { err->message(); delete err; }
 					break;
 				default:
 					//exception
-					cout << "Input error!\n";
+					cout << "|   Input error!\n";
 					break;
 				}
 				break;
@@ -300,10 +301,48 @@ public:
 				system("cls");
 				showMiniVertoZilla();
 				int menu1;
-				cout << "Select an option to edit:\n";
-				cout << "1. Name.\n";
-				cout << "2. Password.\n";
-				cout << "3. Phone number.\n";
+				cout << "|   Select a purchase to cancel:\n";
+				cout << "|   1. Cancel a hotel.\n";
+				cout << "|   2. Cancel a food service.\n";
+				cout << "|   3. Cancel a tour.\n";
+				cout << "\n > > > ";
+				cin >> menu1;
+				switch (menu1)
+				{
+				case 1:
+					break;
+				case 2:
+				{
+					int intVarFood = fArr.showFoodServices();
+					if (intVarFood == -1) {
+						return;
+					}
+					fArr.delFoodService(intVarFood);
+					break;
+				}
+				case 3:
+				{
+					int intVarTour = TArr.showAllForClientOrder();
+					if (intVarTour == -1) {
+						return;
+					}
+					TArr.delTour(intVarTour);
+					break;
+				}
+				default:
+					break;
+				}
+				break;
+			}
+			case 3:
+			{
+				system("cls");
+				showMiniVertoZilla();
+				int menu1;
+				cout << "|   Select an option to edit:\n";
+				cout << "|   1. Name.\n";
+				cout << "|   2. Password.\n";
+				cout << "|   3. Phone number.\n";
 				cin >> menu1;
 				switch (menu1)
 				{
