@@ -24,21 +24,23 @@ public:
 		string name, adress;
 		float rating;
 		int X, Y;
+		cin.ignore();
 		cout << "Enter future hotel name\n";
 		cout << "| > > >";
 		getline(cin, name);
 		cout << "Enter future hotel adress\n";
 		cout << "| > > >";
 		getline(cin, adress);
-		cin.ignore();
 		cout << "Enter future hotels adress\n";
 		cout << "| > > >";
+		cin.ignore();
 		cin >> rating;
 		cout << "Enter future hotels adress (X,Y)\n";
 		cout << "| > > >";
 		cin >> X;
 		cout << "| > > >";
 		cin >> Y;
+		cin.ignore();
 		hArr.push_back(Hotel(adress, name, X, Y, rating));
 		hArr[hArr.size() - 1].addRoom();
 	}
@@ -49,6 +51,9 @@ public:
 	void addHotel(Hotel obj) {
 		hArr.push_back(obj);
 	}
+
+	void editHotel() {}
+
 
 	void addRoom() {
 		int chose;
@@ -133,13 +138,142 @@ public:
 		}
 	}
 
+	void menu() {
+		int menu;
+		do{
+			cout << "--";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "~~ Hotels ~~";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "--\n";
+			cout << "|   1. Show Hotels\n";
+			cout << "|   2. Sort Hotels\n";
+			cout << "|   3. Search Hotels\n";
+			cout << "|   0. Return/Exit\n";
+			cout << "| > > >";
+			cin >> menu;
+			switch (menu)
+			{
+			case 0:
+				return;
+			case 1:
+				showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 2:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 3:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			default:
+				break;
+			}
+		} while (menu !=0);
+		system("cls");
+	}
+	void menuSort() {
+		int menu;
+		do {
+			cout << "--";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "~~ Hotels Sorter ~~";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "--\n";
+			cout << "|   1. Show Hotels\n";
+			cout << "|   2. Sort Hotels\n";
+			cout << "|   3. Search Hotels\n";
+			cout << "|   0. Return/Exit\n";
+			cout << "| > > >";
+			cin >> menu;
+			switch (menu)
+			{
+			case 0:
+				return;
+			case 1:
+				showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 2:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 3:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			default:
+				break;
+			}
+		} while (menu != 0);
+		system("cls");
+	}
+	void menuSearch() {
+		int menu;
+		do {
+			cout << "--";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "~~ Hotels Searcher ~~";
+			for (int i = 0; i < 10; i++) {
+				cout << "=";
+			}
+			cout << "--\n";
+			cout << "|   1. Show Hotels\n";
+			cout << "|   2. Sort Hotels\n";
+			cout << "|   3. Search Hotels\n";
+			cout << "|   0. Return/Exit\n";
+			cout << "| > > >";
+			cin >> menu;
+			switch (menu)
+			{
+			case 0:
+				return;
+			case 1:
+				showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 2:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 3:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			default:
+				break;
+			}
+		} while (menu != 0);
+		system("cls");
+	}
+
 	float calcSumm(int hid, int rid) {
 		return hArr[hid].calcSumm(rid);
 	}
 	void addOqupier(int hid,int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		hArr[hid].addOqqupier(rId, days, oqqupierName, oqqupierPhone, infiltration_d);
 	}
-
 	void askClient(int hid, int rid) {
 		hArr[hid].r_arr[rid]->askClients();
 	}
@@ -399,7 +533,7 @@ public:
 		cout << "Input Hotel number to search room: ";
 		cin >> chose;
 		cin.ignore();
-		cout << "Input Room type ypu want ot search: ";
+		cout << "Input Room type you want ot search: ";
 		getline(cin, choose);
 		for (int i = 0; i < hArr.size(); i++){
 			if (hArr[chose].r_arr[i]->type()==choose){

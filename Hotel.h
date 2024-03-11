@@ -259,6 +259,7 @@ public:
 		} while (choose != 0);
 	}
 	void addRoom(Room* obj) { r_arr.push_back(obj); }
+
 	void delRoom() {
 		int choose;
 		do {
@@ -297,6 +298,7 @@ public:
 		}
 		else { cout << "\nYou have entered wrong number.\n"; }
 	}
+
 	void editRoom() {
 		int choose;
 		cout << "=================================================\n";
@@ -715,6 +717,7 @@ public:
 		cout << "|   Adress: " + getAdress() + "; Coordinates on map" << getX() << " " << getY() << endl;
 		cout << "|   Rating: " << getRating() << endl;
 		cout << "|   Fullness: " << calcOqupied() / r_arr.size() <<"%" << endl;
+		cout << "|   Amount of Rooms: " << r_arr.size() << endl;
 		cout << "==========================================================>\n";
 	}
 	void showRoomInfo() {
