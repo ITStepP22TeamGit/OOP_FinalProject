@@ -58,6 +58,20 @@ public:
 		}
 		cout << "--===========================================--\n";
 	}
+	int showHotelForClientsOrder() {
+		for (int i = 0; i < hArr.size(); i++) {
+			cout << "--===========================================--\n";
+			cout << "|   " << i + 1 << ". " + hArr[i].getName() + " on " + hArr[i].getAdress() << endl;
+			cout << "==============================================>\n";
+			hArr[i].showForClients();
+			cout << "==============================================>\n";
+		}
+		cout << "--===========================================--\n";
+		int intVar;
+		cout << "|   Choose a number you want to order: ";
+		cin >> intVar;
+		return intVar - 1;
+	}
 	void showForOrder() {
 		for (int i = 0; i < hArr.size(); i++) {
 			cout << "--===========================================--\n";
@@ -300,5 +314,12 @@ public:
 			tmp[i].showHotelInfo();
 		}
 	}
-
+	Hotel getHotel(int hid) {
+		for (int i = 0; i < hArr.size(); i++) {
+			if (i == hid) {
+				return hArr[hid];
+			}
+		}
+		return hArr[-1];
+	}
 };

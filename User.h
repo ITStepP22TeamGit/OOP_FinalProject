@@ -4,6 +4,7 @@
 #include "Hotel.h"
 #include "TourArr.h"
 #include "FoodService.h"
+#include"Accomodation.h"
 #include "UserException.h"
 using namespace std;
 
@@ -17,7 +18,8 @@ protected:
 	string userPhone;
 	FoodService fArr;
 	TourArr TArr;
-	vector<Hotel> HArr;
+	//vector<Hotel> HArr;
+	Accomodation HArr;
 	float totalPriceTour = 0;
 	float totalPriceRestaurant = 0;
 	float totalPriceHotel = 0;
@@ -82,6 +84,12 @@ public:
 	bool getIsAdmin() const {
 		return isAdmin;
 	}
+	string getUserName()const {
+		return userName;
+	}
+	string getUserPhone()const {
+		return userPhone;
+	}
 
 	void saveUserToFile(ofstream& file) {
 		file << login << endl;
@@ -96,7 +104,7 @@ public:
 		catch (TourArrayException* err) { err->message(); delete err; }
 		file << "#Init#\n";
 		for (int i = 0; i < HArr.size(); i++) {
-			HArr[i].saveMainInfo(file);
+			HArr.saveInfo(file);
 		}
 	}
 
@@ -121,8 +129,12 @@ public:
 		string str;
 		file >> str;
 		for (int i = 0; i < HArr.size(); i++) {
-			HArr[i].loadMainInfo(file);
+			HArr.loadInfo(file);
 		}
+	}
+
+	void addHotel(Hotel obj) {
+		HArr.addHotel(obj);
 	}
 	
 	void addTour(Tour* obj) {
@@ -266,13 +278,7 @@ public:
 						cout << "|   There are no hotels, at lest for now.\n";
 					}
 					else {
-						for (int i = 0; i < HArr.size(); i++) {
-							cout << i + 1 << HArr[i].getAdress() << endl;
-							cout << "==============================================\n";
-							HArr[i].dispAllRooms();
-							cout << "==============================================\n";
-						}
-						cout << "===============================\n";
+						HArr.showHotelForClients();
 					}
 					break;
 				case 2:

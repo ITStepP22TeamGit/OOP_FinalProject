@@ -1635,14 +1635,19 @@ public:
 
 	void makeOrder(bool hotel, bool food, bool tour) {
 		if (hotel == 1){
-			int hid = 0, rid = 0;
+			int hid = 0, rid = 0, days = 0;
 			hArr.showForOrder();
-			//two cin for adress and roomid
-			//cin date
-			//cin term
-			//h_arr[hid].addOqqupier();
+			cout << "|   Input hotel number and room in which you want to order and for how long(days):\n";
+			cout << "| > > >";
+			cin >> hid;
+			cout << "\n| > > >";
+			cin >> rid;
+			cout << "\n| > > >";
+			cin >> days;
+			hArr.addOqupier(hid, rid, days, users[loggedIn].getUserName(), users[loggedIn].getUserPhone(), Date());
 			price += hArr.calcSumm(hid, rid);
 			cout << "Final price: " << price;
+			users[loggedIn].addHotel(hArr.getHotel(hid));
 		}
 		if (tour == 1) {
 			try {
