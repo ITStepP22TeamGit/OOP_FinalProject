@@ -25,9 +25,9 @@ public:
 	~Hotel() {
 		for (int i = 0; i < r_arr.size(); i++)
 		{
-			delete r_arr[i];
+			//delete r_arr[i];
 		}
-		r_arr.clear();
+		//r_arr.clear();
 	}
 	
 	//Setters
@@ -659,15 +659,17 @@ public:
 				if (r_arr[i]->getOqqupied()==false){
 					r_arr[i]->setOqqupie(days,oqqupierName,oqqupierPhone,infiltration_d);
 					r_arr[i]->askClients();
-					break;
+					system("pause");
+					return;
 				}
 				else {
 					cout << "This room misteriously got oqqupied(\n";
-					break;
+					return;
 				}
 			}
 		}
 		cout << "Unable to make order to this room, hope you luck next time!\n";
+		system("pause");
 	}
 	float calcSumm(int rId) { return r_arr[rId]->calcSumm(); }
 	float calcOqupied()const {
@@ -715,6 +717,12 @@ public:
 		cout << "|   Fullness: " << calcOqupied() / r_arr.size() <<"%" << endl;
 		cout << "==========================================================>\n";
 	}
+	void showRoomInfo() {
+		for (int i = 0; i < r_arr.size(); i++)
+		{
+			r_arr[i]->show();
+		}
+	}
 
 	//File manipulation
 	void loadMainInfo(ifstream& file) {
@@ -729,7 +737,7 @@ public:
 			else if (line.find("#Rooms#") == string::npos && !uploading) {
 				continue;
 			}
-			if (line.find("#Hotel#") != string::npos || line.find("") == string::npos || line.empty()) {
+			if (line.find("#Hotel#") != string::npos || line.find("#End#") != string::npos || line.find("") == string::npos || line.empty()) {
 				if (uploading){
 					uploading = false;
 				}

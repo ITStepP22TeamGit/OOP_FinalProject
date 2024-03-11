@@ -278,7 +278,8 @@ public:
 						cout << "|   There are no hotels, at lest for now.\n";
 					}
 					else {
-						HArr.showHotelForClients();
+						HArr.showRoomsInfo();
+						system("pause");
 					}
 					break;
 				case 2:

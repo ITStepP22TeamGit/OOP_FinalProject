@@ -1134,13 +1134,13 @@ public:
 		//	cout << '=';
 		//}
 		//cout << "//\n";
-
-		/*string str;
-		ifstream file1("data/UserData.txt");
-		while (getline(file1, str)) {
-			getline(file1, str);
-		}*/
-		
+		//
+		//string str;
+		//ifstream file1("data/UserData.txt");
+		//while (getline(file1, str)) {
+		//	getline(file1, str);
+		//}
+		hArr.addHotel("test_adress", "test_name", 0.1, 1, 1, map);
 		try {
 			ifstream file("data/TourAgencyData.txt");
 			if (file.is_open()) {
@@ -1154,10 +1154,10 @@ public:
 
 			tour_arr.loadFromFile("data/TourArray.txt");
 
-			fServ.loadFoodServicesFromFile("TestFoodData.txt", map);
+			fServ.loadFoodServicesFromFile("data/TestFoodData.txt", map);
 
 			//Hotels
-			hArr.loadInfo("data/hotelData.txt");
+			hArr.loadInfo("data/hotelData.txt",map);
 
 			ifstream file1("data/UserData.txt");
 			int intVar;
@@ -1186,7 +1186,55 @@ public:
 		//Global Directory URL
 		string fileDir = "data/";
 
-		//Hotels
+		ofstream fil(fileDir + "hotelData.txt");
+		if (fil.is_open()){
+			fil << hArr.size();
+			for (int i = 0; i < hArr.size(); i++){
+				hArr.saveInfo(fil);
+			}
+		}
+
+		ofstream file(fileDir+"UserData.txt");
+		if (file.is_open()) {
+			file << users.size() << endl;
+			for (int i = 0; i < users.size(); i++)
+			{
+				users[i].saveUserToFile(file);
+			}
+			file.close();
+		}
+		else {
+			cout << "|  File couldn't create!\n";
+		}
+		ofstream file1(fileDir+"TestFoodData.txt");
+		if (file1.is_open()) {
+			fServ.saveFoodServicesToFile(file1);
+			file1.close();
+		}
+		else {
+			cout << "|  File couldn't create!\n";
+		}
+		try {
+			ofstream file2(fileDir+"TourArray.txt");
+			if (file2.is_open()) {
+				tour_arr.saveToFile(file2);
+				file2.close();
+			}
+			else {
+				cout << "|  File couldn't create!\n";
+			}
+		}
+		catch (TourArrayException* err) { err->message(); delete err; }
+		ofstream file3(fileDir+"TourAgencyData.txt");
+		if (file3.is_open()) {
+			file3 << name << endl;
+			file3 << loggedIn << endl;
+			file3 << price << endl;
+			file3.close();
+		}
+		else {
+			cout << "|  File couldn't create!\n";
+		}
 
 	}
 
@@ -1502,48 +1550,7 @@ public:
 				}
 			} 
 		}while (chooseTmp != 0);
-
-		ofstream file("data/UserData.txt");
-		if (file.is_open()) {
-			file << users.size() << endl;
-			for (int i = 0; i < users.size(); i++)
-			{
-				users[i].saveUserToFile(file);
-			}
-			file.close();
-		}
-		else {
-			cout << "|  File couldn't create!\n";
-		}
-		ofstream file1("TestFoodData.txt");
-		if (file1.is_open()) {
-			fServ.saveFoodServicesToFile(file1);
-			file1.close();
-		}
-		else {
-			cout << "|  File couldn't create!\n";
-		}
-		try {
-			ofstream file2("data/TourArray.txt");
-			if (file2.is_open()) {
-				tour_arr.saveToFile(file2);
-				file2.close();
-			}
-			else {
-				cout << "|  File couldn't create!\n";
-			}
-		}
-		catch (TourArrayException* err) { err->message(); delete err; }
-		ofstream file3("data/TourAgencyData.txt");
-		if (file3.is_open()) {
-			file3 << name << endl;
-			file3 << loggedIn << endl;
-			file3 << price << endl;
-			file3.close();
-		}
-		else {
-			cout << "|  File couldn't create!\n";
-		}
+		saveAllInfo();
 	}
 
 	//void compareUsersLogins() {}
@@ -1637,17 +1644,18 @@ public:
 		if (hotel == 1){
 			int hid = 0, rid = 0, days = 0;
 			hArr.showForOrder();
-			cout << "|   Input hotel number and room in which you want to order and for how long(days):\n";
+			cout << "|   Input hotel number, room in which you want to order, for how long(days):\n";
 			cout << "| > > >";
 			cin >> hid;
-			cout << "\n| > > >";
+			cout << "| > > >";
 			cin >> rid;
-			cout << "\n| > > >";
+			cout << "| > > >";
 			cin >> days;
-			hArr.addOqupier(hid, rid, days, users[loggedIn].getUserName(), users[loggedIn].getUserPhone(), Date());
-			price += hArr.calcSumm(hid, rid);
+			hArr.addOqupier(hid-1, rid-1, days, users[loggedIn].getUserName(), users[loggedIn].getUserPhone(), Date());
+			//hArr.askClient(hid - 1, rid - 1);
+			price += hArr.calcSumm(hid-1, rid-1);
 			cout << "Final price: " << price;
-			users[loggedIn].addHotel(hArr.getHotel(hid));
+			users[loggedIn].addHotel(hArr.getHotel(hid-1));
 		}
 		if (tour == 1) {
 			try {

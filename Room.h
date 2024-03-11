@@ -175,7 +175,6 @@ public:
 	virtual string type() const override { return "Low Cost Room"; }
 
 	virtual void showRoomInfo() const override {
-		cout << "|   \tRoom # " << showId() << endl;
 		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
 		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
 		cout << "|   Infiltration Date: "; ((getInfiltrationDate() != Date(01, 01, 2000)) && getInfiltrationDate() > Date(01, 01, 2000)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
