@@ -40,6 +40,7 @@ public:
 		cout << "| > > >";
 		cin >> Y;
 		hArr.push_back(Hotel(adress, name, X, Y, rating));
+		hArr[hArr.size() - 1].addRoom();
 	}
 	void addHotel(string adress, string name, float rating, int hotelX, int hotelY, Map& map) {
 		hArr.push_back(Hotel(adress, name, hotelX, hotelY, rating));
@@ -49,8 +50,15 @@ public:
 		hArr.push_back(obj);
 	}
 
-	void addRoom() {}
-	void addRoom() {}
+	void addRoom() {
+		int chose;
+		showHotelInfo();
+		cout << "| Input hotel id to add room";
+		cout << "| > > >";
+		cin >> chose;
+		chose--;
+		hArr[chose].addRoom();
+	}
 	void addRoom(int hid, Room* obj) {}
 
 	void delHotel() {
