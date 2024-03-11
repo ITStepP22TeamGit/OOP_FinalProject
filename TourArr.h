@@ -20,6 +20,7 @@ public:
 	~TourArr();
 	int getVectotSize()const;
 	Date getDateTour(int index)const;
+	float getTotalPrice();
 
 	void addTour(Tour* obj);
 	void addTour();

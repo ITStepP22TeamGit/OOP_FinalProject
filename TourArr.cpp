@@ -19,6 +19,16 @@ Date TourArr::getDateTour(int index) const
 	return arr[index]->getDate();
 }
 
+float TourArr::getTotalPrice()
+{
+	float summ = 0;
+	for (int i = 0; i < arr.size(); i++)
+	{
+		summ += arr[i]->getPrice();
+	}
+	return summ;
+}
+
 void TourArr::addTour(Tour* obj)
 {
 	arr.push_back(obj);

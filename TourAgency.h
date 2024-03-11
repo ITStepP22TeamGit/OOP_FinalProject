@@ -1474,8 +1474,6 @@ public:
 					break;
 				}
 				case 6:
-					system("cls");
-					showMiniVertoZilla();
 					cout << endl;
 					users[loggedIn].showUser();
 					break;

@@ -18,11 +18,15 @@ protected:
 	FoodService fArr;
 	TourArr TArr;
 	vector<Hotel> HArr;
-	float totalPrice;
+	float totalPriceTour = 0;
+	float totalPriceRestaurant = 0;
+	float totalPriceHotel = 0;
 public:
 	User() {
 		isAdmin = 0;
-		totalPrice = 0;
+		totalPriceTour = 0;
+		totalPriceRestaurant = 0;
+		totalPriceHotel = 0;
 		login = "login";
 		password = "password";
 		userName = "un";
@@ -30,6 +34,18 @@ public:
 	}
 
 	~User() {
+	}
+
+	void showMiniVertoZilla() {
+		system("cls");
+		cout << " \n\n";
+		cout << "  ____   ____                __         __________.__ .__   .__           \n";
+		cout << "  \\   \\ /   / ____ _______ _/  |_  ____ \\____    /|__||  |  |  |  _____   \n";
+		cout << "   \\   Y   /_/ __ \\\\_  __ \\\\   __\\/  _ \\  /     / |  ||  |  |  |  \\__  \\  \n";
+		cout << "    \\     / \\  ___/ |  | \\/ |  | (  <_> )/     /_ |  ||  |__|  |__ / __ \\_\n";
+		cout << "     \\___/   \\___  >|__|    |__|  \\____//_______ \\|__||____/|____/(____  /\n";
+		cout << "                 \\/                             \\/                     \\/ \n\n\n";
+
 	}
 
 	void setLogin(string _login) {
@@ -119,41 +135,49 @@ public:
 				TArr.addTour(d);*/
 				Safari* b = static_cast<Safari*>(obj);
 				Safari* c = new Safari(*b); // Create a new Safari object on the heap
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "Sightseeing") {
 				Sightseeing* b = static_cast<Sightseeing*>(obj);
 				Sightseeing* c = new Sightseeing(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "BeachTour") {
 				BeachTour* b = static_cast<BeachTour*>(obj);
 				BeachTour* c = new BeachTour(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "YachtTour") {
 				YachtTour* b = static_cast<YachtTour*>(obj);
 				YachtTour* c = new YachtTour(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "Excursion") {
 				Excursion* b = static_cast<Excursion*>(obj);
 				Excursion* c = new Excursion(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "HikingTour") {
 				HikingTour* b = static_cast<HikingTour*>(obj);
 				HikingTour* c = new HikingTour(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "HelicopterFlightTour") {
 				HelicopterFlightTour* b = static_cast<HelicopterFlightTour*>(obj);
 				HelicopterFlightTour* c = new HelicopterFlightTour(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "GastroTour") {
 				GastroTour* b = static_cast<GastroTour*>(obj);
 				GastroTour* c = new GastroTour(*b);
+				c->askClient();
 				TArr.addTour(c);
 			}
 		}
@@ -183,130 +207,161 @@ public:
 		if (obj->type() == "CANTEEN") {
 			Canteen* b = static_cast<Canteen*>(obj);
 			Canteen* c = new Canteen(*b);
+			if (c->askClientBanquet()) {
+				totalPriceRestaurant += 25;
+			}
 			fArr.addFoodService(c);
 		}
 		if (obj->type() == "RESTARAUNT") {
 			Restaraunt* b = static_cast<Restaraunt*>(obj);
 			Restaraunt* c = new Restaraunt(*b);
+			if (c->askClientBanquet()) {
+				totalPriceRestaurant += 25;
+			}
 			fArr.addFoodService(c);
 		}
 	}
 
 	void showUser() {
-		cout << "Login: " << login << endl;
-		cout << "Name: " << userName << endl;
-		cout << endl << "Choose an action:\n";
 		int menu;
-		cout << "1. Show my purchases.\n";
-		cout << "2. Edit my profile.\n";
-		cin >> menu;
-		switch (menu)
+		do
 		{
-		case 1:
-		{
-			int menu1;
-			cout << "Select a purchase to see:\n";
-			cout << "1. Show hotels.\n";
-			cout << "2. Show food services.\n";
-			cout << "3. Show tours.\n";
-			cin >> menu1;
-			switch (menu1)
+			system("cls");
+			showMiniVertoZilla();
+			cout << " ======================= Hello, " << userName << "! ======================== >\n";
+			cout << "|   Login: " << login << endl;
+			cout << "|   Password: ";
+			for (int i = 0; i < password.size(); i++)
+			{
+				cout << "*";
+			}
+			cout << endl;
+			cout << "|   Phone number: " << userPhone << endl;
+			cout << "|\n|   Choose an action:\n";
+			cout << "|   1. Show my purchases.\n";
+			cout << "|   2. Edit my profile.\n";
+			cout << "|   0. Exit.\n";
+			cout << "\n > > > ";
+			cin >> menu;
+			switch (menu)
 			{
 			case 1:
-				if (HArr.size() == 0) {
-					cout << "There are no hotels, at lest for now.\n";
-				}
-				else {
-					for (int i = 0; i < HArr.size(); i++) {
-						cout << i + 1 << HArr[i].getAdress() << endl;
-						cout << "==============================================\n";
-						HArr[i].dispAllRooms();
-						cout << "==============================================\n";
+			{
+				system("cls");
+				showMiniVertoZilla();
+				int menu1;
+				cout << "Select a purchase to see:\n";
+				cout << "1. Show hotels.\n";
+				cout << "2. Show food services.\n";
+				cout << "3. Show tours.\n";
+				cin >> menu1;
+				switch (menu1)
+				{
+				case 1:
+					system("cls");
+					showMiniVertoZilla();
+					if (HArr.size() == 0) {
+						cout << "There are no hotels, at lest for now.\n";
 					}
-					cout << "===============================\n";
-				}
-				break;
-			case 2:
-				fArr.showFoodServices(1);
-				system("pause");
-				break;
-			case 3:
-				try {
-					TArr.showTourArrClients();
+					else {
+						for (int i = 0; i < HArr.size(); i++) {
+							cout << i + 1 << HArr[i].getAdress() << endl;
+							cout << "==============================================\n";
+							HArr[i].dispAllRooms();
+							cout << "==============================================\n";
+						}
+						cout << "===============================\n";
+					}
+					break;
+				case 2:
+					system("cls");
+					showMiniVertoZilla();
+					fArr.showFoodServices(1);
 					system("pause");
-				}
-				catch (TourArrayException* err) { err->message(); delete err; }
-				break;
-			default:
-				//exception
-				cout << "Input error!\n";
-				break;
-			}
-			break;
-		}
-		case 2:
-		{
-			int menu1;
-			cout << "Select an option to edit:\n";
-			cout << "1. Name.\n";
-			cout << "2. Password.\n";
-			cout << "3. Phone number.\n";
-			cin >> menu1;
-			switch (menu1)
-			{
-			case 1:
-			{
-				string str;
-				cout << "Enter new name: ";
-				cin.ignore();
-				getline(cin, str);
-				if (str == userName) {
+					break;
+				case 3:
+					system("cls");
+					showMiniVertoZilla();
+					try {
+						TArr.showTourArrClients();
+						system("pause");
+					}
+					catch (TourArrayException* err) { err->message(); delete err; }
+					break;
+				default:
 					//exception
-					cout << "It is already your name!\n";
-				}
-				else {
-					setUserName(str);
+					cout << "Input error!\n";
+					break;
 				}
 				break;
 			}
 			case 2:
 			{
-				string str;
-				cout << "Enter new password: ";
-				cin.ignore();
-				getline(cin, str);
-				if (str == userName) {
-					//exception
-					cout << "It is already your password!\n";
+				system("cls");
+				showMiniVertoZilla();
+				int menu1;
+				cout << "Select an option to edit:\n";
+				cout << "1. Name.\n";
+				cout << "2. Password.\n";
+				cout << "3. Phone number.\n";
+				cin >> menu1;
+				switch (menu1)
+				{
+				case 1:
+				{
+					string str;
+					cout << "Enter new name: ";
+					cin.ignore();
+					getline(cin, str);
+					if (str == userName) {
+						//exception
+						cout << "It is already your name!\n";
+					}
+					else {
+						setUserName(str);
+					}
+					break;
 				}
-				else {
-					setPassword(str);
+				case 2:
+				{
+					string str;
+					cout << "Enter new password: ";
+					cin.ignore();
+					getline(cin, str);
+					if (str == userName) {
+						//exception
+						cout << "It is already your password!\n";
+					}
+					else {
+						setPassword(str);
+					}
+					break;
 				}
-				break;
-			}
-			case 3:
-			{
-				string str;
-				cout << "Enter new phone number: ";
-				cin.ignore();
-				getline(cin, str);
-				if (str == userName) {
-					//exception
-					cout << "It is already your phone number!\n";
+				case 3:
+				{
+					string str;
+					cout << "Enter new phone number: ";
+					cin.ignore();
+					getline(cin, str);
+					if (str == userName) {
+						//exception
+						cout << "It is already your phone number!\n";
+					}
+					else {
+						setUserPhone(str);
+					}
+					break;
 				}
-				else {
-					setUserPhone(str);
+				default:
+					break;
 				}
 				break;
 			}
 			default:
+				cout << "|   Input error!\n";
 				break;
 			}
-			break;
-		}
-		default:
-			break;
-		}
+		} while (menu != 0);
 	}
 };
 
