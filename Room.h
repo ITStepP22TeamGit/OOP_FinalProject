@@ -110,20 +110,22 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
+
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -135,7 +137,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -152,10 +154,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -165,7 +167,7 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
@@ -173,34 +175,34 @@ public:
 	virtual string type() const override { return "Low Cost Room"; }
 
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; ((getInfiltrationDate() != Date(01, 01, 2000)) && getInfiltrationDate() > Date(01, 01, 2000)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; ((getInfiltrationDate() != Date(01, 01, 2000)) && getInfiltrationDate() > Date(01, 01, 2000)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << ". " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << type() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   " + type() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
 		if ((oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") && getOqqupied() == false) {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 
 	virtual void showClient() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << type() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   " + type() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 
 	virtual float calcSumm() override {
@@ -230,20 +232,21 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -255,7 +258,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -272,10 +275,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -284,42 +287,42 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
 
 	virtual string type() const override { return "Small Cost Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " + i + 1 << ". " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout <<"|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << type() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   " + type() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -349,20 +352,21 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -374,7 +378,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -391,10 +395,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -410,37 +414,37 @@ public:
 
 	virtual string type() const override { return "Medium Cost Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 
 	virtual float calcSumm() override {
@@ -472,20 +476,21 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -497,7 +502,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -514,10 +519,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -526,46 +531,46 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
 
 	virtual string type() const override { return "Premium Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -597,20 +602,21 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -622,7 +628,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -639,10 +645,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -651,48 +657,48 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
 
 	virtual string type() const override { return "High Cost Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -729,16 +735,17 @@ public:
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "#   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -750,7 +757,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -767,10 +774,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -779,50 +786,50 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
 
 	virtual string type() const override { return "VIP Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -856,20 +863,21 @@ public:
 		loadAddInfo("data/");
 		if (extra.size() == 0 && extra_price.size() == 0)
 		{
-			cout << "There arent any extras for you(\n";
+			cout << "#   There arent any extras for you(\n";
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout <<"|   " << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "|   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -881,7 +889,7 @@ public:
 		//string filename = "test.txt";
 		ifstream file(filename+"hotelsExtras.txt");
 		if (!file.is_open()) {
-			cerr << "Unable to open file: " << filename << endl;
+			cerr << "#   Unable to open file: " << filename << endl;
 			return;
 		}
 		string line;
@@ -898,10 +906,10 @@ public:
 				string t_name;
 				float t_price;
 				if (!(iss >> t_name >> t_price)) {
-					cerr << "Error parsing line: " << line << endl;
+					cerr << "#   Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -910,52 +918,52 @@ public:
 			}
 		}
 		if (extra.size() == 0 && extra_price.size() == 0) {
-			cout << "File is empty or no data have been loaded!\n";
+			cout << "#   File is empty or no data have been loaded!\n";
 		}
 		file.close();
 	}
 
 	virtual string type() const override { return "Lux Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 1000.0;
@@ -994,16 +1002,17 @@ public:
 		}
 		else {
 			int select;
-			cout << "List of extra`s avalible for purchasing:\n";
+			cout << "|   List of extra`s avalible for purchasing:\n";
 			for (int i = 0; i < extra.size(); i++) {
-				cout << i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
+				cout << "|   " + i + 1 << ". " + extra[i] << " " << extra_price[i] << endl;
 			}
 			do {
-				cout << "Input id`s of selected items you prefer to have (0 Stop asking for extra`s): ";
+				cout << "|   Input id`s of selected items you prefer to have (0 Stop asking for extra`s): \n";
+				cout << "| > > >";
 				cin >> select;
 
 				if (select <= extra.size()) {
-					cout << "Item added: " + extra[select] << endl;
+					cout << "|   Item added: " + extra[select] << endl;
 					extra_ordered.push_back(select);
 				}
 			} while (select != 0);
@@ -1035,7 +1044,7 @@ public:
 					cerr << "Error parsing line: " << line << endl;
 					continue;
 				}
-				cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
+				cout << "|   Product Name: " << t_name << ", Price: " << t_price << endl;
 				extra.push_back(t_name);
 				extra_price.push_back(t_price);
 			}
@@ -1051,47 +1060,47 @@ public:
 
 	virtual string type() const override { return "Presidential Room"; }
 	virtual void showRoomInfo() const override {
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
-		cout << "Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
-		cout << "Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
-		cout << "Defilatrion Date: " << getInfiltrationDate() + days << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Orderer name: ";  (getOqqupierName() != "") ? cout << getOqqupierName() << endl : cout << "unknown\n";
+		cout << "|   Orderer contact phone: ";  (getOqqupierPhone() != "") ? cout << getOqqupierPhone() << endl : cout << "unknown\n";
+		cout << "|   Infiltration Date: "; (getInfiltrationDate() != Date(01, 01, 1900)) ? cout << getInfiltrationDate() << endl : cout << "00.00.0000\n";
+		cout << "|   Defilatrion Date: " << getInfiltrationDate() + days << endl;
 		if (extra.size() > 0 && extra_price.size() > 0) {
 			for (int i = 0; i < extra.size(); i++)
 			{
-				cout << i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
+				cout << "|   "+i + 1 << " " << extra[i] << " " << extra_price[i] << endl;
 			}
 		}
 	}
 	virtual void show() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have accsess to Helicopter: "; (getHeliAccsess() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have accsess to Helicopter: "; (getHeliAccsess() == true) ? cout << "Yes\n" : cout << "No\n";
 		if (oqqupierName == "" && oqqupierPhone == "" || oqqupierName == "unknown" && oqqupierPhone == "unknown") {
-			cout << "Room haven`t been oqqupied!" << endl;
+			cout << "|   Room haven`t been oqqupied!" << endl;
 		}
 		else { showRoomInfo(); }
 	}
 	virtual void showClient() const override {
-		cout << type() << endl;
-		cout << "\tRoom # " << showId() << endl;
-		cout << "Rooms: " << getRooms() << endl;
-		cout << "Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
-		cout << "Does have accsess to Helicopter: "; (getHeliAccsess() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   " + type() << endl;
+		cout << "|   \tRoom # " << showId() << endl;
+		cout << "|   Rooms: " << getRooms() << endl;
+		cout << "|   Does have Balcony: "; (getBalcony() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have BodyNeeds: "; (getBodyNeeds() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Kitchen: "; (getKitchen() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Games: "; (getGames() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Movie TV: "; (getMovieTV() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Save: "; (getSave() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have Jakussi: "; (getJakussi() == true) ? cout << "Yes\n" : cout << "No\n";
+		cout << "|   Does have accsess to Helicopter: "; (getHeliAccsess() == true) ? cout << "Yes\n" : cout << "No\n";
 	}
 	virtual float calcSumm() override {
 		price += 9000.0;

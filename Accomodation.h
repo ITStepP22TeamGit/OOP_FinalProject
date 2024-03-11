@@ -31,7 +31,9 @@ public:
 		hArr.push_back(obj);
 	}
 
-	void delHotel() {}
+	void delHotel() {
+		cout << "\n";
+	}
 	void delHotel(Hotel obj) {
 		for (int i = 0; i < hArr.size(); i++)
 		{
@@ -48,23 +50,23 @@ public:
 
 	void showHotelForClients() {
 		for (int i = 0; i < hArr.size(); i++) {
-			cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
-			cout << i + 1 << ". " + hArr[i].getName() + " on " + hArr[i].getAdress() << endl;
-			cout << "==============================================\n";
+			cout << "--===========================================--\n";
+			cout << "|   " << i + 1 << ". " + hArr[i].getName() + " on " + hArr[i].getAdress() << endl;
+			cout << "==============================================>\n";
 			hArr[i].showForClients();
-			cout << "==============================================\n";
+			cout << "==============================================>\n";
 		}
-		cout << "===============================\n";
+		cout << "--===========================================--\n";
 	}
 	void showForOrder() {
 		for (int i = 0; i < hArr.size(); i++) {
-			cout << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
-			cout << i + 1 << ". " + hArr[i].getName() + " on " + hArr[i].getAdress() << endl;
-			cout << "==============================================\n";
+			cout << "--===========================================--\n";
+			cout << "|   " << i + 1 << ". " + hArr[i].getName() + " on " + hArr[i].getAdress() << endl;
+			cout << "==============================================>\n";
 			hArr[i].showAval();
-			cout << "==============================================\n";
+			cout << "==============================================>\n";
 		}
-		cout << "===============================\n";
+		cout << "--===========================================--\n";
 	}
 
 	float calcSumm(int hid, int rid) {
@@ -96,7 +98,7 @@ public:
 					//this->hotelX = stoi(tokens[4], nullptr, 10);
 					//this->hotelY = stoi(tokens[5], nullptr, 10);
 
-					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3],nullptr)));
+					hArr.push_back(Hotel(tokens[1], tokens[0], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3],nullptr)));
 					return;
 				}
 			}
@@ -172,7 +174,7 @@ public:
 					//setName(tokens[0]);
 					//setAdress(tokens[1]);
 					//setCoords(stoi(tokens[3], nullptr, 10), stoi(tokens[4], nullptr, 10));
-					hArr.push_back(Hotel(tokens[0], tokens[1], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3], nullptr)));
+					hArr.push_back(Hotel(tokens[1], tokens[0], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3], nullptr)));
 					hArr[hArr.size() - 1].loadMainInfo(file);
 					return;
 				}

@@ -683,7 +683,7 @@ public:
 	//Displayers
 	void dispAllRooms()const {
 		if (r_arr.size()==0){
-			cout << "How already created hotel can be without rooms???\n";
+			cout << "#   How already created hotel can be without rooms???\n";
 		}
 		else {
 			for (int i = 0; i < r_arr.size(); i++)
@@ -708,10 +708,12 @@ public:
 		}
 	}
 	void showHotelInfo() {
-		cout << "\tHotel: " + getName() << endl;
-		cout << "Adress: " + getAdress() + "; Coordinates on map" << getX() << " " << getY() << endl;
-		cout << "Rating: " << getRating() << endl;
-		cout << "Fullness: " << calcOqupied() / r_arr.size() <<"%" << endl;
+		cout << "==========================================================>\n";
+		cout << "|   \tHotel: " + getName() << endl;
+		cout << "|   Adress: " + getAdress() + "; Coordinates on map" << getX() << " " << getY() << endl;
+		cout << "|   Rating: " << getRating() << endl;
+		cout << "|   Fullness: " << calcOqupied() / r_arr.size() <<"%" << endl;
+		cout << "==========================================================>\n";
 	}
 
 	//File manipulation
