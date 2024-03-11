@@ -51,6 +51,8 @@ public:
 	int getY()const { return hotelY; }
 
 	//Manipulators
+	void editHotel() {}
+
 	void addRoom() { 
 		int choose;
 		cout << "=================================================\n";

@@ -31,9 +31,8 @@ public:
 		cout << "Enter future hotel adress\n";
 		cout << "| > > >";
 		getline(cin, adress);
-		cout << "Enter future hotels adress\n";
+		cout << "Enter future hotels rating\n";
 		cout << "| > > >";
-		cin.ignore();
 		cin >> rating;
 		cout << "Enter future hotels adress (X,Y)\n";
 		cout << "| > > >";
@@ -53,7 +52,10 @@ public:
 	}
 
 	void editHotel() {}
-
+	void editHotel(int hid) {}
+	void editRoom() {}
+	void editRoom(int hid) {}
+	void editRoom(int hid, int rid) {}
 
 	void addRoom() {
 		int chose;
@@ -193,9 +195,8 @@ public:
 				cout << "=";
 			}
 			cout << "--\n";
-			cout << "|   1. Show Hotels\n";
-			cout << "|   2. Sort Hotels\n";
-			cout << "|   3. Search Hotels\n";
+			cout << "|   1. Sort Rating\n";
+			cout << "|   2. Sort Fullness\n";
 			cout << "|   0. Return/Exit\n";
 			cout << "| > > >";
 			cin >> menu;
@@ -209,11 +210,6 @@ public:
 				system("cls");
 				break;
 			case 2:
-				//showHotelInfo();
-				system("pause");
-				system("cls");
-				break;
-			case 3:
 				//showHotelInfo();
 				system("pause");
 				system("cls");
@@ -236,9 +232,11 @@ public:
 				cout << "=";
 			}
 			cout << "--\n";
-			cout << "|   1. Show Hotels\n";
-			cout << "|   2. Sort Hotels\n";
-			cout << "|   3. Search Hotels\n";
+			cout << "|   1. Search Hotel by id\n";
+			cout << "|   2. Search Room by id\n";
+			cout << "|   3. Search Room by Oqqupation\n";
+			cout << "|   4. Search Room by Type\n";
+			cout << "|   5. Search Room by Type\n";
 			cout << "|   0. Return/Exit\n";
 			cout << "| > > >";
 			cin >> menu;
@@ -257,6 +255,16 @@ public:
 				system("cls");
 				break;
 			case 3:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 4:
+				//showHotelInfo();
+				system("pause");
+				system("cls");
+				break;
+			case 5:
 				//showHotelInfo();
 				system("pause");
 				system("cls");
