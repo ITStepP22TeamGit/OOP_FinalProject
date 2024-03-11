@@ -4,6 +4,7 @@
 #include <vector>
 #include "Map.h"
 #include "Hotel.h"
+#include<algorithm>
 using namespace std;
 
 class Accomodation{

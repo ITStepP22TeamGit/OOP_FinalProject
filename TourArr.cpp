@@ -2,11 +2,11 @@
 
 TourArr::~TourArr()
 {
-	/*for (int i = 0; i < arr.size(); i++)
+	for (int i = 0; i < arr.size(); i++)
 	{
 		delete arr[i];
 	}
-	arr.clear();*/
+	arr.clear();
 }
 
 int TourArr::getVectotSize() const
@@ -206,6 +206,7 @@ void TourArr::showTourArr() const
 				cout << "|\n --------------------------------------- <\n\n";
 			}
 		}
+		system("pause");
 	}
 	catch (TourInputErrorException* err) { err->message(); delete err; }
 	catch (TourInputDateException* err) { err->message(); delete err; }
@@ -269,6 +270,7 @@ void TourArr::showTourArrClients() const
 				cout << "|\n --------------------------------------- <\n\n";
 			}
 		}
+		system("pause");
 	}
 	catch (TourInputErrorException* err) { err->message(); delete err; }
 	catch (TourInputDateException* err) { err->message(); delete err; }
@@ -1471,6 +1473,7 @@ void TourArr::showAllForClient() const
 					default:
 						break;
 					}
+					system("pause");
 					break;
 				}
 				case 3:
@@ -1570,6 +1573,7 @@ void TourArr::showAllForClient() const
 					default:
 						break;
 					}
+					system("pause");
 					break;
 				case 4:
 					break;
@@ -1862,6 +1866,7 @@ void TourArr::showAllForAdmin()
 					default:
 						break;
 					}
+					system("pause");
 					break;
 				}
 				case 3:
@@ -1961,6 +1966,7 @@ void TourArr::showAllForAdmin()
 					default:
 						break;
 					}
+					system("pause");
 					break;
 				case 4:
 					addTour();
@@ -2313,6 +2319,7 @@ void TourArr::saveToFile(string fileName)
 		ofstream file(fileName);
 		if (file.is_open()) {
 			string str;
+			file << arr.size() << endl;
 			for (int i = 0; i < arr.size(); i++)
 			{
 				file << "#" << i + 1 << endl;
@@ -2338,6 +2345,7 @@ void TourArr::saveToFile(ofstream& file)
 {
 	try {
 		string str;
+		file << arr.size() << endl;
 		for (int i = 0; i < arr.size(); i++)
 		{
 			file << "#" << i + 1 << endl;
@@ -2367,10 +2375,16 @@ void TourArr::loadFromFile(string fileName)
 		}
 		ifstream file(fileName);
 		if (file.is_open()) {
+			int typeN, sizeN;
+			file >> sizeN;
+			file.ignore();
 			string str;
-			while (getline(file, str))
+			for (int i = 0; i < sizeN; i++)
 			{
-				if (str[0] == '#') continue;
+				getline(file, str);
+				if (str[0] == '#') {
+					getline(file, str);
+				}
 				if (str == "Safari") {
 					Safari* a = new Safari();
 					a->loadFromFile(file);
@@ -2438,8 +2452,9 @@ void TourArr::loadFromFile(string fileName)
 void TourArr::loadFromFile(ifstream& file)
 {
 	try {
-		int typeN, sizeN;
+		int sizeN;
 		file >> sizeN;
+		file.ignore();
 		if (!arr.empty()) {
 			for (int i = 0; i < arr.size(); i++)
 			{
@@ -2452,53 +2467,54 @@ void TourArr::loadFromFile(ifstream& file)
 		//while (getline(file, str))
 		for (int i = 0; i < sizeN; i++)
 		{
-			file >> typeN;
-			//getline(file, str);
-			//if (str[0] == '#') continue;
+			//file >> typeN;
+			getline(file, str);
+			if (str[0] == '#') {
+				getline(file, str);
+			}
 			//if(str.find("#")!=string::npos&&)
-			if (typeN == 1) {
+			if (str == "Safari") {
 				file.ignore();
 				Safari* a = new Safari();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 2) {
-				file.ignore();
+			else if (str == "Sightseeing") {
 				Sightseeing* a = new Sightseeing();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 3) {
+			else if (str == "BeachTour") {
 				file.ignore();
 				BeachTour* a = new BeachTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 4) {
+			else if (str == "YachtTour") {
 				file.ignore();
 				YachtTour* a = new YachtTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 5) {
+			else if (str == "Excursion") {
 				file.ignore();
 				Excursion* a = new Excursion();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 6) {
+			else if (str == "HikingTour") {
 				file.ignore();
 				HikingTour* a = new HikingTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 7) {
+			else if (str == "HelicopterFlightTour") {
 				file.ignore();
 				HelicopterFlightTour* a = new HelicopterFlightTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
-			else if (typeN == 8) {
+			else if (str == "GastroTour") {
 				file.ignore();
 				GastroTour* a = new GastroTour();
 				a->loadFromFile(file);

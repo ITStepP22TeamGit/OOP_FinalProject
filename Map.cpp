@@ -309,17 +309,36 @@ float Map::calcDistance(int index1, int index2) const
 
 float Map::calcDistance(string name1, string name2) const
 {
+	bool check = 0;
 	if (arr.empty()) { //если массив не пустой
 		throw new MapException(9);
 	}
 	else if (name1.size() < 3) {
-		throw new MapException(11, 1);
+		throw new MapException(7);
 	}
 	else if (name2.size() < 3) {
-		throw new MapException(11, 2);
+		throw new MapException(7);
 	}
 	else if (name1 == name2) {
 		throw new MapException(12);
+	}
+	for (int i = 0; i < arr.size(); i++)
+	{
+		if (arr[i].name == name1) {
+			check = 1;
+		}
+	}
+	if (check == 0) {
+		throw new MapException(11, 1);
+	}
+	for (int i = 0; i < arr.size(); i++)
+	{
+		if (arr[i].name == name2) {
+			check = 1;
+		}
+	}
+	if (check == 0) {
+		throw new MapException(11, 2);
 	}
 	else {
 		int index1, index2;

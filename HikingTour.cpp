@@ -124,7 +124,6 @@ void HikingTour::TourShow() const
     cout << "|   Date: " << date << endl;
     cout << "|   Time: ";
     time.showTime();
-    cout << endl;
     cout << "|   End date: " << date + days << endl;
     cout << "|   Rating: " << rating << "/5\n";
     cout << "|   Price: " << price << " $\n";
@@ -191,7 +190,6 @@ void HikingTour::TourShowClients() const
     cout << "|   Date: " << date << endl;
     cout << "|   Time: ";
     time.showTime();
-    cout << endl;
     cout << "|   End date: " << date + days << endl;
     cout << "|   Rating: " << rating << "/5\n";
     cout << "|   Price: " << price << " $\n";

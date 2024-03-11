@@ -123,37 +123,37 @@ public:
 			}
 			else if (obj->TourType() == "Sightseeing") {
 				Sightseeing* b = static_cast<Sightseeing*>(obj);
-				Sightseeing* c = new Sightseeing(*b); // Create a new Safari object on the heap
+				Sightseeing* c = new Sightseeing(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "BeachTour") {
 				BeachTour* b = static_cast<BeachTour*>(obj);
-				BeachTour* c = new BeachTour(*b); // Create a new Safari object on the heap
+				BeachTour* c = new BeachTour(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "YachtTour") {
 				YachtTour* b = static_cast<YachtTour*>(obj);
-				YachtTour* c = new YachtTour(*b); // Create a new Safari object on the heap
+				YachtTour* c = new YachtTour(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "Excursion") {
 				Excursion* b = static_cast<Excursion*>(obj);
-				Excursion* c = new Excursion(*b); // Create a new Safari object on the heap
+				Excursion* c = new Excursion(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "HikingTour") {
 				HikingTour* b = static_cast<HikingTour*>(obj);
-				HikingTour* c = new HikingTour(*b); // Create a new Safari object on the heap
+				HikingTour* c = new HikingTour(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "HelicopterFlightTour") {
 				HelicopterFlightTour* b = static_cast<HelicopterFlightTour*>(obj);
-				HelicopterFlightTour* c = new HelicopterFlightTour(*b); // Create a new Safari object on the heap
+				HelicopterFlightTour* c = new HelicopterFlightTour(*b);
 				TArr.addTour(c);
 			}
 			else if (obj->TourType() == "GastroTour") {
 				GastroTour* b = static_cast<GastroTour*>(obj);
-				GastroTour* c = new GastroTour(*b); // Create a new Safari object on the heap
+				GastroTour* c = new GastroTour(*b);
 				TArr.addTour(c);
 			}
 		}
@@ -177,7 +177,17 @@ public:
 		//fArr.addFoodService(obj);
 		if (obj->type() == "CAFE") {
 			Cafe* b = static_cast<Cafe*>(obj);
-			Cafe* c = new Cafe(*b); // Create a new Safari object on the heap
+			Cafe* c = new Cafe(*b);
+			fArr.addFoodService(c);
+		}
+		if (obj->type() == "CANTEEN") {
+			Canteen* b = static_cast<Canteen*>(obj);
+			Canteen* c = new Canteen(*b);
+			fArr.addFoodService(c);
+		}
+		if (obj->type() == "RESTARAUNT") {
+			Restaraunt* b = static_cast<Restaraunt*>(obj);
+			Restaraunt* c = new Restaraunt(*b);
 			fArr.addFoodService(c);
 		}
 	}
@@ -218,10 +228,12 @@ public:
 				break;
 			case 2:
 				fArr.showFoodServices(1);
+				system("pause");
 				break;
 			case 3:
 				try {
 					TArr.showTourArrClients();
+					system("pause");
 				}
 				catch (TourArrayException* err) { err->message(); delete err; }
 				break;

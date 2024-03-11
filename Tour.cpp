@@ -488,7 +488,6 @@ void Tour::TourShow() const
     cout << "|   Date: " << date << endl;
     cout << "|   Time: ";
     time.showTime();
-    cout << endl;
     cout << "|   Rating: " << rating << "/5\n";
     cout << "|   Price: " << price << " $\n";
     cout << "|   Price for " << TransportType[0] << ": " << priceTransportType1 << " $\n";
@@ -531,7 +530,6 @@ void Tour::TourShowClients() const
     cout << "|   Date: " << date << endl;
     cout << "|   Time: ";
     time.showTime();
-    cout << endl;
     cout << "|   Rating: " << rating << "/5\n";
     cout << "|   Price: " << price << " $\n";
     cout << "|   Amount of tourists: " << number << "/" << maxNumber << endl;
