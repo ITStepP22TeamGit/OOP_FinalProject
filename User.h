@@ -6,6 +6,7 @@
 #include "FoodService.h"
 #include"Accomodation.h"
 #include "UserException.h"
+#include"Map.h"
 using namespace std;
 
 class User
@@ -16,14 +17,13 @@ protected:
 	int isAdmin;			//0 - user; 1 - admin; 2 - host;
 	string userName;
 	string userPhone;
-	FoodService fArr;
-	TourArr TArr;
-	//vector<Hotel> HArr;
-	Accomodation HArr;
 	float totalPriceTour = 0;
 	float totalPriceRestaurant = 0;
 	float totalPriceHotel = 0;
 public:
+	FoodService fArr;
+	TourArr TArr;
+	Accomodation HArr;
 	User() {
 		isAdmin = 0;
 		totalPriceTour = 0;
@@ -234,7 +234,7 @@ public:
 		}
 	}
 
-	void showUser() {
+	void showUser(Map &map) {
 		int menu;
 		do
 		{

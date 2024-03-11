@@ -42,6 +42,7 @@ public:
 		cin.ignore();
 		hArr.push_back(Hotel(adress, name, X, Y, rating));
 		hArr[hArr.size() - 1].addRoom();
+		system("pause");
 	}
 	void addHotel(string adress, string name, float rating, int hotelX, int hotelY, Map& map) {
 		hArr.push_back(Hotel(adress, name, hotelX, hotelY, rating));

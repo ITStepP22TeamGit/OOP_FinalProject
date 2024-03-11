@@ -1,7 +1,7 @@
-4
+5
 1
 South SnakesOK
-USA, Miami
+nsnsnnsn
 4
 Pizza
 25
@@ -16,8 +16,8 @@ Pasta
 10
 12
 45
-22
-45
+6
+7
 1
 KPop
 1
@@ -82,3 +82,16 @@ Monster
 Bahrainian
 1
 0
+2
+fwrg
+wwefw
+0
+5
+3
+8
+4
+6
+3
+4
+1
+1

@@ -177,7 +177,7 @@ void FoodService::edit(Map& map)
             {
             case 1:
                 system("cls");
-                showFoodServices();
+                showFoodServices(1);
                 system("pause");
                 break;
             case 2:
