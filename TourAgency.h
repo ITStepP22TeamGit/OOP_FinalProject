@@ -1139,33 +1139,6 @@ public:
 	string getName()const { return name; }
 
 	void loadAllInfo(Map& map) {
-
-		//system("cls");
-		//cout << "//";
-		//for (int i = 0; i < 100; i++) {
-		//	cout << '=';
-		//}
-		//cout << "\\\\\n";
-		//cout << "||";
-		////cool loading screen
-		//for (int i = 0; i < 100; i++){
-		//	cout << 'Ы';
-		//	
-		//	Sleep(50);
-		//}
-		//cout << "||\n";
-		//cout << "\\\\";
-		//for (int i = 0; i < 100; i++) {
-		//	cout << '=';
-		//}
-		//cout << "//\n";
-		//
-		//string str;
-		//ifstream file1("data/UserData.txt");
-		//while (getline(file1, str)) {
-		//	getline(file1, str);
-		//}
-		
 		try {
 			ifstream file("data/TourAgencyData.txt");
 			if (file.is_open()) {
@@ -1181,9 +1154,7 @@ public:
 
 			fServ.loadFoodServicesFromFile("data/TestFoodData.txt", map);
 
-			//Hotels
 			hArr.loadInfo("data/hotelData.txt",map);
-			//hArr.addHotel("test_adress", "test_name", 0.1, 1, 1, map);
 
 			ifstream file1("data/UserData.txt");
 			int intVar;
@@ -1191,9 +1162,6 @@ public:
 				file1 >> intVar;
 				for (int i = 0; i < intVar; i++)
 				{
-					/*User usTmp;
-					usTmp.loadFromUserFile(file1);
-					users.push_back(usTmp);*/
 					User* b = new User();
 					b->loadFromUserFile(file1);
 					users.push_back(*b);
@@ -1301,13 +1269,6 @@ public:
 		string s_choose;
 		int showLoadingVar = 2;
 
-		/*users.push_back(User());
-		users[0].setLogin("admin");
-		users[0].setPassword("admin");
-		users[0].setUserPhone("12344667890");
-		users[0].setUserName("admin");
-		loggedIn = 0;*/
-
 		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(console_color, 2);
 		
@@ -1321,9 +1282,6 @@ public:
 		{
 			showMiniVertoZilla();
 			if (loggedIn == -1) {
-				/*do {
-					
-				} while (chooseTmp != 0);*/
 				cout << "                        Welcome to Tour agency!" << endl;
 				cout << " ====================================================================== >\n";
 				cout << "|   1. Show Hotels\n";
@@ -1871,8 +1829,6 @@ public:
 		saveAllInfo();
 	}
 
-	//void compareUsersLogins() {}
-
 	void verification() {
 		if (loggedIn == -1) {
 			int menu;
@@ -1970,7 +1926,6 @@ public:
 			cout << "| > > >";
 			cin >> days;
 			hArr.addOqupier(hid-1, rid-1, days, users[loggedIn].getUserName(), users[loggedIn].getUserPhone(), Date());
-			//hArr.askClient(hid - 1, rid - 1);
 			price += hArr.calcSumm(hid-1, rid-1);
 			cout << "Final price: " << price;
 			users[loggedIn].addHotel(hArr.getHotel(hid-1));
@@ -1995,7 +1950,6 @@ public:
 		if (hotel == 1 && tour == 1 && food == 1) {
 			price *= 0.7;
 		}
-		//else if (!hotel && food && !tour)
 	}
 };
 	

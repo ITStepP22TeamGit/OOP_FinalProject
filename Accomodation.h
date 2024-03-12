@@ -15,11 +15,19 @@ public:
 	~Accomodation() {
 		//hArr.clear();
 	}
-
+	Hotel getHotel(int hid) {
+		for (int i = 0; i < hArr.size(); i++) {
+			if (i == hid) {
+				return hArr[hid];
+			}
+		}
+		return hArr[-1];
+	}
 	int size()const {
 		return hArr.size();
 	}
 
+	//Manipulators
 	void addHotel() {
 		string name, adress;
 		float rating;
@@ -190,6 +198,7 @@ public:
 		hArr[hid].delRoom(rid);
 	}
 
+	//Displayers
 	void showHotelForClients() {
 		for (int i = 0; i < hArr.size(); i++) {
 			cout << "--===========================================--\n";
@@ -450,6 +459,7 @@ public:
 		system("cls");
 	}
 
+	//Accesors
 	float calcSumm(int hid, int rid) {
 		return hArr[hid].calcSumm(rid);
 	}
@@ -469,6 +479,7 @@ public:
 		hArr[hid].r_arr[rid]->askClients();
 	}
 
+	//File manupulators
 	void loadInfo(ifstream& file) {
 		char delimiter = '|';
 		string line;
@@ -484,13 +495,6 @@ public:
 					}
 					//name|adress|id|rating|x|y
 
-					//tokens[0] = this->name;
-					//tokens[1] = this->adress;
-					//this->hotel_id = stoi(tokens[2], nullptr, 10);
-					//this->rating = stof(tokens[3], nullptr);
-					//this->hotelX = stoi(tokens[4], nullptr, 10);
-					//this->hotelY = stoi(tokens[5], nullptr, 10);
-
 					hArr.push_back(Hotel(tokens[1], tokens[0], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3],nullptr)));
 					return;
 				}
@@ -499,35 +503,6 @@ public:
 				return;
 			}
 		}
-		//string line;
-		//bool uploading;
-		//while (getline(file, line)) {
-		//	if (line.find("#Hotel#") == string::npos) {
-		//		continue;
-		//	}
-		//	else if (line.find("#Hotel#") != string::npos) {
-		//		uploading = true;
-		//		continue;
-		//	}
-		//	if (line.find("##") != string::npos && uploading) {
-		//		istringstream iss(line);
-		//		string t_name;
-		//		float t_price;
-		//		if (!(iss >> t_name >> t_price)) {
-		//			cerr << "Error parsing line: " << line << endl;
-		//			continue;
-		//		}
-		//		cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
-		//		//extra.push_back(t_name);
-		//		//extra_price.push_back(t_price);
-		//	}
-		//	else if (line.find("#") != string::npos && line.find("") == string::npos) {
-		//		uploading = false;
-		//		break;
-		//	}
-		//}
-		//loadMainInfo(file);
-		//file.close();
 	}
 	void loadInfo(ifstream& file, Map& map) {
 		char delimiter = '|';
@@ -544,13 +519,6 @@ public:
 					}
 					//name|adress|id|rating|x|y
 
-					//tokens[0] = this->name;
-					//tokens[1] = this->adress;
-					//this->hotel_id = stoi(tokens[2], nullptr, 10);
-					//this->rating = stof(tokens[3], nullptr);
-					//this->hotelX = stoi(tokens[4], nullptr, 10);
-					//this->hotelY = stoi(tokens[5], nullptr, 10);
-
 					hArr.push_back(Hotel(tokens[1], tokens[0], stoi(tokens[4], nullptr, 10), stoi(tokens[5], nullptr, 10), stof(tokens[3], nullptr)));
 					map.addPoint(hArr[hArr.size() - 1].getX(), hArr[hArr.size() - 1].getY(), hArr[hArr.size() - 1].getName(), 1);
 					return;
@@ -560,35 +528,6 @@ public:
 				return;
 			}
 		}
-		//string line;
-		//bool uploading;
-		//while (getline(file, line)) {
-		//	if (line.find("#Hotel#") == string::npos) {
-		//		continue;
-		//	}
-		//	else if (line.find("#Hotel#") != string::npos) {
-		//		uploading = true;
-		//		continue;
-		//	}
-		//	if (line.find("##") != string::npos && uploading) {
-		//		istringstream iss(line);
-		//		string t_name;
-		//		float t_price;
-		//		if (!(iss >> t_name >> t_price)) {
-		//			cerr << "Error parsing line: " << line << endl;
-		//			continue;
-		//		}
-		//		cout << "Product Name: " << t_name << ", Price: " << t_price << endl;
-		//		//extra.push_back(t_name);
-		//		//extra_price.push_back(t_price);
-		//	}
-		//	else if (line.find("#") != string::npos && line.find("") == string::npos) {
-		//		uploading = false;
-		//		break;
-		//	}
-		//}
-		//loadMainInfo(file);
-		//file.close();
 	}
 
 	void loadInfo(string filename) {
@@ -686,6 +625,7 @@ public:
 		file << "#End#";
 	}
 
+	//Searchers and sorters
 	void searchById() {
 		int chose;
 		for (int i = 0; i < hArr.size(); i++) {
@@ -696,7 +636,6 @@ public:
 		cin >> chose;
 		hArr[chose].showForClients();
 	}
-
 	void searchRoomById() {
 		int chose;
 		for (int i = 0; i < hArr.size(); i++) {
@@ -717,7 +656,6 @@ public:
 		cin >> chose;
 		hArr[chose].showAval();
 	}
-
 	void searchByType() {
 		string choose;
 		int chose;
@@ -756,7 +694,6 @@ public:
 			}
 		}
 	}
-
 	void searchByName() {
 		string chose;
 		for (int i = 0; i < hArr.size(); i++) {
@@ -772,7 +709,6 @@ public:
 			}
 		}
 	}
-
 	void sortByRating() {
 		vector<Hotel> tmp;
 		tmp = hArr;
@@ -795,12 +731,5 @@ public:
 			tmp[i].showHotelInfo();
 		}
 	}
-	Hotel getHotel(int hid) {
-		for (int i = 0; i < hArr.size(); i++) {
-			if (i == hid) {
-				return hArr[hid];
-			}
-		}
-		return hArr[-1];
-	}
+	
 };
