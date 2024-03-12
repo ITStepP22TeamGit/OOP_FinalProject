@@ -136,9 +136,11 @@ void Tour::setPhotos(bool _photos)
         photos = _photos;
     }
     else if (photos == 1 && _photos == 0) {
+        photos = _photos;
         price -= photosPrice;
     }
     else {
+        photos = _photos;
         price += photosPrice;
     }
 }
@@ -284,12 +286,15 @@ void Tour::setArriveTransport(int _arriveTransport)
             switch (arriveTransport)
             {
             case 1:
+                arriveTransport = _arriveTransport;
                 price -= priceTransportType1;
                 break;
             case 2:
+                arriveTransport = _arriveTransport;
                 price -= priceTransportType2;
                 break;
             case 3:
+                arriveTransport = _arriveTransport;
                 price -= priceTransportType3;
                 break;
             default:
@@ -298,12 +303,15 @@ void Tour::setArriveTransport(int _arriveTransport)
             switch (_arriveTransport)
             {
             case 1:
+                arriveTransport = _arriveTransport;
                 price += priceTransportType1;
                 break;
             case 2:
+                arriveTransport = _arriveTransport;
                 price += priceTransportType2;
                 break;
             case 3:
+                arriveTransport = _arriveTransport;
                 price += priceTransportType3;
                 break;
             default:
