@@ -84,7 +84,9 @@ public:
 				return;
 			case 1:
 				cout << "|   Input new hotel name\n";
+				
 				cout << "| > > >";
+				cin.ignore();
 				getline(cin, strTmp);
 				setName(strTmp);
 				system("pause");
@@ -93,6 +95,7 @@ public:
 			case 2:
 				cout << "|   Input new hotel name\n";
 				cout << "| > > >";
+				cin.ignore();
 				getline(cin, strTmp);
 				setAdress(strTmp);
 				system("pause");

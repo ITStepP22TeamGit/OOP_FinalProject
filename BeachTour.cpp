@@ -396,7 +396,7 @@ void BeachTour::setAquasuitPrice(float _aquasuitPrice)
         throw new TourInputErrorException(2);
     }
     else {
-        photosPrice = _aquasuitPrice;
+        aquasuitPrice = _aquasuitPrice;
     }
 }
 
@@ -409,7 +409,7 @@ void BeachTour::setDivingMaskPrice(float _divingMaskPrice)
         throw new TourInputErrorException(2);
     }
     else {
-        photosPrice = _divingMaskPrice;
+        divingMaskPrice = _divingMaskPrice;
     }
 }
 

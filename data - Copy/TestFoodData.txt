@@ -1,7 +1,7 @@
 4
 1
-South SnakesOK
-USA, Miami
+South Snakes
+Miami, Dreams boulevard 19
 4
 Pizza
 25
@@ -24,7 +24,7 @@ KPop
 1
 1
 MaxCafe
-Bahrain
+Jeddah, lopes street 5
 1
 Pizza
 15
@@ -41,13 +41,13 @@ Saudi
 0
 2
 VerCanteen
-Ukraine, Kharkov
+Kharkov, sumskaya 8
 4
-Bulochka
+Bun
 10
-Sosiska
+Soup
 12
-Crisps
+Borsch
 5
 Milk
 28
@@ -61,8 +61,8 @@ Milk
 1
 1
 3
-BahrainRestar
-Bahrain GULF AIR, GP 2024
+BahrainStar
+Bahrain, grand prix  st. 23
 3
 RedBull
 120

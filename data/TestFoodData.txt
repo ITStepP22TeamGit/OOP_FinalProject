@@ -1,7 +1,7 @@
-5
+4
 1
-South SnakesOK
-nsnsnnsn
+South Snakes
+Miami, Dreams boulevard 19
 4
 Pizza
 25
@@ -16,21 +16,21 @@ Pasta
 10
 12
 45
-6
-7
+22
+45
 1
 KPop
 1
 1
 1
 MaxCafe
-Bahrain
+Jeddah, lopes street 5
 1
 Pizza
 15
 1
-15
-15
+7
+8
 12
 45
 22
@@ -41,13 +41,13 @@ Saudi
 0
 2
 VerCanteen
-Ukraine, Kharkov
+Kharkov, sumskaya 8
 4
-Bulochka
+Bun
 10
-Sosiska
+Soup
 12
-Crisps
+Borsch
 5
 Milk
 28
@@ -61,8 +61,8 @@ Milk
 1
 1
 3
-BahrainRestar
-Bahrain GULF AIR, GP 2024
+BahrainStar
+Bahrain, grand prix  st. 23
 3
 RedBull
 120
@@ -82,16 +82,3 @@ Monster
 Bahrainian
 1
 0
-2
-fwrg
-wwefw
-0
-5
-3
-8
-4
-6
-3
-4
-1
-1

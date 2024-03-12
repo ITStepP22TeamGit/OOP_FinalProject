@@ -1183,7 +1183,7 @@ public:
 
 			//Hotels
 			hArr.loadInfo("data/hotelData.txt",map);
-			hArr.addHotel("test_adress", "test_name", 0.1, 1, 1, map);
+			//hArr.addHotel("test_adress", "test_name", 0.1, 1, 1, map);
 
 			ifstream file1("data/UserData.txt");
 			int intVar;
@@ -1203,9 +1203,11 @@ public:
 			else {
 				cout << "|  File couldn't open!\n";
 			}
+			system("pause");
 			system("cls");
 		}
 		catch (MapException* err) { cout << err->message(); delete err; }
+		
 	}
 
 	void saveAllInfo() {
@@ -1279,27 +1281,7 @@ public:
 		{
 		case 1:
 		{
-			int menu1;
-			do
-			{
-				cout << "|   Choose an action:\n";
-				cout << "|   1. Add hotel.\n";
-				cout << "|   2. Delete hotel.\n";
-				cout << "|   0. Exit.\n";
-				cout << "\n > > > ";
-				cin >> menu1;
-				switch (menu1)
-				{
-				case 1:
-					hArr.addHotel();
-					break;
-				case 2:
-					hArr.delHotel();
-					break;
-				default:
-					break;
-				}
-			} while (menu1 != 0);
+			hArr.menuAdmin();
 			break;
 		}
 		case 2:
@@ -1326,7 +1308,7 @@ public:
 		users[0].setUserName("admin");
 		loggedIn = 0;*/
 
-		/*HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+		HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(console_color, 2);
 		
 		for (int i = 0; i < 3; i++)
@@ -1334,7 +1316,7 @@ public:
 			showPlane(100);
 		}
 		SetConsoleTextAttribute(console_color, 7);
-		system("cls");*/
+		system("cls");
 		do
 		{
 			showMiniVertoZilla();
@@ -1366,12 +1348,18 @@ public:
 						cout << "There are no hotels, at least for now.\n";
 					}
 					else {
-						hArr.showHotelForClients();
+						hArr.menu();
 					}
 					break;
 				case 2:
 					try {
 						system("cls");
+						for (int i = 0; i < showLoadingVar; i++)
+						{
+							showLoading(100);
+							Sleep(100);
+							system("cls");
+						}
 						showMiniVertoZilla();
 						cout << endl;
 						try {
@@ -1386,6 +1374,12 @@ public:
 					catch (TourArrayException* err) { err->message(); delete err; }
 				case 3:
 					system("cls");
+					for (int i = 0; i < showLoadingVar; i++)
+					{
+						showLoading(100);
+						Sleep(100);
+						system("cls");
+					}
 					showMiniVertoZilla();
 					cout << endl;
 					fServ.editForClient(true);
@@ -1393,6 +1387,12 @@ public:
 				case 4:
 					try {
 						system("cls");
+						for (int i = 0; i < showLoadingVar; i++)
+						{
+							showLoading(100);
+							Sleep(100);
+							system("cls");
+						}
 						showMiniVertoZilla();
 						cout << endl;
 						int intVar;
@@ -1506,7 +1506,7 @@ public:
 						cout << "There are no hotels, at lest for now.\n";
 					}
 					else {
-						hArr.showHotelForClients();
+						hArr.menu();
 					}
 					system("pause");
 					break;
@@ -1671,7 +1671,7 @@ public:
 			} 
 			else {
 				cout << "Welcome to Tour agency: " + getName() << endl;
-				cout << "===============================\n";
+				cout << " ====================================== >\n";
 				cout << "1. Show Hotels\n";
 				cout << "2. Show Tours\n";
 				cout << "3. Show Food Services\n";
@@ -1681,7 +1681,7 @@ public:
 				cout << "7. Edit tour agency\n";
 				cout << "8. Log out\n";
 				cout << "0. Exit\n";
-				cout << "===============================\n";
+				cout << "============================= >\n";
 				cin >> chooseTmp;
 				switch (chooseTmp)
 				{
@@ -1701,7 +1701,7 @@ public:
 						cout << "There are no hotels, at lest for now.\n";
 					}
 					else {
-						hArr.showHotelForClients();
+						hArr.menu();
 					}
 					system("pause");
 					break;

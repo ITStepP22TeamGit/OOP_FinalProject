@@ -393,7 +393,7 @@ void YachtTour::setLunchPrice(float _lunchPrice)
         throw new TourInputErrorException(2);
     }
     else {
-        photosPrice = _lunchPrice;
+        lunchPrice = _lunchPrice;
     }
 }
 
