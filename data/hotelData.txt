@@ -1,7 +1,14 @@
-2
+3
 #Hotel#
 idkd|kikibanina_5|1|0.100000|10|15
 #Rooms#
 10|1
+#End#
 #Hotel#
-test_name|test_adress|2|0.100000|1|1
+Viktoriana|Heroiv_Kahrkova_255|2|7.500000|10|10
+#Rooms#
+10|1
+#End#
+#Hotel#
+test_name|test_adress|3|0.100000|1|1
+#End#
