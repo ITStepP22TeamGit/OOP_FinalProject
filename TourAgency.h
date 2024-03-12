@@ -1171,7 +1171,7 @@ public:
 			else {
 				cout << "|  File couldn't open!\n";
 			}
-			system("pause");
+			//system("pause");
 			system("cls");
 		}
 		catch (MapException* err) { cout << err->message(); delete err; }
