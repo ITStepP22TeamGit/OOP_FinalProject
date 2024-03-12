@@ -454,11 +454,13 @@ public:
 		return hArr[hid].calcSumm(rid);
 	}
 	float calcSumm() {
+		float summ = 0;
 		for (int i = 0; i < hArr.size(); i++){
 			for (int j = 0; j < hArr[i].getRSize(); j++){
-				hArr[i].r_arr[j]->calcSumm();
+				summ += hArr[i].r_arr[j]->calcSumm();
 			}
 		}
+		return summ;
 	}
 	void addOqupier(int hid,int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		hArr[hid].addOqqupier(rId, days, oqqupierName, oqqupierPhone, infiltration_d);

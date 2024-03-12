@@ -149,48 +149,56 @@ public:
 				Safari* c = new Safari(*b); // Create a new Safari object on the heap
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "Sightseeing") {
 				Sightseeing* b = static_cast<Sightseeing*>(obj);
 				Sightseeing* c = new Sightseeing(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "BeachTour") {
 				BeachTour* b = static_cast<BeachTour*>(obj);
 				BeachTour* c = new BeachTour(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "YachtTour") {
 				YachtTour* b = static_cast<YachtTour*>(obj);
 				YachtTour* c = new YachtTour(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "Excursion") {
 				Excursion* b = static_cast<Excursion*>(obj);
 				Excursion* c = new Excursion(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "HikingTour") {
 				HikingTour* b = static_cast<HikingTour*>(obj);
 				HikingTour* c = new HikingTour(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "HelicopterFlightTour") {
 				HelicopterFlightTour* b = static_cast<HelicopterFlightTour*>(obj);
 				HelicopterFlightTour* c = new HelicopterFlightTour(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 			else if (obj->TourType() == "GastroTour") {
 				GastroTour* b = static_cast<GastroTour*>(obj);
 				GastroTour* c = new GastroTour(*b);
 				c->askClient();
 				TArr.addTour(c);
+				totalPriceTour += c->getPrice();
 			}
 		}
 		catch (TourArrayException* err) { err->message(); delete err; }
@@ -263,6 +271,8 @@ public:
 				system("cls");
 				showMiniVertoZilla();
 				int menu1;
+				cout << "| Total price of all purchases: " << HArr.calcSumm() + totalPriceRestaurant + totalPriceTour << "$" << endl;
+				cout << "|   " << endl;
 				cout << "|   Select a purchase to see:\n";
 				cout << "|   1. Show hotels.\n";
 				cout << "|   2. Show food services.\n";
