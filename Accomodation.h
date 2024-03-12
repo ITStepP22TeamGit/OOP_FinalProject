@@ -453,6 +453,13 @@ public:
 	float calcSumm(int hid, int rid) {
 		return hArr[hid].calcSumm(rid);
 	}
+	float calcSumm() {
+		for (int i = 0; i < hArr.size(); i++){
+			for (int j = 0; j < hArr[i].getRSize(); j++){
+				hArr[i].r_arr[j]->calcSumm();
+			}
+		}
+	}
 	void addOqupier(int hid,int rId, int days, string oqqupierName, string oqqupierPhone, Date infiltration_d) {
 		hArr[hid].addOqqupier(rId, days, oqqupierName, oqqupierPhone, infiltration_d);
 	}
