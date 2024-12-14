@@ -99,7 +99,7 @@ sunglasses
 photocamera
 extra money for souvenirs
 See all the beauties of the local town
-7 4 2024
+7 4 2025
 10 7 2
 3.9
 20
@@ -115,7 +115,7 @@ See all the beauties of the local town
 double-decker
 #2
 HikingTour
-the sun
+Uder the sun
 Mountain Kangchenjunga
 Dwayne Johnson
 4
@@ -124,7 +124,7 @@ suncream
 hiking poles
 seat
 Climb to the top of the highest mountain in India
-18 3 2024
+18 3 2025
 12 4 5
 2.1
 200

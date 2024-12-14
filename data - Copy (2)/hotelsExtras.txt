@@ -9,14 +9,14 @@ test8 295.35
 test12 296.36
 test19 297.37
 test21 298.38
-#Low Cost Room#
+#Small Cost Room#
 test1 293.33
 test4 294.34
 test8 295.35
 test12 296.36
 test19 297.37
 test21 298.38
-#Low Cost Room#
+#Medium Cost Room#
 test1 293.33
 test4 294.34
 test8 295.35

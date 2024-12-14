@@ -1,12 +1,16 @@
 #include "TourArr.h"
 
+TourArr::TourArr()
+{
+}
+
 TourArr::~TourArr()
 {
 	for (int i = 0; i < arr.size(); i++)
 	{
-		delete arr[i];
+		//delete arr[i];
 	}
-	arr.clear();
+	//arr.clear();
 }
 
 int TourArr::getVectotSize() const
@@ -2380,7 +2384,7 @@ void TourArr::saveToFile(ofstream& file)
 				file.write(str.c_str(), str.size());
 			}
 		}
-		file.close();
+		//file.close();
 	}
 	catch (TourInputErrorException* err) { err->message(); delete err; }
 	catch (TourInputDateException* err) { err->message(); delete err; }
@@ -2411,41 +2415,49 @@ void TourArr::loadFromFile(string fileName)
 					getline(file, str);
 				}
 				if (str == "Safari") {
+					//file.ignore();
 					Safari* a = new Safari();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "Sightseeing") {
+					//file.ignore();
 					Sightseeing* a = new Sightseeing();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "BeachTour") {
+					//file.ignore();
 					BeachTour* a = new BeachTour();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "YachtTour") {
+					//file.ignore();
 					YachtTour* a = new YachtTour();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "Excursion") {
+					//file.ignore();
 					Excursion* a = new Excursion();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "HikingTour") {
+					//file.ignore();
 					HikingTour* a = new HikingTour();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "HelicopterFlightTour") {
+					//file.ignore();
 					HelicopterFlightTour* a = new HelicopterFlightTour();
 					a->loadFromFile(file);
 					arr.push_back(a);
 				}
 				else if (str == "GastroTour") {
+					//file.ignore();
 					GastroTour* a = new GastroTour();
 					a->loadFromFile(file);
 					arr.push_back(a);
@@ -2499,48 +2511,49 @@ void TourArr::loadFromFile(ifstream& file)
 			}
 			//if(str.find("#")!=string::npos&&)
 			if (str == "Safari") {
-				file.ignore();
+				//file.ignore();
 				Safari* a = new Safari();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "Sightseeing") {
+				//file.ignore();
 				Sightseeing* a = new Sightseeing();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "BeachTour") {
-				file.ignore();
+				//file.ignore();
 				BeachTour* a = new BeachTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "YachtTour") {
-				file.ignore();
+				//file.ignore();
 				YachtTour* a = new YachtTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "Excursion") {
-				file.ignore();
+				//file.ignore();
 				Excursion* a = new Excursion();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "HikingTour") {
-				file.ignore();
+				//file.ignore();
 				HikingTour* a = new HikingTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "HelicopterFlightTour") {
-				file.ignore();
+				//file.ignore();
 				HelicopterFlightTour* a = new HelicopterFlightTour();
 				a->loadFromFile(file);
 				arr.push_back(a);
 			}
 			else if (str == "GastroTour") {
-				file.ignore();
+				//file.ignore();
 				GastroTour* a = new GastroTour();
 				a->loadFromFile(file);
 				arr.push_back(a);

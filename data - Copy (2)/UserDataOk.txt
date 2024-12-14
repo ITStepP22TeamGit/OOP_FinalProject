@@ -88,11 +88,11 @@ Monster
 Bahrainian
 1
 0
-3
+2
 #1
 Sightseeing
 Spotlight
-Two skyscrapers
+two skyscrapers
 Johnny Depp
 3
 sunglasses
@@ -115,7 +115,7 @@ See all the beauties of the local town
 double-decker
 #2
 HikingTour
-Close to the sun
+e sun
 Mountain Kangchenjunga
 Dwayne Johnson
 4
@@ -139,32 +139,3 @@ Climb to the top of the highest mountain in India
 7
 7
 8586.000000
-#3
-BeachTour
-Drown in sand
-Cost of the deepest ocean
-Keanu Reeves
-5
-sunglasses
-ball
-towel
-beach umbrella
-suncream
-Just lay on the sun lounger and enjoy the salt water
-1 4 2025
-9 4 7
-4.5
-92
-1
-10
-2
-5
-10
-7
-12
-7
-50
-1
-2
-0
-1.000000#Init#

@@ -1165,6 +1165,9 @@ public:
 					User* b = new User();
 					b->loadFromUserFile(file1);
 					users.push_back(*b);
+					/*User b;
+					b.loadFromUserFile(file1);
+					users.push_back(b);*/
 				}
 				file1.close();
 			}
@@ -1188,6 +1191,7 @@ public:
 			for (int i = 0; i < hArr.size(); i++){
 				hArr.saveInfo(fil);
 			}
+			fil.close();
 		}
 
 		ofstream file(fileDir+"UserData.txt");
@@ -1382,7 +1386,7 @@ public:
 						} while (intVar != 2);
 						break;
 					}
-					catch (MapException* err) { cout << err->message(); delete err; }
+					catch (MapException* err) { cout << err->message(); system("pause"); delete err; }
 				case 5: {
 					system("cls");
 					showMiniVertoZilla();
@@ -1542,7 +1546,7 @@ public:
 						} while (intVar != 2);
 						break;
 					}
-					catch (MapException* err) { cout << err->message(); delete err; }
+					catch (MapException* err) { cout << err->message(); system("pause"); delete err; }
 				}
 				case 5: {
 					system("cls");
@@ -1618,10 +1622,11 @@ public:
 						cout << endl;
 					} while (str != "yes" && str != "no" && str != "Yes" && str != "No"&&str!="y"&&str!="n");
 					if (str == "Yes" || str == "yes"||str=="y") {
-						users.erase(users.begin() + loggedIn);
+						//users.erase(users.begin() + loggedIn);
 						loggedIn = -1;
 						cout << "Successfully logged out!\n";;
 					}
+					break;
 				}
 				default:
 					break;
@@ -1737,7 +1742,8 @@ public:
 						} while (intVar != 2);
 						break;
 					}
-					catch (MapException* err) { cout << err->message(); delete err; }
+					catch (MapException* err) { cout << err->message(); system("pause"); delete err; }
+					break;
 				}
 				case 5: {
 					system("cls");
@@ -1816,7 +1822,7 @@ public:
 						cout << endl;
 					} while (str != "yes" && str != "no" && str != "Yes" && str != "No" && str != "y" && str != "n");
 					if (str == "Yes" || str == "yes" || str == "y") {
-						users.erase(users.begin() + loggedIn);
+						//users.erase(users.begin() + loggedIn);
 						loggedIn = -1;
 						cout << "Successfully logged out!\n";;
 					}
@@ -1874,19 +1880,19 @@ public:
 							//Exception equal login
 						}
 					}
-					User tmpUser;
-					tmpUser.setLogin(tmpStr);
+					User* tmpUser = new User();
+					tmpUser->setLogin(tmpStr);
 					cout << "Input password: ";
 					cin >> tmpStr;
-					tmpUser.setPassword(tmpStr);
+					tmpUser->setPassword(tmpStr);
 					cout << "Input name: ";
 					cin >> tmpStr;
-					tmpUser.setUserName(tmpStr);
+					tmpUser->setUserName(tmpStr);
 					cout << "Input phone number: ";
 					cin >> tmpStr;
-					tmpUser.setUserPhone(tmpStr);
+					tmpUser->setUserPhone(tmpStr);
 					cout << "Successfully signed in!\n";
-					users.push_back(tmpUser);
+					users.push_back(move(*tmpUser));
 					loggedIn = users.size() - 1;
 					menu = 0;
 					

@@ -8,7 +8,7 @@ Dwayne Johnson
 medicine
 straw hat
 See the most dangerous cats in the world, as well as ostriches, zebras and other beautiful animals
-20 3 2024
+20 3 2025
 12 4 5
 4.8
 40
@@ -23,15 +23,15 @@ See the most dangerous cats in the world, as well as ostriches, zebras and other
 7
 #2
 Sightseeing
-namamamama
-two skyscrapers
+Moon
+Two skyscrapers
 Johnny Depp
 3
 sunglasses
 photocamera
 extra money for souvenirs
 See all the beauties of the local town
-7 4 2024
+7 4 2025
 10 7 2
 3.9
 20
@@ -57,7 +57,7 @@ towel
 beach umbrella
 suncream
 Just lay on the sun lounger and enjoy the salt water
-1 4 2024
+1 4 2025
 9 4 7
 4.5
 24
@@ -82,7 +82,7 @@ Keanu Reeves
 1
 good mood
 Enjoy the views of the ocean water, as well as the abundance of its inhabitants
-14 3 2024
+14 3 2025
 14 3 5
 3
 50
@@ -103,7 +103,7 @@ Enjoy the views of the ocean water, as well as the abundance of its inhabitants
 7.000000
 #5
 Excursion
-Masonic pyramids
+onic pyramids
 Mystic building, 5
 Emma Watson
 3
@@ -111,7 +111,7 @@ coat
 magnifying glass
 glasses
 Explore the mystical place where legends begin
-9 4 2024
+9 4 2025
 7 5 3
 4.9
 100
@@ -135,7 +135,7 @@ suncream
 hiking poles
 seat
 Climb to the top of the highest mountain in India
-18 3 2024
+18 3 2025
 12 4 5
 2.1
 200
@@ -158,7 +158,7 @@ Dwayne Johnson
 1
 good mood
 See the world from a bird's eye view
-30 4 2024
+30 4 2025
 10 4 5
 3.7
 40
@@ -176,14 +176,14 @@ See the world from a bird's eye view
 15.000000
 #8
 GastroTour
-Food for good
+Good for good
 Ukraine, Kharkov
 Emma Watson
 2
 appetite
 medicine
 Try a wide variety of cuisines
-2 5 2024
+2 5 2025
 8 1 1
 4.9
 50
